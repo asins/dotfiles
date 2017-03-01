@@ -13,10 +13,14 @@ for rc in .*rc .tmux.conf .agignore; do
 	ln -sfv $BASE/$rc ~/$rc
 done
 
+#nvim
+ln -sfv $BASE/.config/nvim/init.vim ~/.config/nvim/init.vim
+
+
 # scripts
-mkdir -p ~/bin
-for bin in $BASE/bin/*; do
-	ln -sfv $bin ~/bin
+mkdir -p ~/.bin
+for bin in $BASE/.bin/*; do
+	ln -sfv $bin ~/.bin
 done
 
 
