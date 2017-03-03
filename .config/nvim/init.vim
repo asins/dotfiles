@@ -43,6 +43,19 @@ function! ToggleOption(optionName)
 	execute 'setlocal '.a:optionName.'?'
 endfunction
 " }}}
+" 删除文件末尾空格 {{{
+function! StripTrailingWhitespace()
+	" Preparation: save last search, and cursor position.
+	let _s=@/
+	let l = line(".")
+	let c = col(".")
+	" do the business:
+	%s/$\|\s\+$//e
+	" clean up: restore previous search history, and cursor position
+	let @/=_s
+	call cursor(l, c)
+endfunction
+" }}}
 "}}}
 
 " 自动安装 vim-plug {{{
@@ -66,14 +79,13 @@ let g:lightline = {
 			\ 'colorscheme': 'jellybeans_mod',
 			\ 'active': {
 			\   'left': [ [ 'mode', 'paste' ],
-			\             [ 'fugitive', 'gitgutter', 'filename' ] ],
+			\             [ 'fugitive', 'filename' ] ],
 			\   'right': [ [ 'percent', 'lineinfo' ],
 			\              [ 'syntastic' ],
 			\              [ 'fileformat', 'fileencoding', 'filetype' ] ]
 			\ },
 			\ 'component_function': {
 			\   'fugitive': 'LightLineFugitive',
-			\   'gitgutter': 'LightLineGitGutter',
 			\   'readonly': 'LightLineReadonly',
 			\   'modified': 'LightLineModified',
 			\   'syntastic': 'SyntasticStatuslineFlag',
@@ -490,21 +502,6 @@ augroup fugitiveSettings
 	autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
 " }}}
-Plug 'airblade/vim-gitgutter'
-" {{{
-let g:gitgutter_map_keys = 0
-let g:gitgutter_max_signs = 200
-let g:gitgutter_realtime = 1
-let g:gitgutter_eager = 1
-let g:gitgutter_sign_removed = '–'
-let g:gitgutter_diff_args = '--ignore-space-at-eol'
-nmap <silent> ]h :GitGutterNextHunk<CR>
-nmap <silent> [h :GitGutterPrevHunk<CR>
-nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
-nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
-nnoremap cog :GitGutterToggle<CR>
-nnoremap <Leader>gt :GitGutterAll<CR>
-" }}}
 Plug 'esneider/YUNOcommit.vim'
 
 " Utility
@@ -637,7 +634,7 @@ set relativenumber " use relative lines numbering by default
 set noswapfile     " disable creating of *.swp files
 set hidden         " hide buffers instead of closing
 set lazyredraw     " speed up on large files
-set mouse=         " disable mouse
+set mouse=         " 不允许在所有模式下使用鼠标
 
 set scrolloff=999       " 始终保持光标在屏幕中央
 set virtualedit=onemore " 允许光标移动到线的末端
@@ -665,8 +662,7 @@ set showcmd      " always show current command
 
 set textwidth=0   " disable auto break long lines
 
-" set autochdir " 自动切换当前目录为当前文件所在的目录
-set mouse=a " 允许在所有模式下使用鼠标
+set autochdir " 自动切换当前目录为当前文件所在的目录
 set wrap        " disable wrap for long lines
 " N: 切换自动换行 <Shift+w>
 nnoremap <s-w> :<C-U>call ToggleOption('wrap')<CR>
@@ -727,11 +723,10 @@ nnoremap Y y$
 " 禁用搜索高亮
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR><Esc>
 
-" N: 复制文件路径 <Ctrl+c> {{{
 nnoremap <silent> <C-c> :call CopyCurrentFilePath()<CR>
-function! CopyCurrentFilePath()
+function! CopyCurrentFilePath() " {{{
 	let @+ = expand('%:p')
-	echo '已复制 '. @+ . ' 到剪切板中。'
+	echo @+ . ' 到剪切板中。'
 endfunction
 " }}}
 
@@ -755,16 +750,39 @@ function! JumpWithScrollOff(key) " {{{
 	set scrolloff=999
 endfunction " }}}
 
-" Switch between tabs
-nmap <leader>1 1gt
-nmap <leader>2 2gt
-nmap <leader>3 3gt
-nmap <leader>4 4gt
-nmap <leader>5 5gt
-nmap <leader>6 6gt
-nmap <leader>7 7gt
-nmap <leader>8 8gt
-nmap <leader>9 9gt
+" 上下移动当前/选中的行 <Shift+{up,down}> {{{2
+" 光标所在
+nmap <s-down> mz:m+<cr>`z
+nmap <s-up> mz:m-2<cr>`z
+" 选中的行
+vmap <s-down> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <s-up> :m'<-2<cr>`>my`<mzgv`yo`z
+" }}}
+" V: 全文搜索选中的文字 <Leader>{f,F} {{{2
+" 向上查找
+vnoremap <silent> <Leader>f y/<c-r>=escape(@", "\\/.*$^~[]")<cr><cr>
+" 向下查找
+vnoremap <silent> <Leader>F y?<c-r>=escape(@", "\\/.*$^~[]")<cr><cr>
+" }}}
+
+
+" I: 移动光标 <Ctrl+{h,l,j,k}> {{{2
+inoremap <c-h> <left>
+inoremap <c-l> <right>
+inoremap <c-j> <c-o>gj
+inoremap <c-k> <c-o>gk
+" }}}
+" N: 切换 Tab <leader>+1~9 {{{
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
+nnoremap <leader>7 7gt
+nnoremap <leader>8 8gt
+nnoremap <leader>9 9gt
+" }}}
 
 " Creating splits with empty buffers in all directions
 nnoremap <Leader>hn :leftabove  vnew<CR>
@@ -860,7 +878,9 @@ augroup END
 " ====================================================================
 augroup vimGeneralCallbacks
 	autocmd!
-	autocmd BufWritePost .nvimrc nested source ~/.nvimrc
+	autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
+	" 保存时自动删除多余空格
+	autocmd BufWritePre * call StripTrailingWhitespace()
 augroup END
 
 augroup fileTypeSpecific
