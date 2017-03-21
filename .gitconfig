@@ -32,9 +32,18 @@
 	subpl = submodule foreach git pull origin master
 
 [user]
-	email = asinsimple@gmail.com
+	email = wkli@alibaba-inc.com
 	name = asins
 [push]
 	default = simple
 [core]
 	autocrlf = input
+	excludesfile = /Users/asins/.gitignore_global
+[difftool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
+	path = -ro
+[mergetool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/asins/.stCommitMsg
