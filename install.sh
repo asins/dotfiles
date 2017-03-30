@@ -18,11 +18,14 @@ ln -sfv $BASE/.config/nvim/init.vim ~/.config/nvim/init.vim
 
 
 # scripts
-mkdir -p ~/.bin
-for bin in $BASE/.bin/*; do
-	ln -sfv $bin ~/.bin
-done
+#mkdir -p ~/.bin
+#for bin in $BASE/.bin/*; do
+#	ln -sfv $bin ~/.bin
+#done
 
+# ssh
+mkdir ~/.ssh
+ln -sfv $BASE/.ssh/config ~/.ssh/config
 
 if [ $(uname -s) = 'Darwin' ]; then
 	# Homebrew
