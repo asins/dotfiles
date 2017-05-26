@@ -25,7 +25,8 @@ ln -sfv $BASE/.config/nvim/init.vim ~/.config/nvim/init.vim
 
 # ssh
 mkdir ~/.ssh
-ln -sfv $BASE/.ssh/config ~/.ssh/config
+#ln -sfv $BASE/.ssh/config ~/.ssh/config
+cp $BASE/.ssh/config ~/.ssh/config
 
 if [ $(uname -s) = 'Darwin' ]; then
 	# Homebrew
