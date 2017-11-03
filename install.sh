@@ -7,14 +7,23 @@
 cd $(dirname $BASH_SOURCE)
 BASE=$(pwd)
 
-for rc in .*rc .tmux.conf .agignore; do
+for rc in .*rc .agignore; do
 	mkdir -pv bak
 	[ -e ~/$rc ] && mv -v ~/$rc bak/$rc
 	ln -sfv $BASE/$rc ~/$rc
 done
 
-#nvim
-ln -sfv $BASE/.config/nvim/init.vim ~/.config/nvim/init.vim
+# nvim
+#ln -sfv $BASE/.config/nvim/init.vim ~/.config/nvim/init.vim
+
+# macvim
+ln -sfv $BASE/.config/vim/init.vim ~/.vimrc
+
+# fish
+ln -sfv $BASE/.config/fish/aliases.fish ~/.config/fish/aliases.fish
+ln -sfv $BASE/.config/fish/config.fish ~/.config/fish/config.fish
+ln -sfv $BASE/.config/fish/env.fish ~/.config/fish/env.fish
+ln -sfv $BASE/.config/fish/functions ~/.config/fish/functions
 
 
 # scripts
@@ -36,7 +45,7 @@ if [ $(uname -s) = 'Darwin' ]; then
 	echo "Updating homebrew"
 	brew install \
 		git ag coreutils wget cscope ctags tree highlight \
-		fish tmux autojump vim neovim fzf node
+		fish autojump vim neovim fzf node
 
 	command -v blsd > /dev/null ||
 		(bash <(curl -fL https://raw.githubusercontent.com/junegunn/blsd/master/install) && mv blsd ~/bin)
@@ -46,5 +55,3 @@ if [ $(uname -s) = 'Darwin' ]; then
 
 	brew cask install iterm2 qq mplayerx java java7 imageoptim sublime-text
 fi
-
-tmux source-file ~/.tmux.conf

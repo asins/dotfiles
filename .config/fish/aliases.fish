@@ -1,5 +1,7 @@
 #Quick edits
-alias vim 'nvim -VA'
+alias vim 'mvim -v'
+
+alias ... 'cd ../../'
 
 alias g 'git'
 alias c clear
@@ -10,18 +12,12 @@ alias mvn-app 'mvn clean eclipse:eclipse install -DskipTests'
 #ag
 alias notes 'ag "TODO|HACK|FIXME|OPTIMIZE"'
 
+alias tnpm 'npm --registry=http://registry.npm.alibaba-inc.com'
+alias cnpm 'npm --registry=https://registry.npm.taobao.org'
+
 # 创建目录
 alias md 'mkdir -p'
 
-function vaa
-	set pattern $argv[1]
-	if test (count $argv) -gt 1
-		set argv $argv[2..-1]
-	else
-		set argv
-	end
-
-	set ag_pattern (echo $argv | sed -Ee 's/[<>]/\\\\b/g')
-	set vim_pattern (echo $argv | sed -E -e 's,([/=]),\\\\\1,g' -e 's,.*,/\\\\v&,')
-	ag -l --smart-case --null -a $ag_pattern -- $argv ^/dev/null | xargs -0 -o vim -c $vim_pattern
-end
+# 添加代理
+alias setproxy 'set -Ux http_proxy socks5://127.0.0.1:1080; and set -Ux https_proxy socks5://127.0.0.1:1080'
+alias unproxy 'set -Ue http_proxy; and set -Ue https_proxy'

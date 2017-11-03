@@ -1,4 +1,4 @@
-function prepend-to-path --description 'Adds the given directory to the front of the PATH'
+function prepend-to-path --description '将给定目录添加到系统PATH变量头部'
     set -l dir ''
     if test (count $argv) -ne 0
         set dir $argv[1]
@@ -7,8 +7,7 @@ function prepend-to-path --description 'Adds the given directory to the front of
     if test -d $dir
         set dir (abspath $dir)
 
-        # If this path is already in the PATH array, remove all occurrences
-        # and add it to the head
+        # 如果路径已存在于PATH数组中，则将其至于头部。
         for i in (seq (count $PATH) 1)
             if test $PATH[$i] = $dir
                 set -e PATH[$i]
