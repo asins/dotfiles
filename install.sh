@@ -34,6 +34,7 @@ ln -sfv $BASE/.config/fish/functions ~/.config/fish/functions
 
 # ssh
 mkdir ~/.ssh
+#.ssh/config文件中有隐私内容所以就不做链接了以免不小心上传到github上，公司安全部的茶不好喝
 #ln -sfv $BASE/.ssh/config ~/.ssh/config
 cp $BASE/.ssh/config ~/.ssh/config
 
