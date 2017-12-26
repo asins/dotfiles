@@ -1,6 +1,6 @@
 " Author: Asins - asinsimple AT gmail DOT com
 "         Get latest vimrc from http://nootn.com/
-" Last Modified: 2017-11-03 16:47 (+0800)
+" Last Modified: 2017-12-19 17:00 (+0800)
 
 " 全局变量及函数 {{{
 let g:mapleader = "," " 设置 <Leader>字符
@@ -130,14 +130,15 @@ Plug 'nanotech/jellybeans.vim'
 let g:jellybeans_use_term_background_color = 0
 " }}}
 " 代码注释 {{{
-Plug 'scrooloose/nerdcommenter'
-let NERDMenuMode = 0
-" 在注释符后加入空格
-let g:NERDSpaceDelims = 1
-" 使用紧凑语法美化多行注释
-let g:NERDCompactSexyComs = 1
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
+Plug 'tomtom/tcomment_vim'
+" Plug 'scrooloose/nerdcommenter'
+" let NERDMenuMode = 0
+" " 在注释符后加入空格
+" let g:NERDSpaceDelims = 1
+" " 使用紧凑语法美化多行注释
+" let g:NERDCompactSexyComs = 1
+" let g:NERDCommentEmptyLines = 1
+" let g:NERDTrimTrailingWhitespace = 1
 " <Leader>ca 在可选的注释方式之间切换，比如C/C++ 的块注释/* */和行注释//
 " <Leader>cc 注释当前行
 " <Leader>c<space> 切换注释
@@ -192,11 +193,8 @@ let g:airline_mode_map = {
 	\ }
 " }}}
 " 语法提示 {{{
-Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --tern-completer' }
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_complete_in_strings = 1
+Plug 'vim-scripts/L9'
+Plug 'othree/vim-autocomplpop'
 " }}}
 " 语法检测 syntastic {{{
 " Plug 'scrooloose/syntastic', { 'for': ['php', 'javascript', 'css', 'less', 'scss'] }
@@ -216,7 +214,7 @@ let g:ycm_complete_in_strings = 1
 " nnoremap <silent> <Leader>sc :SyntasticToggleMode<CR>
 " }}}
 " 快速标记跳转 {{{
-Plug 'kshenoy/vim-signature'
+" Plug 'kshenoy/vim-signature'
 "  mx           切换显示标记 'x'，并在啊左侧列中呈现
 "  dmx          删除标记 'x',x选值范围a-zA-Z
 "
@@ -381,7 +379,7 @@ let delimitMate_expand_cr = 2
 let delimitMate_expand_space = 1 " {|} => { | }
 " }}}
 " 树形的文件系统浏览器 {{{
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " 指定书签文件
 let NERDTreeBookmarksFile = s:GetCacheDir("NERDTreeBookmarks")
 " 排除 . .. 文件
@@ -392,7 +390,8 @@ let g:NERDTreeChDirMode = 2
 let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeShowBookmarks = 1
 
-map <F2> :NERDTreeCWD<CR>
+map <F2> :NERDTreeToggle<CR>
+map! <F2> <Esc>:NERDTreeToggle<CR>
 " }}}
 " 中文排版自动规范化 {{{
 Plug 'hotoo/pangu.vim', { 'on': [ 'Pangu', 'PanguEnable', 'PanguDisable' ], 'for': [ 'markdown', 'text' ] }
@@ -435,7 +434,7 @@ nnoremap <silent> <leader>gQ :Gwq!<CR>
 nnoremap <silent> <leader>g` :call ReviewLastCommit()<CR>
 " }}}
 " 代码美化 {{{
-Plug 'maksimr/vim-jsbeautify', { 'for': [ 'html', 'xml', 'javascript', 'css', 'less', 'scss'] }
+Plug 'maksimr/vim-jsbeautify', { 'for': [ 'html', 'xml', 'javascript', 'css', 'less', 'scss'], 'do': 'npm install --registry=https://registry.npm.taobao.org' }
 " Plug 'Chiel92/vim-autoformat' 可能更好
 " }}}
 " 光标选择功能 <C-{n,p,x}> {{{
@@ -447,11 +446,6 @@ Plug 'terryma/vim-multiple-cursors'
 " }}}
 " css中的颜色显示
 Plug 'ap/vim-css-color'
-" 自动根据当前打开文件切换工作目录 {{{
-Plug 'airblade/vim-rooter'
-let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_patterns = ['.git/', '.svn/']
-" }}}
 " 自动创建目录
 Plug 'travisjeffery/vim-auto-mkdir'
 
@@ -599,7 +593,7 @@ augroup Filetype_Specific
 	autocmd FileType css vnoremap <Leader>co J:s/\s*\([{:;,]\)\s*/\1/g<CR>:let @/=''<CR>
 	autocmd FileType css nnoremap <Leader>co :s/\s*\([{:;,]\)\s*/\1/g<CR>:let @/=''<CR>
 	" less文件保存时自动编译为css文件
-	" autocmd BufWritePost,FileWritePost *.less,*.scss,*.sass call CompileToCss()
+    " autocmd BufWritePost,FileWritePost *.less,*.scss,*.sass call CompileToCss()
 	" 美化代码(need vim-JsBeautify plugin)
 	autocmd FileType css noremap <buffer> <silent> <Leader>ff :call CSSBeautify()<cr>
 	" }}}
@@ -609,7 +603,7 @@ augroup Filetype_Specific
 	" }}}
 	" JavaScript {{{
 	" Vue模板使用html高亮
-	autocmd BufNewFile,BufRead *.vue setlocal ft=vm =html
+	autocmd BufNewFile,BufRead *.vue setlocal ft=html =html
 	" 美化代码(need vim-JsBeautify plugin)
 	autocmd FileType javascript noremap <buffer> <silent> <Leader>ff :call JsBeautify()<cr>
 	autocmd FileType json noremap <buffer> <silent> <Leader>ff :call JsonBeautify()<cr>
@@ -660,20 +654,20 @@ endif
 
 " 键盘绑定 {{{
 " 保存/复制/剪切/粘贴 {{{
-noremap <D-S> :update<CR>
-vnoremap <D-S> <C-C>:update<CR>
-inoremap <D-S> <C-O>:update<CR>
+noremap <c-S> :update<CR>
+vnoremap <c-S> <C-C>:update<CR>
+inoremap <c-S> <C-O>:update<CR>
 
 " CTRL-X 剪切
-vnoremap <D-X> "+x
+vnoremap <c-X> "+x
 
 " CTRL-C 复制
-vnoremap <D-C> "+y
+vnoremap <c-C> "+y
 
 " CTRL-V 粘贴
-map <D-V> "+gP
+map <c-V> "+gP
 " 命令行模式
-cmap <D-V> <C-R>+
+cmap <c-V> <C-R>+
 " }}}
 
 " 开/关折叠 <Space> {{{

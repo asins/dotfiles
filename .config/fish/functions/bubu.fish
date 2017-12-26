@@ -6,4 +6,6 @@ function bubu --description '更新brew及所有已安装软件'
 
     brew upgrade
     brew cleanup
+
+    brew cu -facy
 end

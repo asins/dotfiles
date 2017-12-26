@@ -20,11 +20,13 @@ done
 ln -sfv $BASE/.config/vim/init.vim ~/.vimrc
 
 # fish
-ln -sfv $BASE/.config/fish/aliases.fish ~/.config/fish/aliases.fish
-ln -sfv $BASE/.config/fish/config.fish ~/.config/fish/config.fish
-ln -sfv $BASE/.config/fish/env.fish ~/.config/fish/env.fish
-ln -sfv $BASE/.config/fish/functions ~/.config/fish/functions
+#ln -sfv $BASE/.config/fish/aliases.fish ~/.config/fish/aliases.fish
+#ln -sfv $BASE/.config/fish/config.fish ~/.config/fish/config.fish
+#ln -sfv $BASE/.config/fish/env.fish ~/.config/fish/env.fish
+#ln -sfv $BASE/.config/fish/functions ~/.config/fish/functions
 
+# zsh
+ln -sfv $BASE/.config/zsh/.zshrc ~/.zshrc
 
 # scripts
 #mkdir -p ~/.bin
@@ -45,14 +47,16 @@ if [ $(uname -s) = 'Darwin' ]; then
 
 	echo "Updating homebrew"
 	brew install \
-		git ag coreutils wget cscope ctags tree highlight \
-		fish autojump vim neovim fzf node
+		git coreutils wget cscope ctags tree highlight \
+		zsh z vim node
 
-	command -v blsd > /dev/null ||
-		(bash <(curl -fL https://raw.githubusercontent.com/junegunn/blsd/master/install) && mv blsd ~/bin)
+	echo "Install brew cask"
+	brew tap caskroom/cask
 
-	command -v fisher > /dev/null ||
-		(bash <(curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman))
+	echo "Install zsh"
+	sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+	echo $(which zsh) | sudo tee -a /etc/shells
+	chsh -s $(which zsh)
 
-	brew cask install iterm2 qq mplayerx java java7 imageoptim sublime-text
+	brew cask install iterm2 qq mplayerx java imageoptim sublime-text
 fi
