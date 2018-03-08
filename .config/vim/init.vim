@@ -1,6 +1,6 @@
 " Author: Asins - asinsimple AT gmail DOT com
 "         Get latest vimrc from http://nootn.com/
-" Last Modified: 2017-12-19 17:00 (+0800)
+" Last Modified: 2018-01-16 17:48 (+0800)
 
 " 全局变量及函数 {{{
 let g:mapleader = "," " 设置 <Leader>字符
@@ -148,13 +148,13 @@ Plug 'tomtom/tcomment_vim'
 " <Leader>cm 添加块注释
 " }}}
 " 代码缩进可视化 {{{
-Plug 'nathanaelkane/vim-indent-guides'
-let g:indent_guides_enable_on_vim_startup = 1
-" 不向全局添加热键
-" let g:indent_guides_default_mapping = 0
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+" Plug 'nathanaelkane/vim-indent-guides'
+" let g:indent_guides_enable_on_vim_startup = 1
+" " 不向全局添加热键
+" " let g:indent_guides_default_mapping = 0
+" let g:indent_guides_start_level = 2
+" let g:indent_guides_guide_size = 1
+" let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 " }}}
 " 在状态行显示的信息 {{{
 "set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ [%{(&fenc==\"\"?&enc:&fenc).(&bomb?\",BOM\":\"\")}]\ %c:%l/%L%)
@@ -475,9 +475,9 @@ if !exists('g:VimrcIsLoaded')
 	"set showtabline=0 " 不显示Tab栏
 	set list " 显示隐藏字符
 	set expandtab  "键入Tab时转换成空格
-	set shiftwidth=4  " 设定 << 和 >> 命令移动时的宽度为 4
-	set softtabstop=4  " 设置按BackSpace的时候可以一次删除掉4个空格
-	set tabstop=4 "tab = 4 spaces
+	set shiftwidth=2  " 设定 << 和 >> 命令移动时的宽度为 4
+	set softtabstop=2  " 设置按BackSpace的时候可以一次删除掉4个空格
+	set tabstop=2 "tab = 4 spaces
 	set laststatus=2 " 显示状态栏 (默认值为 1, 无法显示状态栏)
     set listchars=tab:\|·,trail:·,extends:❯,precedes:❮,nbsp:×
 	set wildmenu " Vim自身命令行模式智能补全
@@ -665,9 +665,9 @@ vnoremap <c-X> "+x
 vnoremap <c-C> "+y
 
 " CTRL-V 粘贴
-map <c-V> "+gP
+" map <c-V> "+gP
 " 命令行模式
-cmap <c-V> <C-R>+
+" cmap <c-V> <C-R>+
 " }}}
 
 " 开/关折叠 <Space> {{{

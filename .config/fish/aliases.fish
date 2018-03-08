@@ -17,8 +17,8 @@ alias cnpm 'npm --registry=https://registry.npm.taobao.org'
 alias md 'mkdir -p'
 
 # 添加代理
-alias setproxy 'set -Ux http_proxy socks5://127.0.0.1:1080; and set -Ux https_proxy socks5://127.0.0.1:1080'
-alias unproxy 'set -Ue http_proxy; and set -Ue https_proxy'
+# alias setproxy 'set -Ux http_proxy socks5://127.0.0.1:1080; and set -Ux https_proxy socks5://127.0.0.1:1080'
+# alias unproxy 'set -Ue http_proxy; and set -Ue https_proxy'
 
 # VSCode
 alias vsc '/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
