@@ -39,6 +39,7 @@
 [core]
 	autocrlf = input
 	excludesfile = /Users/asins/.gitignore_global
+	quotepath = false
 [difftool "sourcetree"]
 	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
 	path = -ro

@@ -1,17 +1,11 @@
 " Author: Asins - asinsimple AT gmail DOT com
 "         Get latest vimrc from http://nootn.com/
-" Last Modified: 2018-01-16 17:48 (+0800)
+" Last Modified: 2018-05-25 00:13 (+0800)
 
 " 全局变量及函数 {{{
 let g:mapleader = "," " 设置 <Leader>字符
 " 判断系统类型 {{{2
-if has("win32") || has("win95") || has("win64") || has("win16")
-	let s:isWindows=1
-	let $VIMFILES = fnamemodify($MYVIMRC, ':p:h') . '/vimfiles' " vim工作目录
-else
-	let s:isWindows=0
-	let $VIMFILES = fnamemodify($MYVIMRC, ':p:h') . '/.vim' " vim工作目录
-endif
+let $VIMFILES = fnamemodify($MYVIMRC, ':p:h') . '/.vim' " vim工作目录
 " }}}
 " --------- 定义函数 ------
 " 保证该目录存在，若不存在则新建目录 {{{2
@@ -148,13 +142,13 @@ Plug 'tomtom/tcomment_vim'
 " <Leader>cm 添加块注释
 " }}}
 " 代码缩进可视化 {{{
-" Plug 'nathanaelkane/vim-indent-guides'
-" let g:indent_guides_enable_on_vim_startup = 1
-" " 不向全局添加热键
-" " let g:indent_guides_default_mapping = 0
-" let g:indent_guides_start_level = 2
-" let g:indent_guides_guide_size = 1
-" let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+Plug 'nathanaelkane/vim-indent-guides'
+let g:indent_guides_enable_on_vim_startup = 1
+" 不向全局添加热键
+" let g:indent_guides_default_mapping = 0
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 " }}}
 " 在状态行显示的信息 {{{
 "set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ [%{(&fenc==\"\"?&enc:&fenc).(&bomb?\",BOM\":\"\")}]\ %c:%l/%L%)
@@ -276,30 +270,6 @@ let g:OpenRequireFile_By_Map = [
 	\ ]
 " nmap <silent> <Leader>gf :call OpenRequireFile()<cr>
 " }}}
-" 全局文内搜索 {{{
-Plug 'rking/ag.vim'
-" :Ag [options] pattern [directory]
-" :Ag FooBar foo/**/*.py 等同于 :Ag -G foo/.*/[^/]*\.py$ FooBar
-" }}}
-" fzf {{{
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-nnoremap <silent> <leader><space> :Files<CR>
-nnoremap <silent> <leader>a :Buffers<CR>
-nnoremap <silent> <leader>W :Windows<CR>
-nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <silent> <leader>o :BTags<CR>
-nnoremap <silent> <leader>O :Tags<CR>
-nnoremap <silent> <leader>H :History<CR>
-nnoremap <silent> <leader>A :execute 'Ag ' . input('Ag/')<CR>
-
-nnoremap <silent> <leader>gl :Commits<CR>
-nnoremap <silent> <leader>ga :BCommits<CR>
-nnoremap <silent> <leader>ft :Filetypes<CR>
-
-imap <C-x><C-f> <plug>(fzf-complete-file-ag)
-imap <C-x><C-l> <plug>(fzf-complete-line)
-" }}}
 
 " HTML/CSS快速输入 {{{
 Plug 'mattn/emmet-vim', { 'for': [ 'css', 'html', 'less', 'sass', 'scss', 'xml' ] }
@@ -372,7 +342,62 @@ Plug 'ekalinin/Dockerfile.vim'
 " NunJucks 语法
 Plug 'Glench/Vim-Jinja2-Syntax', { 'for': [ 'nunjucks', 'jinja' ] }
 " }}}
+" Mru 打开历史文件列表 {{{
+" Plug 'yegappan/mru'
+" let MRU_File = s:GetCacheDir("mru_file")
+" nmap <Leader>bb :MRU<CR>
+" }}}
+" Buffer列表管理 {{{
+" Plug 'jlanzarotta/bufexplorer'
+" let g:bufExplorerShowRelativePath=1 " 显示相当地址
+" let g:bufExplorerDefaultHelp = 0  " 不显示默认帮助信息
+" let g:bufExplorerFindActive = 0
+" <Leader>be 打开历史文件列表
+" <Leader>bs 水平新建历史文件列表窗口
+" <Leader>bv 垂直新建历史文件列表
+" }}}
+" BufferLine {{{
+" Plug 'ap/vim-buftabline'
+" let g:buftabline_numbers=1
+" nmap <Leader>1 <Plug>BufTabLine.Go(1)
+" nmap <Leader>2 <Plug>BufTabLine.Go(2)
+" nmap <Leader>3 <Plug>BufTabLine.Go(3)
+" nmap <Leader>4 <Plug>BufTabLine.Go(4)
+" nmap <Leader>5 <Plug>BufTabLine.Go(5)
+" nmap <Leader>6 <Plug>BufTabLine.Go(6)
+" nmap <Leader>7 <Plug>BufTabLine.Go(7)
+" nmap <Leader>8 <Plug>BufTabLine.Go(8)
+" nmap <Leader>9 <Plug>BufTabLine.Go(9)
+" nmap <Leader>0 <Plug>BufTabLine.Go(10)
+" }}}
+" Ctrlp 模糊文件查找 <C-p> <Leader>{f,l,b} {{{
+" 模糊文件查找
+Plug 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_working_path_mode = 'ra'
+" 设置缓存目录
+let g:ctrlp_cache_dir = s:GetCacheDir("ctrlp")
+let g:ctrlp_custom_ignore = {
+			\ 'dir':  '\v[\/]\.(git|hg|svn|cache|Trash)$',
+			\ 'file': '\v\.(log|jpg|png|jpeg|exe|so|dll|pyc|pyo|swf|swp|psd|db|DS_Store)$'
+			\ }
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --ignore-file .svn --ignore-file .hg --ignore-file .DS_Store --ignore-file .git --glob ""'
+  let g:ctrlp_use_caching = 0
+endif
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript', 'mixed']
 
+nnoremap <C-p> :CtrlP<Space>
+" 用最近最多使用模式打开CtrlP
+nnoremap <silent> <Leader>m :CtrlPMRU<CR>
+" 用上一次使用的模式打开CtrlP
+nnoremap <silent> <Leader>l :CtrlPLastMode<CR>
+" 用缓冲区搜索模式打开CtrlP
+nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
+" }}}
+" LeaderF {{{
+" Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+" }}}
 " 自动实例配对符号 delimitMate {{{
 Plug 'Raimondi/delimitMate'
 let delimitMate_expand_cr = 2
@@ -434,7 +459,9 @@ nnoremap <silent> <leader>gQ :Gwq!<CR>
 nnoremap <silent> <leader>g` :call ReviewLastCommit()<CR>
 " }}}
 " 代码美化 {{{
-Plug 'maksimr/vim-jsbeautify', { 'for': [ 'html', 'xml', 'javascript', 'css', 'less', 'scss'], 'do': 'npm install --registry=https://registry.npm.taobao.org' }
+Plug 'maksimr/vim-jsbeautify', { 'for': [ 'html', 'xml', 'javascript', 'css', 'less', 'scss'], 'do': 'npm install --registry=http://registry.npm.alibaba-inc.com' }
+let g:editorconfig_Beautifier = resolve(expand($VIMFILES. '/jsbeautify.editorconfig'))
+" Plug 'maksimr/vim-jsbeautify', { 'for': [ 'html', 'xml', 'javascript', 'css', 'less', 'scss'], 'do': 'npm install --registry=https://registry.npm.taobao.org' }
 " Plug 'Chiel92/vim-autoformat' 可能更好
 " }}}
 " 光标选择功能 <C-{n,p,x}> {{{
@@ -634,7 +661,7 @@ augroup Filetype_Specific
 	autocmd BufWritePre *.markdown,*.md,*.text,*.txt call PanGuSpacing()
 	" }}}
 	" 自动更新Last Modified {{{
-	autocmd BufWritePre,FileWritePre,FileAppendPre * call <SID>UpdateLastMod()
+	" autocmd BufWritePre,FileWritePre,FileAppendPre * call <SID>UpdateLastMod()
 	" }}}
 augroup END
 " }}}
@@ -674,7 +701,7 @@ vnoremap <c-C> "+y
 nnoremap <silent> <Space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
 " }}}
 " N: 快速编辑 vimrc 文件 <Leader>e {{{
-nmap <silent> <Leader>e :tabedit $MYVIMRC<CR>
+nmap <silent> <Leader>e :edit $MYVIMRC<CR>
 " }}}
 " V: 全文搜索选中的文字 <Leader>{f,F} {{{2
 " 向上查找
@@ -683,10 +710,10 @@ vnoremap <silent> <Leader>f y/<c-r>=escape(@", "\\/.*$^~[]")<cr><cr>
 vnoremap <silent> <Leader>F y?<c-r>=escape(@", "\\/.*$^~[]")<cr><cr>
 " }}}
 " N: Buffers/Tab操作 <Shift+{h,l,j,k}> {{{
-" nnoremap <s-h> :bprevious<cr>
-" nnoremap <s-l> :bnext<cr>
-" nnoremap <s-j> :tabnext<cr>
-" nnoremap <s-k> :tabprev<cr>
+nnoremap <s-h> :bprevious<cr>
+nnoremap <s-l> :bnext<cr>
+nnoremap <s-j> :tabnext<cr>
+nnoremap <s-k> :tabprev<cr>
 "   }}}
 " I: 移动光标 <Ctrl+{h,l,j,k}> {{{
 inoremap <c-h> <left>
@@ -713,7 +740,7 @@ nnoremap <leader>ch :let @+=expand("%:p:h") \| echo 'cb> '.@+<CR>
 " }}}
 " 全选文本
 noremap vA ggVG
-" N: 切换 Tab <leader>+1~9 {{{
+" N: 切换 Tab <leader>+1~10 {{{ 改用BufTabLine插件
 nnoremap <leader>1 1gt
 nnoremap <leader>2 2gt
 nnoremap <leader>3 3gt
@@ -723,6 +750,7 @@ nnoremap <leader>6 6gt
 nnoremap <leader>7 7gt
 nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
+nnoremap <leader>0 10gt
 " }}}
 " N: 通用关闭行为 Q {{{
 nnoremap <silent> Q :call CloseSplitOrDeleteBuffer()<CR>

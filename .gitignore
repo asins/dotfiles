@@ -1,4 +1,6 @@
 bak
 .DS_Store
 *.swp
-
+.config/vim/autoload/
+.config/vim/cache/
+.config/vim/plugged/
