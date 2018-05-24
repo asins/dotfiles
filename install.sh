@@ -13,6 +13,9 @@ for rc in .*rc .agignore; do
 	ln -sfv $BASE/$rc ~/$rc
 done
 
+# vim相关文件
+ln -sfv $BASE/.config/vim ~/.vim
+
 # nvim
 #ln -sfv $BASE/.config/nvim/init.vim ~/.config/nvim/init.vim
 
