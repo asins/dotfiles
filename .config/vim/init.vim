@@ -323,8 +323,10 @@ Plug 'othree/es.next.syntax.vim', { 'for': [ 'javascript' ] }
 Plug 'othree/yajs.vim', { 'for': [ 'javascript' ] }
 let g:used_javascript_libs = 'jquery,vue'
 " }}}
-
-"   打开光标下的链接 <Leader>ur {{{
+" Vue语法 {{{
+Plug 'posva/vim-vue'
+" }}}
+" 打开光标下的链接 <Leader>ur {{{
 " Plug 'tyru/open-browser.vim'
 " nmap <silent> <Leader>ur :OpenBrowser <C-U>call GetPatternAtCursor('\v%(https?|ftp)://[^]''" \t\r\n>*。，\`)]*')
 " }}}
@@ -339,8 +341,6 @@ Plug 'tpope/vim-markdown', { 'for': [ 'markdown' ] }
 Plug 'dag/vim-fish'
 " Docker 语法
 Plug 'ekalinin/Dockerfile.vim'
-" NunJucks 语法
-Plug 'Glench/Vim-Jinja2-Syntax', { 'for': [ 'nunjucks', 'jinja' ] }
 " }}}
 " Mru 打开历史文件列表 {{{
 " Plug 'yegappan/mru'
@@ -415,6 +415,7 @@ let g:NERDTreeChDirMode = 2
 let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeShowBookmarks = 1
 
+map <s-F2> :NERDTree<CR>
 map <F2> :NERDTreeToggle<CR>
 map! <F2> <Esc>:NERDTreeToggle<CR>
 " }}}
@@ -459,7 +460,7 @@ nnoremap <silent> <leader>gQ :Gwq!<CR>
 nnoremap <silent> <leader>g` :call ReviewLastCommit()<CR>
 " }}}
 " 代码美化 {{{
-Plug 'maksimr/vim-jsbeautify', { 'for': [ 'html', 'xml', 'javascript', 'css', 'less', 'scss'], 'do': 'npm install --registry=http://registry.npm.alibaba-inc.com' }
+Plug 'maksimr/vim-jsbeautify', { 'for': [ 'html', 'xml', 'javascript', 'json', 'css', 'less', 'scss'], 'do': 'npm install --registry=http://registry.npm.alibaba-inc.com' }
 let g:editorconfig_Beautifier = resolve(expand($VIMFILES. '/jsbeautify.editorconfig'))
 " Plug 'maksimr/vim-jsbeautify', { 'for': [ 'html', 'xml', 'javascript', 'css', 'less', 'scss'], 'do': 'npm install --registry=https://registry.npm.taobao.org' }
 " Plug 'Chiel92/vim-autoformat' 可能更好
@@ -630,11 +631,17 @@ augroup Filetype_Specific
 	" }}}
 	" JavaScript {{{
 	" Vue模板使用html高亮
-	autocmd BufNewFile,BufRead *.vue setlocal ft=html =html
+	" autocmd BufNewFile,BufRead *.vue setlocal ft=html =html
 	" 美化代码(need vim-JsBeautify plugin)
 	autocmd FileType javascript noremap <buffer> <silent> <Leader>ff :call JsBeautify()<cr>
-	autocmd FileType json noremap <buffer> <silent> <Leader>ff :call JsonBeautify()<cr>
+  autocmd FileType json noremap <buffer> <silent> <Leader>ff :call JsonBeautify()<cr>
 	autocmd FileType jsx noremap <buffer> <silent> <Leader>ff :call JsxBeautify()<cr>
+  autocmd FileType css noremap <buffer> <silent> <Leader>ff :call CSSBeautify()<cr>
+  " 只格式化选择的代码
+  autocmd FileType javascript vnoremap <buffer> <silent> <Leader>ff :call RangeJsBeautify()<cr>
+  autocmd FileType json vnoremap <buffer> <silent> <Leader>ff :call RangeJsonBeautify()<cr>
+  autocmd FileType html vnoremap <buffer> <silent> <Leader>ff :call RangeHtmlBeautify()<cr>
+  autocmd FileType css vnoremap <buffer> <silent> <Leader>ff :call RangeCSSBeautify()<cr>
 	" }}}
 	" NunJucks,jinja2
 	autocmd BufNewFile,BufRead *.nj setlocal filetype=jinja
@@ -779,6 +786,11 @@ if !exists("g:VimrcIsLoaded")
 	let g:VimrcIsLoaded = 1
 else
 	let g:VimrcIsLoaded = g:VimrcIsLoaded + 1
+endif
+" }}}
+" vim bugfix {{{
+if has('python3')
+  silent! python3 1
 endif
 " }}}
 " vim:fdm=marker:fmr={{{,}}}
