@@ -45,6 +45,12 @@ function! GetPatternAtCursor(pat)
 	endif
 endfunction
 " }}}
+" 切换选项开关 {{{
+function! ToggleOption(optionName)
+  execute 'setlocal '.a:optionName.'!'
+  execute 'setlocal '.a:optionName.'?'
+endfunction
+" }}}
 " 删除文件末尾空格 {{{
 function! s:StripTrailingWhitespace()
 	" Preparation: save last search, and cursor position.
@@ -190,6 +196,9 @@ let g:airline_mode_map = {
 Plug 'vim-scripts/L9'
 Plug 'othree/vim-autocomplpop'
 " }}}
+" ripgrep rg 文件查找
+Plug 'jremmen/vim-ripgrep'
+" }}}
 " 语法检测 syntastic {{{
 " Plug 'scrooloose/syntastic', { 'for': ['php', 'javascript', 'css', 'less', 'scss'] }
 " let g:syntastic_always_populate_loc_list = 1
@@ -312,9 +321,9 @@ Plug 'rhysd/clever-f.vim'
 let g:clever_f_across_no_line = 1
 " }}}
 " JS语法、缩进支持 {{{
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 
-Plug 'pangloss/vim-javascript', { 'for': [ 'javascript' ] }
+Plug 'pangloss/vim-javascript', { 'for': [ 'javascript', 'typescript' ] }
 " 允许高亮JSDocs注释语法
 let g:javascript_plugin_jsdoc = 1
 
@@ -322,6 +331,12 @@ Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/es.next.syntax.vim', { 'for': [ 'javascript' ] }
 Plug 'othree/yajs.vim', { 'for': [ 'javascript' ] }
 let g:used_javascript_libs = 'jquery,vue'
+" }}}
+" TypeScript语法支持 {{{
+Plug 'leafgarland/typescript-vim', { 'for': [ 'typescript' ] }
+" 编译器及参数，执行:make可进行编译
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
 " }}}
 " Vue语法 {{{
 Plug 'posva/vim-vue'
@@ -377,11 +392,10 @@ let g:ctrlp_working_path_mode = 'ra'
 " 设置缓存目录
 let g:ctrlp_cache_dir = s:GetCacheDir("ctrlp")
 let g:ctrlp_custom_ignore = {
-			\ 'dir':  '\v[\/]\.(git|hg|svn|cache|Trash)$',
-			\ 'file': '\v\.(log|jpg|png|jpeg|exe|so|dll|pyc|pyo|swf|swp|psd|db|DS_Store)$'
-			\ }
+      \ 'dir':  '\v[\/]\.(git|hg|svn|cache|Trash)$',
+      \ 'file': '\v\.(log|jpg|png|jpeg|exe|so|dll|pyc|pyo|swf|swp|psd|db|DS_Store)$'
+      \ }
 if executable('rg')
-  set grepprg=rg\ --color=never
   let g:ctrlp_user_command = 'rg %s --files --color=never --ignore-file .svn --ignore-file .hg --ignore-file .DS_Store --ignore-file .git --glob ""'
   let g:ctrlp_use_caching = 0
 endif
@@ -603,6 +617,12 @@ if !exists('g:VimrcIsLoaded')
 	set encoding=utf-8
 	set fileencoding=utf-8
 	" }}}
+  " 设置grep搜索命令为rg(ripgrep) {{{
+  if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+  endif
+  " }}}
 endif
 " ========= 只设置一次结果 ========
 
