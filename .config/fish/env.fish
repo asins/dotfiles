@@ -14,6 +14,6 @@ set -gx PATH /usr/local/opt/tomcat@7/bin $PATH
 # java运行环境变量
 # set -gx JAVA_HOME "/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home"
 set -gx M2_HOME "/usr/local/opt/maven/libexec"
-set -gx TOMCAT_HOME "/usr/local/opt/tomcat@7/libexec"
+# set -gx TOMCAT_HOME "/usr/local/opt/tomcat@7/libexec"
 set -gx PATH $PATH $TOMCAT_HOME/bin
 set -gx PATH $PATH $M2_HOME/bin
