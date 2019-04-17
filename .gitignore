@@ -4,5 +4,6 @@ bak
 .config/vim/autoload/
 .config/vim/cache/
 .config/vim/plugged/
+.config/vim/tmp/
 .config/vim/.netrwhist
 .config/fish/functions/_*.fish
