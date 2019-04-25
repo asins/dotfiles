@@ -17,6 +17,9 @@ done
 ln -sfv $BASE/.config/vim ~/.vim
 ln -sfv $BASE/.config/vim/init.vim ~/.vimrc
 
+# 清歌输入法字库
+ln -sfv $BASE/.config/qingg.im  ~/.config/qingg.im
+
 # nvim
 #ln -sfv $BASE/.config/nvim ~/.vim
 #ln -sfv $BASE/.config/nvim/init.vim ~/.config/nvim/init.vim
