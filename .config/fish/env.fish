@@ -17,3 +17,5 @@ set -gx M2_HOME "/usr/local/opt/maven/libexec"
 # set -gx TOMCAT_HOME "/usr/local/opt/tomcat@7/libexec"
 set -gx PATH $PATH $TOMCAT_HOME/bin
 set -gx PATH $PATH $M2_HOME/bin
+
+set -g fish_user_paths "/usr/local/opt/curl/bin" $fish_user_paths
