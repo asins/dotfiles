@@ -2,9 +2,9 @@
 "
 " Last Modified: 2018/05/30 17:59:31
 "======================================================================
-" vim: fdm=marker:fmr={{{,}}}
+" vim: fdm=marker:fmr=,
 
-" 保存/复制/剪切/粘贴 <Ctrl+{c,s,x}> {{{
+" 保存/复制/剪切/粘贴 <Ctrl+{c,s,x}>
 noremap <c-s> :update<CR>
 vnoremap <c-s> <C-C>:update<CR>
 inoremap <c-s> <C-O>:update<CR>
@@ -19,51 +19,51 @@ vnoremap <c-c> "+y
 " map <c-v> "+gP
 " 命令行模式
 " cmap <c-v> <C-R>+
-" }}}
+"
 
-" N: 全选文本 {vA} {{{
+" N: 全选文本 {vA}
 noremap vA ggVG
-" }}}
+"
 
-" N: 快速编辑 vimrc 文件 <Leader>e {{{
+" N: 快速编辑 vimrc 文件 <Leader>e
 nmap <silent> <Leader>e :edit $MYVIMRC<CR>
-" }}}
+"
 
-" V: 全文搜索选中的文字 <Leader>{f,F} {{{
+" V: 全文搜索选中的文字 <Leader>{f,F}
 
 " 向上查找
 vnoremap <silent> <Leader>f y/<c-r>=escape(@", "\\/.*$^~[]")<cr><cr>
 
 " 向下查找
 vnoremap <silent> <Leader>F y?<c-r>=escape(@", "\\/.*$^~[]")<cr><cr>
-" }}}
+"
 
-" N: 快速移动光标 <Ctrl+{h,l,j,k}> {{{
+" N: 快速移动光标 <Ctrl+{h,l,j,k}>
 "noremap <C-h> <left>
 "noremap <C-j> <down>
 "noremap <C-k> <up>
 "noremap <C-l> <right>
-" }}}
+"
 
-" I: INSET模式快速移动光标 <Ctrl+{h,l,j,k,a,e}> {{{
+" I: INSET模式快速移动光标 <Ctrl+{h,l,j,k,a,e}>
 inoremap <C-h> <left>
 inoremap <C-j> <down>
 inoremap <C-k> <up>
 inoremap <C-l> <right>
 inoremap <c-a> <home>
 inoremap <c-e> <end>
-" }}}
+"
 
-" C: 命令模式快速移动光标 <Ctrl+{h,l,j,k,a,e}> {{{
+" C: 命令模式快速移动光标 <Ctrl+{h,l,j,k,a,e}>
 cnoremap <c-h> <left>
 cnoremap <c-j> <down>
 cnoremap <c-k> <up>
 cnoremap <c-l> <right>
 cnoremap <c-a> <home>
 cnoremap <c-e> <end>
-" }}}
+"
 
-" N: 切换 Tab <Leader>数字键 {{{
+" N: 切换 Tab <Leader>数字键
 noremap <silent><leader>1 1gt<cr>
 noremap <silent><leader>2 2gt<cr>
 noremap <silent><leader>3 3gt<cr>
@@ -101,9 +101,9 @@ if has("gui_macvim")
 	inoremap <silent><d-9> <ESC>:tabn 9<cr>
 	inoremap <silent><d-0> <ESC>:tabn 10<cr>
 endif
-" }}}
+"
 
-" N: Buffer切换 <Leader>{bn,bp} {{{
+" N: Buffer切换 <Leader>{bn,bp}
 " 插件 unimpaired 中定义了 [b, ]b 来切换缓存
 
 " 切换到下一个Buffer
@@ -111,9 +111,9 @@ noremap <silent> <leader>bn :bn<cr>
 
 " 切换至上一个Buffer
 noremap <silent> <leader>bp :bp<cr>
-" }}}
+"
 
-" N: TAB 创建 关闭当前/其它 切换 移动 <Leader>{tc,tq,tn,tp,to,tl,tr} {{{
+" N: TAB 创建 关闭当前/其它 切换 移动 <Leader>{tc,tq,tn,tp,to,tl,tr}
 " 其实还可以用原生的 CTRL+PageUp, CTRL+PageDown 来切换标签
 noremap <silent> <leader>tc :tabnew<cr>
 noremap <silent> <leader>tq :tabclose<cr>
@@ -140,20 +140,16 @@ function! Tab_MoveRight()
 	endif
 endfunc
 
-" }}}
+"
 
-" Buffer窗口切换 <Alt + Shift + {h,j,k,l}> {{{
+" Buffer窗口切换 <Ctrl + {h,j,k,l}>
 " 传统的 CTRL+hjkl 移动窗口不适用于 vim 8.1 的终端模式，CTRL+hjkl 在
 " bash/zsh 及带文本界面的程序中都是重要键位需要保留，不能 tnoremap 的
 
-noremap <a-H> <c-w>h
-noremap <a-L> <c-w>l
-noremap <a-J> <c-w>j
-noremap <a-K> <c-w>k
-inoremap <a-H> <esc><c-w>h
-inoremap <a-L> <esc><c-w>l
-inoremap <a-J> <esc><c-w>j
-inoremap <a-K> <esc><c-w>k
+noremap <c-H> <c-w>h
+noremap <c-L> <c-w>l
+noremap <c-J> <c-w>j
+noremap <c-K> <c-w>k
 
 if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
 	" vim 8.1 支持 termwinkey ，不需要把 terminal 切换成 normal 模式
@@ -173,9 +169,9 @@ elseif has('nvim')
 	tnoremap <m-K> <c-\><c-n><c-w>k
 	tnoremap <m-q> <c-\><c-n>
 endif
-" }}}
+"
 
-" 编译运行项目 <F10> <F5> {{{
+" 编译运行项目 <F10> <F5>
 " 注：需先安装好skywind3000/asyncrun.vim插件
 " 详细见：http://www.skywind.me/blog/archives/2084
 
@@ -253,9 +249,9 @@ function! ExecuteFile()
 		exec 'AsyncRun -cwd=$(VIM_FILEDIR) -raw -save=2 -mode=0 '. cmd
 	endif
 endfunc
-" }}}
+"
 
-" 关闭Budder {Q} {{{
+" 关闭Budder {Q}
 nnoremap <silent> Q :call s:CloseSplitOrDeleteBuffer()<CR>
 
 function! s:CloseSplitOrDeleteBuffer()
@@ -265,9 +261,9 @@ function! s:CloseSplitOrDeleteBuffer()
 		execute 'bdelete'
 	endif
 endfunction
-" }}}
+"
 
-" F3 在项目目录下 Grep 光标下单词 {{{
+" F3 在项目目录下 Grep 光标下单词
 " 默认 C/C++/Py/Js ，扩展名自己扩充 支持 rg/grep/findstr ，其他类型可以自己扩充
 " 不是在当前目录 grep，而是会去到当前文件所属的项目目录 project root
 " 下面进行 grep，这样能方便的对相关项目进行搜索
@@ -287,9 +283,9 @@ else
 				\ --include='*.js' --include='*.vim'
 				\ '<root>' <cr>
 endif
-" }}}
+"
 
-" N: 关闭删除所有隐藏缓冲区 <Leader>bd {{{
+" N: 关闭删除所有隐藏缓冲区 <Leader>bd
 nnoremap <silent> <Leader>bd :call s:DeleteHiddenBuffers()<CR>
 
 function! s:DeleteHiddenBuffers()
@@ -300,9 +296,9 @@ function! s:DeleteHiddenBuffers()
   endfor
   echo 'delete hidden buffers success.'
 endfunction
-" }}}
+"
 
-" N: 复制文件路径 <Ctrl+c> <Leader>c{f,F,t,h} {{{
+" N: 复制文件路径 <Ctrl+c> <Leader>c{f,F,t,h}
 " 相对路径 (src/foo.txt)
 nnoremap <leader>cf :let @+=expand("%") \| echo 'cb> '.@+<CR>
 
@@ -315,20 +311,20 @@ nnoremap <leader>ct :let @+=expand("%:t") \| echo 'cb> '.@+<CR>
 
 " 目录地址 (/something/src)
 nnoremap <leader>ch :let @+=expand("%:p:h") \| echo 'cb> '.@+<CR>
-" }}}
+"
 
-" 开/关折叠 <Space> {{{
+" 开/关折叠 <Space>
 nnoremap <silent> <Space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
-" }}}
+"
 
-" 删除一条CSS中无用空格 <Leader>co {{{
+" 删除一条CSS中无用空格 <Leader>co
 " autocmd FileType css vnoremap <Leader>co J:s/\s*\([{:;,]\)\s*/\1/g<CR>:let @/=''<CR>
 " autocmd FileType css nnoremap <Leader>co :s/\s*\([{:;,]\)\s*/\1/g<CR>:let @/=''<CR>
-" }}}
+"
 
-" 在VimScript中光标处关键词文档 <F1> {{{
+" 在VimScript中光标处关键词文档 <F1>
 autocmd Filetype vim noremap <buffer> <F1> <Esc>:help <C-r><C-w><CR>
-" }}}
+"
 
 
 

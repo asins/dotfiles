@@ -323,6 +323,7 @@ let g:clever_f_across_no_line = 1
 " }}}
 " JS语法、缩进支持 {{{
 " Plug 'mxw/vim-jsx'
+Plug 'leafgarland/typescript-vim'
 
 Plug 'pangloss/vim-javascript', { 'for': [ 'javascript' ] }
 " 允许高亮JSDocs注释语法
@@ -603,9 +604,9 @@ if !exists('g:VimrcIsLoaded')
 		set guitablabel=%N\ \ %t\ %M   "标签页上显示序号
 	endif
 	" 设置显示字体和大小
-	set guifont=Monaco:h14
-	" colorscheme molokai
-	colorscheme jellybeans
+	" set guifont=Monaco:h14
+	colorscheme molokai
+	" colorscheme jellybeans
 	" }}}
 	" 设置语言编码 {{{
 	" 解决console输出乱码
