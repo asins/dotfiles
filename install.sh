@@ -76,7 +76,7 @@ if [ $(uname -s) = 'Darwin' ]; then
   # 安装fish的包管理工具
   curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
   # fisher的插件需要自己执行添加
-  # fisher add jethrokuan/z
-  # fisher add rafaelrinaldi/pure
+  fisher add jethrokuan/z
+  fisher add rafaelrinaldi/pure
 
 fi
