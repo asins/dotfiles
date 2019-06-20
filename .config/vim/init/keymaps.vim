@@ -2,7 +2,6 @@
 "
 " Last Modified: 2018/05/30 17:59:31
 "======================================================================
-" vim: fdm=marker:fmr=,
 
 " 保存/复制/剪切/粘贴 <Ctrl+{c,s,x}>
 noremap <c-s> :update<CR>
@@ -324,7 +323,4 @@ nnoremap <silent> <Space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
 
 " 在VimScript中光标处关键词文档 <F1>
 autocmd Filetype vim noremap <buffer> <F1> <Esc>:help <C-r><C-w><CR>
-"
-
-
 

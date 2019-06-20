@@ -178,7 +178,7 @@ if has('folding')
   set foldenable
 
   " 代码折叠默认使用缩进
-  set fdm=indent
+  set fdm=manual
 
   " 默认打开所有缩进
   set foldlevel=99
