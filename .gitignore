@@ -9,3 +9,4 @@ bak
 .config/fish/functions/_*.fish
 .config/fish/functions/__*.fish
 .config/fish/functions/fish_*.fish
+.config/fish/functions/fisher.fish
