@@ -450,10 +450,11 @@ let g:Lf_NormalMap = {
       \ "Function": [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
       \ }
 " }}}
+
 " 自动实例配对符号 delimitMate {{{
-Plug 'Raimondi/delimitMate'
-let delimitMate_expand_cr = 2
-let delimitMate_expand_space = 1 " {|} => { | }
+" Plug 'Raimondi/delimitMate'
+" let delimitMate_expand_cr = 2
+" let delimitMate_expand_space = 1 " {|} => { | }
 " }}}
 
 " 中文排版自动规范化 {{{

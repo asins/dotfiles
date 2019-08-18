@@ -32,7 +32,7 @@
 	subpl = submodule foreach git pull origin master
 
 [user]
-	email = wkli@alibaba-inc.com
+	email = asinsimple@gmail.com
 	name = asins
 [push]
 	default = simple
