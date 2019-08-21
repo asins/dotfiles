@@ -1,6 +1,8 @@
 # - https://github.com/asins/dotfiles
 # - asinsimple@gmail.com
 
+export PATH=/usr/local/bin:$PATH
+
 ext() {
   local name=$(basename $(pwd))
   cd ..

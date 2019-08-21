@@ -314,7 +314,8 @@ Plug 'benjifisher/matchit.zip', { 'for': ['html', 'xml'] }
 " ]%       定位块尾
 " }}}
 " [ ] 键的功能大全 {{{
-Plug 'tpope/vim-unimpaired'
+Plug 'asins/vim-unimpaired'
+let g:unimpaired_disabled_pasting_enhancement = 1
 " N: 移动光标所在行
 nmap <s-up> <Plug>unimpairedMoveUp
 nmap <s-down> <Plug>unimpairedMoveDown

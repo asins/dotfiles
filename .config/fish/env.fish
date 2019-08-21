@@ -1,10 +1,10 @@
 # 此文件仅在登录shell时执行（负责设置初始环境）。
+set -gx PATH /usr/local/sbin $PATH
+set -gx PATH /usr/local/bin $PATH
 set -gx PATH /bin
 set -gx PATH /sbin $PATH
 set -gx PATH /usr/bin $PATH
 set -gx PATH /usr/sbin $PATH
-set -gx PATH /usr/local/sbin $PATH
-set -gx PATH /usr/local/bin $PATH
 set -gx PATH ~/.bin $PATH
 set -gx PATH /usr/local/opt/tomcat@7/bin $PATH
 
@@ -19,3 +19,4 @@ set -gx PATH $PATH $TOMCAT_HOME/bin
 set -gx PATH $PATH $M2_HOME/bin
 
 set -g fish_user_paths "/usr/local/opt/curl/bin" $fish_user_paths
+set -g fish_user_paths "/usr/local/opt/ruby/bin" $fish_user_paths
