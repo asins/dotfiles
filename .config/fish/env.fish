@@ -6,7 +6,6 @@ set -gx PATH /usr/sbin $PATH
 set -gx PATH ~/.bin $PATH
 set -gx PATH /usr/local/sbin $PATH
 set -gx PATH /usr/local/bin $PATH
-set -gx PATH /usr/local/opt/tomcat@7/bin $PATH
 
 # brew源改为阿里云
 # set -x HOMEBREW_BOTTLE_DOMAIN https://mirrors.aliyun.com/homebrew/homebrew-bottles
