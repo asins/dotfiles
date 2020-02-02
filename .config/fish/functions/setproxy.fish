@@ -9,8 +9,8 @@ function setproxy --description "设置代理 支持 http https git命令代理"
 
   brew services restart polipo
 
-  # set ssrUri '127.0.0.1:1080'
-  set ssrUri '127.0.0.1:13659'
+  set ssrUri '127.0.0.1:1080'
+  # set ssrUri '127.0.0.1:13659'
   set httpUri '127.0.0.1:8123'
 
   set -Ux http_proxy http://$httpUri
