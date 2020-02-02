@@ -9,14 +9,18 @@ function setproxy --description "设置代理 支持 http https git命令代理"
 
   brew services restart polipo
 
-  set -Ux http_proxy http://127.0.0.1:8123
-  set -Ux https_proxy http://127.0.0.1:8123
+  # set ssrUri '127.0.0.1:1080'
+  set ssrUri '127.0.0.1:13659'
+  set httpUri '127.0.0.1:8123'
+
+  set -Ux http_proxy http://$httpUri
+  set -Ux https_proxy http://$httpUri
 
   # git
-  git config http.proxy 'socks5://127.0.0.1:1080'
-  git config https.proxy 'socks5://127.0.0.1:1080'
+  git config http.proxy socks5://$ssrUri
+  git config https.proxy socks5://$ssrUri
 
   # npm
-  npm config set proxy http://127.0.0.1:8123
-  npm config set https-proxy http://127.0.0.1:8123
+  npm config set proxy http://$httpUri
+  npm config set https-proxy http://$httpUri
 end

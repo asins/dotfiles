@@ -19,3 +19,8 @@ set -gx PATH $PATH $M2_HOME/bin
 
 set -g fish_user_paths "/usr/local/opt/curl/bin" $fish_user_paths
 set -g fish_user_paths "/usr/local/opt/ruby/bin" $fish_user_paths
+
+# Android开发: adb命令
+set -gx ANDROID_HOME "~/Library/Android/sdk"
+set -gx PATH $PATH $ANDROID_HOME/tools
+set -gx PATH $PATH $ANDROID_HOME/platform-tools
