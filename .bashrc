@@ -3,39 +3,6 @@
 
 export PATH=/usr/local/bin:$PATH
 
-ext() {
-  local name=$(basename $(pwd))
-  cd ..
-  tar -cvzf "$name.tgz" --exclude .git --exclude target --exclude "*.log" "$name"
-  cd -
-  mv ../"$name".tgz .
-}
-
-
-
-gitzip() {
-  git archive -o $(basename $PWD).zip HEAD
-}
-
-gittgz() {
-  git archive -o $(basename $PWD).tgz HEAD
-}
-
-gitdiffb() {
-  if [ $# -ne 2 ]; then
-    echo two branch names required
-    return
-  fi
-  git log --graph \
-  --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
-  --abbrev-commit --date=relative $1..$2
-}
-
-make-patch() {
-  local name="$(git log --oneline HEAD^.. | awk '{print $2}')"
-  git format-patch HEAD^.. --stdout > "$name.patch"
-}
-
 # 目录操作
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -57,14 +24,70 @@ alias k5='kill -9 %%'
 alias g='git'
 alias c=clear
 
-# maven构建
-alias mvn-app='mvn clean eclipse:eclipse install -DskipTests'
-
 # Nodejs & Npm
-alias tnpm='npm --registry=http://registry.npm.alibaba-inc.com'
 alias cnpm='npm --registry=https://registry.npm.taobao.org'
 
-# 添加代理
-alias setproxy='export http_proxy=socks5://127.0.0.1:1080; export https_proxy=socks5://127.0.0.1:1080'
-alias unproxy='export http_proxy=; export https_proxy='
+# 设置代理
+function setproxy {
+  HTTP_PROXY='http://127.0.0.1:8118'
+  SOCK_PROXY='socks5://127.0.0.1:1080'
+
+  if which privoxy 2>/dev/null; then
+    if which brew 2>/dev/null; then
+      brew services start privoxy
+    else if which systemctl 2>/dev/null; then
+      sudo systemctl start privoxy
+    fi
+  fi
+
+  # export SOCKS_PROXY=$SOCK_PROXY
+  export HTTP_PROXY=$HTTP_PROXY
+  export HTTPS_PROXY=$HTTP_PROXY
+  export FTP_PROXY=$HTTP_PROXY
+  export NO_PROXY="localhost,127.0.0.1"
+
+
+  # git
+  git config --global http.proxy $SOCK_PROXY
+  git config --global https.proxy $SOCK_PROXY
+
+  # npm
+  npm config set proxy $HTTP_PROXY
+  npm config set https-proxy $HTTP_PROXY
+
+  echo "已设置代理"
+}
+
+
+# 取消代理设置
+function unproxy {
+  HTTP_PROXY=''
+  SOCK_PROXY=''
+
+  if which privoxy 2>/dev/null; then
+    if which brew 2>/dev/null; then
+      brew services stop privoxy
+    else if which systemctl 2>/dev/null; then
+      sudo systemctl stop privoxy
+    fi
+  fi
+
+  export HTTP_proxy=$HTTP_PROXY
+  export HTTPS_PROXY=$HTTP_PROXY
+  export FTP_PROXY=$HTTP_PROXY
+  export NO_PROXY="localhost,127.0.0.1"
+
+  # export SOCKS_PROXY=$SOCK_PROXY
+
+
+  # git
+  git config --global --unset http.proxy
+  git config --global --unset https.proxy
+
+  # npm
+  npm config delete proxy
+  npm config delete https-proxy
+
+  echo "已取消代理设置"
+}
 

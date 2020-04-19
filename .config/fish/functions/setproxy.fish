@@ -1,26 +1,28 @@
 function setproxy --description "设置代理 支持 http https git命令代理"
 
-# 安装polipo 在文件中添加设置`socksParentProxy`，变成如下样子：
-# file: /usr/local/Cellar/polipo/1.1.1/homebrew.mxcl.polipo.plist
-# <array>
-#   <string>/usr/local/opt/polipo/bin/polipo</string>
-#   <string>socksParentProxy=localhost:1080</string>
-# </array>
+  # 使用privoxy来将http/https的请求转发给socks5协议:
+  # vim /usr/local/etc/privoxy/config
+  # 设置 privoxy 监听任意 ip 的 8118 端口
+  # listen-address 0.0.0.0:8118
+  # 设置转发到本地的 socks5 代理客户端端口
+  # forward-socks5t / 127.0.0.1:1080 .
 
-  brew services restart polipo
+  # 使用v2pay时可不启用privoxy
+  brew services restart privoxy
 
-  set ssrUri '127.0.0.1:1080'
-  # set ssrUri '127.0.0.1:13659'
-  set httpUri '127.0.0.1:8123'
+  set ssrUri 'socks5://127.0.0.1:1080'
+  set httpUri 'http://127.0.0.1:8118'
 
-  set -Ux http_proxy http://$httpUri
-  set -Ux https_proxy http://$httpUri
+  set -Ux no_proxy localhost,127.0.0.1
+  set -Ux all_proxy $httpUri
+  set -Ux http_proxy $httpUri
+  set -Ux https_proxy $httpUri
 
   # git
-  git config http.proxy socks5://$ssrUri
-  git config https.proxy socks5://$ssrUri
+  git config --global http.proxy $ssrUri
+  git config --global https.proxy $ssrUri
 
   # npm
-  npm config set proxy http://$httpUri
-  npm config set https-proxy http://$httpUri
+  npm config set proxy $httpUri
+  npm config set https-proxy $httpUri
 end
