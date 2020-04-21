@@ -8,7 +8,7 @@ function setproxy --description "设置代理 支持 http https git命令代理"
   # forward-socks5t / 127.0.0.1:1080 .
 
   # 使用v2pay时可不启用privoxy
-  brew services restart privoxy
+  # brew services restart privoxy
 
   set ssrUri 'socks5://127.0.0.1:1080'
   set httpUri 'http://127.0.0.1:8118'

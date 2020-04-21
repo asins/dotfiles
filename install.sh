@@ -24,6 +24,7 @@ declare -A map=(
 
   #Nginx配置
   ["nginx/nginx.conf"]="/usr/local/etc/nginx/nginx.conf"
+  ["nginx/conf.d"]="/usr/local/etc/nginx/conf.d"
 
   #SSH
   [".ssh/config"]="~/.ssh/config"
