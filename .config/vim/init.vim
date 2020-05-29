@@ -697,7 +697,7 @@ map! <F2> <Esc>:NERDTreeToggle<CR>
 
 " 语法提示 {{{
 Plug 'vim-scripts/L9'
-Plug 'othree/vim-autocomplpop'
+" Plug 'othree/vim-autocomplpop'
 " }}}
 " ripgrep rg 文件查找
 Plug 'jremmen/vim-ripgrep'
