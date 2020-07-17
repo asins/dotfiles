@@ -30502,9 +30502,9 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>250 197 796 486 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>321 333 1004 535 0 0 1440 877 </string>
+	<string>71 90 1214 767 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>450 509 570 351 0 0 1440 877 </string>
+	<string>634 500 570 351 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>197 47 570 329 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_DA1A0B02-F738-49A7-B867-B97D3D613AD4</key>
@@ -31099,7 +31099,7 @@
 			<key>Minimum Contrast</key>
 			<real>0.0</real>
 			<key>Mouse Reporting</key>
-			<true/>
+			<false/>
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
@@ -31485,6 +31485,8 @@
 	<array>
 		<string>3.3.6</string>
 		<string>3.3.8</string>
+		<string>3.3.10</string>
+		<string>3.3.11</string>
 		<string>3.3.5</string>
 		<string>3.3.7</string>
 		<string>3.3.9</string>
@@ -31504,7 +31506,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>A883D039-0AE8-4B4E-B6FC-2FED85EDC153</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>39</integer>
+	<integer>53</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -32277,7 +32279,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-03-23T09:07:17Z</date>
+	<date>2020-05-23T14:54:15Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -32353,7 +32355,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.3.9</string>
+	<string>3.3.11</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

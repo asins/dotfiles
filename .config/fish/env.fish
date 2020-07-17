@@ -21,6 +21,10 @@ set -gx PATH $PATH $M2_HOME/bin
 set -g fish_user_paths "/usr/local/opt/curl/bin" $fish_user_paths
 set -g fish_user_paths "/usr/local/opt/ruby/bin" $fish_user_paths
 
+# Rust
+set -gx PATH $PATH $HOME/.cargo/bin
+# set -gx RUST_SRC_PATH "/usr/local/opt/rust"
+
 # openssl
 set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" $fish_user_paths
 set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
