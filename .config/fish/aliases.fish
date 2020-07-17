@@ -3,9 +3,6 @@ alias vim 'mvim -v'
 
 alias ... 'cd ../../'
 
-alias g 'git'
-alias c clear
-
 # maven构建
 alias mvn-app 'mvn clean eclipse:eclipse install -DskipTests'
 

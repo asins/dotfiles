@@ -853,7 +853,7 @@ Plug 'posva/vim-vue'
 Plug 'othree/html5.vim', { 'for': ['html'] }
 Plug 'othree/html5-syntax.vim', { 'for': ['html'] }
 " Nginx语法
-"Plug 'evanmiller/nginx-vim-syntax', { 'for': [ 'nginx' ] }
+Plug 'chr4/nginx.vim', { 'for': [ 'nginx' ] }
 " Markdown 语法
 Plug 'tpope/vim-markdown', { 'for': [ 'markdown' ] }
 " fish shell 语法
