@@ -18,7 +18,7 @@ alias md 'mkdir -p'
 # alias unproxy 'set -Ue http_proxy; and set -Ue https_proxy'
 
 # VSCode
-alias vsc '/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
+# alias vsc '/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 
 # md文件打开
 alias typora="open -a typora"
