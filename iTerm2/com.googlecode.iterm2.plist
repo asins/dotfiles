@@ -30502,7 +30502,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>250 197 796 486 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>71 90 1214 767 0 0 1440 877 </string>
+	<string>260 105 1172 767 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>634 500 570 351 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -31487,6 +31487,7 @@
 		<string>3.3.8</string>
 		<string>3.3.10</string>
 		<string>3.3.11</string>
+		<string>3.3.12</string>
 		<string>3.3.5</string>
 		<string>3.3.7</string>
 		<string>3.3.9</string>
@@ -31506,7 +31507,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>A883D039-0AE8-4B4E-B6FC-2FED85EDC153</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>53</integer>
+	<integer>58</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -32279,7 +32280,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-05-23T14:54:15Z</date>
+	<date>2020-09-04T01:58:29Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -32291,7 +32292,7 @@
 	<key>ShowBookmarkName</key>
 	<true/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>ShowNewOutputIndicator</key>
 	<true/>
 	<key>ShowPaneTitles</key>
@@ -32355,7 +32356,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.3.11</string>
+	<string>3.3.12</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
