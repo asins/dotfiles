@@ -56,8 +56,6 @@ for origin in ${!map[@]}; do
   ln -sfv $BASE_PATH/$origin $target
 done
 
-
-
 # scripts
 #mkdir -p ~/.bin
 #for bin in $BASE/.bin/*; do
