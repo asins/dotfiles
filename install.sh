@@ -48,9 +48,9 @@ mkdir -pv $BASE_PATH/bak
 for origin in ${!map[@]}; do
   target=${map[$origin]}
   mkdir -pv $(dirname $target)
-  if [ -L $target ]; then # 真实文件存在
+  if [ -f $target ]; then # 真实文件存在
     mv -v $target $BASE_PATH/bak/$(basename $target)
-  elif [ -e $target ]; then # 存在的是软链接
+  elif [ -L $target ]; then # 存在的是软链接
     rm ~/$rc
   fi
   ln -sfv $BASE_PATH/$origin $target
