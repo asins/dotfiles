@@ -813,11 +813,11 @@ nmap <s-down> <Plug>unimpairedMoveDown
 " V: 移动选中的行
 xmap <s-up> <Plug>unimpairedMoveSelectionUp
 xmap <s-down> <Plug>unimpairedMoveSelectionDown
-
 " ]ow [ow wrap/nowrap切换，文本是否自动换行
 " ]p [p  在行前/后粘贴
 " [on ]on 开/关行号
 " [or ]or 开/关相对行号
+" [b, ]b 来切换缓存
 " yo yO 在行前/后进入插入模式（无视缩进、注释继承）与O键不同
 " }}}
 " clever-f {{{
