@@ -36,12 +36,19 @@ set -gx PATH $PATH $ANDROID_HOME/tools
 set -gx PATH $PATH $ANDROID_HOME/platform-tools
 
 # Flutter镜像
-set -gx FLUTTER_STORAGE_BASE_URL 'https://storage.flutter-io.cn'
-set -gx PUB_HOSTED_URL 'https://pub.flutter-io.cn'
-set -gx PATH $PATH ~/Development/flutter/bin
+set -gx FLUTTER_HOME $HOME/work/ali-lutter
+set -gx FLUTTER_STORAGE_BASE_URL "https://storage.flutter-io.cn"
+set -gx PUB_HOSTED_URL "https://pub.flutter-io.cn"
+# set -gx PUB_HOSTED_URL "https://pub.alibaba-inc.com"
+# set -gx FLUTTER_STORAGE_BASE_URL "https://storage.flutter-io.cn"
+set -gx FLUTTER_STORAGE_BASE_URL "http://flutter-storage.alibaba-inc.com/taobao"
+set -gx HOMEBREW_BOTTLE_DOMAIN "https://mirrors.ustc.edu.cn/homebrew-bottles"
+
+set -gx PATH $PATH $FLUTTER_HOME/bin
 
 # emscripten
 # set -gx EMSDK $HOME/Work/emsdk
 # set -gx PATH $PATH $EMSDK
 # set -gx EM_CONFIG $REMSDK/.emscripten
+
 
