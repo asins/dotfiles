@@ -36,12 +36,14 @@ declare -A map=(
   # zsh
   #ln -sfv $BASE/.config/zsh/.zshrc ~/.zshrc
 
+  # vscode 键盘映射
+  ["vscode/keybindings.json"]="~/Library/Application\ Support/Code/User/keybindings.json"
+
   #fish 配置
   [".config/fish/aliases.fish"]="~/.config/fish/aliases.fish"
   [".config/fish/config.fish"]="~/.config/fish/config.fish"
   [".config/fish/env.fish"]="~/.config/fish/env.fish"
   [".config/fish/functions"]="~/.config/fish/functions"
-
 )
 
 mkdir -pv $BASE_PATH/bak
@@ -70,3 +72,4 @@ if [ -L $target ]; then # 真实文件存在
   mv -v $target $BASE_PATH/bak/$(basename $target)
 fi
 cp $BASE_PATH/.ssh/config $target
+
