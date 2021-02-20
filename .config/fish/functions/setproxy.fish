@@ -11,7 +11,7 @@ function setproxy --description "设置代理 支持 http https git命令代理"
   # brew services restart privoxy
 
   set ssrUri 'socks5://127.0.0.1:1080'
-  set httpUri 'http://127.0.0.1:8118'
+  set httpUri 'http://127.0.0.1:1080'
 
   set -Ux no_proxy localhost,127.0.0.1
   set -Ux all_proxy $httpUri
