@@ -9,7 +9,8 @@ set -gx PATH /usr/local/bin $PATH
 set -gx PATH ~/.deno/bin $PATH
 
 # brew源改为阿里云
-# set -x HOMEBREW_BOTTLE_DOMAIN https://mirrors.aliyun.com/homebrew/homebrew-bottles
+set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.aliyun.com/homebrew/homebrew-bottles/
+#set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # java运行环境变量
 #set -gx JAVA_HOME (/usr/libexec/java_home -F)
@@ -44,7 +45,6 @@ set -gx PUB_HOSTED_URL "https://pub.flutter-io.cn"
 # set -gx PUB_HOSTED_URL "https://pub.alibaba-inc.com"
 # set -gx FLUTTER_STORAGE_BASE_URL "https://storage.flutter-io.cn"
 set -gx FLUTTER_STORAGE_BASE_URL "http://flutter-storage.alibaba-inc.com/taobao"
-set -gx HOMEBREW_BOTTLE_DOMAIN "https://mirrors.ustc.edu.cn/homebrew-bottles"
 
 set -gx PATH $PATH $FLUTTER_HOME/bin
 
