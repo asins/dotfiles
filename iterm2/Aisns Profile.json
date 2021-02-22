@@ -35,7 +35,7 @@
     "Green Component" : 0.84313726425170898
   },
   "Show Mark Indicators" : true,
-  "Mouse Reporting" : true,
+  "Mouse Reporting" : false,
   "Cursor Boost" : 0,
   "Ansi 4 Color" : {
     "Red Component" : 0.41142612650969568,
@@ -407,7 +407,7 @@
   },
   "Columns" : 80,
   "Visual Bell" : true,
-  "Custom Directory" : "No",
+  "Custom Directory" : "Recycle",
   "Ansi 5 Color" : {
     "Red Component" : 0.752197265625,
     "Color Space" : "sRGB",
