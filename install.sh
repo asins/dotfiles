@@ -11,7 +11,16 @@ realpath() {
 cd $(dirname $BASH_SOURCE)
 BASE_PATH=$(pwd)
 
-pathArray=(
+#nginx log目录
+sudo mkdir -pv "/var/log/nginx"
+
+# 待复制的文件或目录
+copyPathArray=(
+  #.ssh/config文件中有隐私内容所以就不做链接了以免不小心上传到github上，公司安全部的茶不好喝
+  ".ssh/config: ~/.ssh/config"
+)
+
+lnPathArray=(
   "test.txt: ~/test.txt"
 
   # 默认的Bash
@@ -31,6 +40,7 @@ pathArray=(
   #Nginx配置
   "nginx/nginx.conf: /usr/local/etc/nginx/nginx.conf"
   "nginx/conf.d: /usr/local/etc/nginx/conf.d"
+  "create_ssl: /usr/local/etc/nginx/ssl"
 
   # nvim
   #ln -sfv $BASE/.config/nvim ~/.vim
@@ -50,12 +60,12 @@ pathArray=(
 )
 
 function lnFiles() {
-  # mkdir -pv $BASE_PATH/bak
-  for key in ${!pathArray[@]}; do
-    VALUE=${pathArray[$key]}
+  mkdir -pv $BASE_PATH/bak
+  for key in ${!lnPathArray[@]}; do
+    VALUE=${lnPathArray[$key]}
     origin=${VALUE%%: *}
     target=$(realpath "${VALUE#*: }")
-    # echo "${origin} => ${target}"
+    # echo "lnFiles: ${origin} => ${target}"
 
     mkdir -pv $(dirname "${target}")
     if [ -L "${target}" ]; then # 存在的是软链接
@@ -70,15 +80,18 @@ function lnFiles() {
 }
 
 function copyFiles() {
-  # ssh
-  #.ssh/config文件中有隐私内容所以就不做链接了以免不小心上传到github上，公司安全部的茶不好喝
-  #ln -sfv $BASE/.ssh/config ~/.ssh/config
-  target=$(realpath '~/.ssh/config')
-  if [ -L $target ]; then # 真实文件存在
-    mv -v $target $BASE_PATH/bak/$(basename "${target}")
-  fi
-  printf '[\e[0;32mcopy\e[0m] %s -> %s' ${BASE_PATH}/.ssh/config "${target}"
-  cp $BASE_PATH/.ssh/config "${target}"
+  for key in ${!copyPathArray[@]}; do
+    VALUE=${copyPathArray[$key]}
+    origin=${VALUE%%: *}
+    target=$(realpath "${VALUE#*: }")
+    # echo "lnFiles: ${origin} => ${target}"
+
+    if [ -L $target ]; then # 真实文件存在
+      printf '[\e[0;33mln back\e[0m] %s\n' "$(mv -v "${target}" $BASE_PATH/bak/$(basename "${target}"))"
+    fi
+    printf '[\e[0;32mcopy\e[0m] '
+    cp -rv "${BASE_PATH}/${origin}" "${target}"
+  done
 }
 
 # 开始执行脚本
