@@ -21,7 +21,6 @@ copyPathArray=(
 )
 
 lnPathArray=(
-  "test.txt: ~/test.txt"
 
   # 默认的Bash
   ".bash_profile: ~/.bash_profile"
