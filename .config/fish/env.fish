@@ -9,8 +9,8 @@ set -gx PATH /usr/local/bin $PATH
 set -gx PATH ~/.deno/bin $PATH
 
 # brew源改为阿里云
-set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.aliyun.com/homebrew/homebrew-bottles/
-#set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
+# set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.aliyun.com/homebrew/homebrew-bottles
+set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # java运行环境变量
 #set -gx JAVA_HOME (/usr/libexec/java_home -F)
