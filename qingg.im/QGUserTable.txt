@@ -1,4 +1,3 @@
-addr 上海市嘉定区德园路1259弄10号602
 ajth 划算
 baud 陈翔
 bbnf 子层
@@ -24,7 +23,7 @@ junw 时间戳
 lfii 墨水
 lfyq 转义
 lrdh 暂存
-mail asinsimple@gmail.com wkli@alibaba-inc.com
+mail asinsimple@gmail.com
 mqrp 风控
 mtpn 账密
 nhut 蛋疼
@@ -43,7 +42,6 @@ rysr 搓衣板
 sair 树莓派
 sgut 酸疼
 time {time}
-tmlt 微力
 toff 翻墙
 uhqh 站外
 ujoj 音爆
@@ -55,4 +53,4 @@ xuaj 弹幕
 xupw 弹窗
 ygiw 语雀
 yjsy 充电桩
-yudu 高端大气上档次
+zzem 常用Emoji 😂 🐶 👍 ❤️ 🙏
