@@ -30,7 +30,7 @@ lnPathArray=(
   ".gitconfig: ~/.gitconfig"
 
   # 清歌输入法字库
-  ".config/qingg.im: ~/.config/qingg.im"
+  "qingg.im: ~/.config/qingg.im"
 
   # Vim
   ".config/vim/init.vim: ~/.vimrc"
