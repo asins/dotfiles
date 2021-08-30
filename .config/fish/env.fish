@@ -13,12 +13,12 @@ set -gx PATH ~/.deno/bin $PATH
 set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # java运行环境变量
-#set -gx JAVA_HOME (/usr/libexec/java_home -F)
-#set -gx M2_HOME "/usr/local/opt/maven/libexec"
-# set -gx TOMCAT_HOME "/usr/local/opt/tomcat@7/libexec"
+set -gx JAVA_HOME (/usr/libexec/java_home -F)
+set -gx M2_HOME "/usr/local/opt/maven/libexec"
 set -g fish_user_paths "/usr/local/opt/openjdk/bin" $fish_user_paths
 set -gx CPPFLAGS "-I/usr/local/opt/openjdk/include"
-set -gx PATH $PATH $TOMCAT_HOME/bin
+# set -gx TOMCAT_HOME "/usr/local/opt/tomcat@7/libexec"
+# set -gx PATH $PATH $TOMCAT_HOME/bin
 #set -gx PATH $PATH $M2_HOME/bin
 
 set -g fish_user_paths "/usr/local/opt/ruby/bin" $fish_user_paths

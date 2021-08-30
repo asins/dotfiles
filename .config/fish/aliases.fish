@@ -8,6 +8,7 @@ alias mvn-app 'mvn clean eclipse:eclipse install -DskipTests'
 
 # Nodejs & Npm
 # alias tnpm 'npm --registry=http://registry.npm.alibaba-inc.com'
+alias tpm 'pnpm --registry=https://registry.npm.alibaba-inc.com'
 alias cnpm 'npm --registry=https://registry.npm.taobao.org'
 
 # 创建目录
@@ -21,4 +22,8 @@ alias md 'mkdir -p'
 # alias vsc '/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 
 # md文件打开
-alias typora="open -a typora"
+alias typora 'open -a typora'
+
+# git快捷键
+#alias g 'git'
+
