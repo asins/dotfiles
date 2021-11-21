@@ -25,6 +25,7 @@ lnPathArray=(
   # 默认的Bash
   ".bash_profile: ~/.bash_profile"
   ".bashrc: ~/.bashrc"
+  "bin: ~/.bin"
 
   # Git
   ".gitconfig: ~/.gitconfig"

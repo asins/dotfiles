@@ -53,4 +53,6 @@ set -gx PATH $PATH $FLUTTER_HOME/bin
 # set -gx PATH $PATH $EMSDK
 # set -gx EM_CONFIG $REMSDK/.emscripten
 
-
+# node的包管理器: pnpm
+set -gx PNPM_HOME "/Users/asins/Library/pnpm"
+set -gx PATH "$PNPM_HOME" $PATH

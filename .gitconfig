@@ -32,8 +32,8 @@
 	subpl = submodule foreach git pull origin master
 
 [user]
-	email = asinsimple@alibaba-inc.com
-	name = asins
+	email = wkli@alibaba-inc.com
+	name = wkli
 [push]
 	default = simple
 [core]
@@ -48,7 +48,9 @@
 	trustExitCode = true
 [commit]
 	template = /Users/asins/.stCommitMsg
+[include]
+	path = /Users/asins/.git-repo/gitconfig
 [http]
-	proxy = socks5://127.0.0.1:1080
+	proxy = socks://127.0.0.1:1080
 [https]
-	proxy = socks5://127.0.0.1:1080
+	proxy = socks://127.0.0.1:1080

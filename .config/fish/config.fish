@@ -11,3 +11,7 @@ set -x FZF_DEFAULT_OPTS '--color fg:188,bg:233,hl:103,fg+:222,bg+:234,hl+:104
 if status --is-login
 	source ~/.config/fish/env.fish
 end
+
+
+set -gx PNPM_HOME "/Users/asins/Library/pnpm"
+set -gx PATH "$PNPM_HOME" $PATH
