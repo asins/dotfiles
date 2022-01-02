@@ -50,7 +50,3 @@
 	template = /Users/asins/.stCommitMsg
 [include]
 	path = /Users/asins/.git-repo/gitconfig
-[http]
-	proxy = socks://127.0.0.1:1080
-[https]
-	proxy = socks://127.0.0.1:1080

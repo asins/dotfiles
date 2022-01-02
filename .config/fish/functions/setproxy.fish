@@ -10,8 +10,8 @@ function setproxy --description "设置代理 支持 http https git命令代理"
   # 使用v2pay时可不启用privoxy
   # brew services restart privoxy
 
-  set ssrUri socks://127.0.0.1:1080
-  set ssr5Uri socks5://127.0.0.1:1080
+  set socksUri socks://127.0.0.1:1080
+  set socks5Uri socks5://127.0.0.1:1080
   set httpUri http://127.0.0.1:1080
 
   set -Ux no_proxy localhost,127.0.0.1
@@ -20,8 +20,9 @@ function setproxy --description "设置代理 支持 http https git命令代理"
   set -Ux https_proxy $httpUri
 
   # git
-  git config --global http.proxy $ssrUri
-  git config --global https.proxy $ssrUri
+  git config --global socks.proxy $socksUri
+  git config --global https.proxy $httpUri
+  git config --global http.proxy $httpUri
 
   # npm
   npm config set proxy $httpUri
