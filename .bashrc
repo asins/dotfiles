@@ -78,3 +78,4 @@ function unproxy () {
   echo "已取消代理设置"
 }
 
+. "$HOME/.cargo/env"
