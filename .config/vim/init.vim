@@ -1,14 +1,14 @@
 " Author: Asins - asinsimple AT gmail DOT com
 "         Get latest vimrc from http://nootn.com/
-" Last Modified: 2018-05-25 00:13 (+0800)
+" Last Modified: 2022-03-02 12:18 (+0800)
 "======================================================================
 " vim:fdm=marker:fmr={{{,}}}
 
 " 防止重复加载 {{{
 if get(s:, 'loaded', 0) != 0
-	finish
+  finish
 else
-	let s:loaded = 1
+  let s:loaded = 1
 endif
 " }}}
 
@@ -23,14 +23,14 @@ let $VIMFILES = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 
 " 保证该目录存在，若不存在则新建目录
 function! s:EnsureExists(path)
-	if !isdirectory(expand(a:path))
-		call mkdir(expand(a:path), 'p', 0755)
-	endif
+  if !isdirectory(expand(a:path))
+    call mkdir(expand(a:path), 'p', 0755)
+  endif
 endfunction
 
 " 获取缓存目录并确保存在
 function! g:GetCacheDir(suffix)
-	let l:dir = resolve(expand($VIMFILES . '/cache/' . a:suffix))
+  let l:dir = resolve(expand($VIMFILES . '/cache/' . a:suffix))
   call s:EnsureExists(l:dir)
   return l:dir
 endfunction
@@ -251,28 +251,15 @@ set wildignore+=*/node_modules/** " Ignore Node.js modules
 "============================
 " 加载扩展配置
 "============================
-" 有 tmux 何没有的功能键超时（毫秒）{{{
-if $TMUX != ''
-  set ttimeoutlen=30
-elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
+" 没有的功能键超时（毫秒）{{{
+if &ttimeoutlen > 80 || &ttimeoutlen <= 0
   set ttimeoutlen=80
-endif
-" }}}
-
-" 防止tmux下vim的背景色显示异常 {{{
-" Refer: http://sunaku.github.io/vim-256color-bce.html
-
-if &term =~ '256color' && $TMUX != ''
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
 endif
 " }}}
 
 " 终端下允许 ALT {{{
 " ，详见：http://www.skywind.me/blog/archives/2021
-" 记得设置 ttimeout （见 init-basic.vim） 和 ttimeoutlen （上面）
+" 记得设置 ttimeout 和 ttimeoutlen
 
 if has('nvim') == 0 && has('gui_running') == 0
   function! s:metacode(key)
@@ -292,33 +279,6 @@ if has('nvim') == 0 && has('gui_running') == 0
     call s:metacode(c)
   endfor
 endif
-" }}}
-
-" 功能键终端码矫正 {{{
-
-" 终端下功能键设置
-function! s:key_escape(name, code)
-  if has('nvim') == 0 && has('gui_running') == 0
-    exec "set ".a:name."=\e".a:code
-  endif
-endfunc
-
-call s:key_escape('<F1>', 'OP')
-call s:key_escape('<F2>', 'OQ')
-call s:key_escape('<F3>', 'OR')
-call s:key_escape('<F4>', 'OS')
-call s:key_escape('<S-F1>', '[1;2P')
-call s:key_escape('<S-F2>', '[1;2Q')
-call s:key_escape('<S-F3>', '[1;2R')
-call s:key_escape('<S-F4>', '[1;2S')
-call s:key_escape('<S-F5>', '[15;2~')
-call s:key_escape('<S-F6>', '[17;2~')
-call s:key_escape('<S-F7>', '[18;2~')
-call s:key_escape('<S-F8>', '[19;2~')
-call s:key_escape('<S-F9>', '[20;2~')
-call s:key_escape('<S-F10>', '[21;2~')
-call s:key_escape('<S-F11>', '[23;2~')
-call s:key_escape('<S-F12>', '[24;2~')
 " }}}
 
 " 备份设置 {{{
@@ -434,12 +394,12 @@ augroup END
 
 " :Delete 删除当前文件 自定义命令 {{{
 if has('user_commands')
-	command! -nargs=0 Delete
-				\ if delete(expand('%'))
-				\|    echohl WarningMsg
-				\|    echo "删除当前文件失败!"
-				\|    echohl None
-				\|endif
+  command! -nargs=0 Delete
+        \ if delete(expand('%'))
+        \|    echohl WarningMsg
+        \|    echo "删除当前文件失败!"
+        \|    echohl None
+        \|endif
 endif
 " }}}
 
@@ -450,7 +410,7 @@ endif
 "   let l = line(".")
 "   let c = col(".")
 "   " do the business:
-"   %s/\$\|\s\+$//e
+"   %s/\n$\|\s\+$//e
 "   " clean up: restore previous search history, and cursor position
 "   let @/=_s
 "   call cursor(l, c)
@@ -463,30 +423,30 @@ endif
 " npm install less node-scss postcss postcss-cli autoprefixer cssnano -g
 
 function! s:CompileToCss()
-	let current_file = expand('%:p')
-	let suffix = expand('%:e')
-	if(suffix == 'less')
-		let cmd = 'lessc'
-		let args = ''
-	else
-		let cmd = 'node-sass'
-		let args = '--output-style expanded'
-	endif
-	if !executable(cmd)
-		echoerr "Error: Command not found ". a:cmd . ". 'npm install -g ". a:cmd . "' to install command!"
-	endif
+  let current_file = expand('%:p')
+  let suffix = expand('%:e')
+  if(suffix == 'less')
+    let cmd = 'lessc'
+    let args = ''
+  else
+    let cmd = 'node-sass'
+    let args = '--output-style expanded'
+  endif
+  if !executable(cmd)
+    echoerr "Error: Command not found ". a:cmd . ". 'npm install -g ". a:cmd . "' to install command!"
+  endif
 
-	let filename = fnamemodify(current_file, ':r') . ".css"
-	let command = '!'. cmd .' "' . current_file . '" "' . filename .'" '.args
-	" 无提示模式，开发中出错无提示蛋疼
-	" silent execute command
-	execute command
+  let filename = fnamemodify(current_file, ':r') . ".css"
+  let command = '!'. cmd .' "' . current_file . '" "' . filename .'" '.args
+  " 无提示模式，开发中出错无提示蛋疼
+  " silent execute command
+  execute command
 
-	if !executable('postcss')
-		echoerr "Error: Command not found postcss. 'npm install -g postcss postcss-cli autoprefixer cssnano' to install command!"
-	endif
+  if !executable('postcss')
+    echoerr "Error: Command not found postcss. 'npm install -g postcss postcss-cli autoprefixer cssnano' to install command!"
+  endif
 
-	execute '!postcss --use autoprefixer -b "ie >= 8, last 3 versions, > 2\%"  --use cssnano "'. filename .'" --output "'. filename .'"'
+  execute '!postcss --use autoprefixer -b "ie >= 8, last 3 versions, > 2\%"  --use cssnano "'. filename .'" --output "'. filename .'"'
 endfunction
 " }}}
 
@@ -496,12 +456,12 @@ endfunction
 
 
 augroup MyPluginSetup
-	autocmd!
+  autocmd!
 augroup END
 
 " 自动安装 vim-plug {{{
 if empty(glob($VIMFILES.'/autoload/plug.vim'))
-	silent execute('!curl -fLo '. $VIMFILES .'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+  silent execute('!curl -fLo '. $VIMFILES .'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
 endif
 " }}}
 
@@ -519,7 +479,6 @@ Plug 'justinmk/vim-dirvish'
 
 " 自动排序并隐藏文件，同时定位到相关文件
 " 这个排序函数可以将目录排在前面，文件排在后面，并且按照字母顺序排序，比默认的纯按照字母排序更友好点。
-"
 function! s:setup_dirvish()
   if &buftype != 'nofile' && &filetype != 'dirvish'
     return
@@ -696,12 +655,9 @@ map! <F2> <Esc>:NERDTreeToggle<CR>
 
 
 " 语法提示 {{{
-Plug 'vim-scripts/L9'
-" Plug 'othree/vim-autocomplpop'
+Plug 'neoclide/coc.nvim'
 " }}}
-" ripgrep rg 文件查找
-Plug 'jremmen/vim-ripgrep'
-" }}}
+
 " 语法检测 syntastic {{{
 " Plug 'scrooloose/syntastic', { 'for': ['php', 'javascript', 'css', 'less', 'scss'] }
 " let g:syntastic_always_populate_loc_list = 1
@@ -719,6 +675,7 @@ Plug 'jremmen/vim-ripgrep'
 " "关闭syntastic语法检查
 " nnoremap <silent> <Leader>sc :SyntasticToggleMode<CR>
 " }}}
+
 " 快速标记跳转 {{{
 " Plug 'kshenoy/vim-signature'
 "  mx           切换显示标记 'x'，并在啊左侧列中呈现
@@ -750,6 +707,7 @@ Plug 'jremmen/vim-ripgrep'
 "  '.          最后一次变更的地方
 "  ''          跳回来的地方(最近两个位置跳转)
 " }}}
+
 " 给各种 tags 标记不同的颜色 {{{
 Plug 'dimasg/vim-mark'
 " 高亮光标下的单词
@@ -766,36 +724,29 @@ vmap <silent> <Leader>hr <plug>MarkRegex
 " <Leader>* 当前MarkWord的下一个     <Leader># 当前MarkWord的上一个
 " <Leader>/ 所有MarkWords的下一个    <Leader>? 所有MarkWords的上一个
 " }}}
+
 " Quickfix的各种操作 {{{
 Plug 'romainl/vim-qf'
 let g:qf_loclist_window_bottom = 0
 " 显示与否
 nmap <F4> <Plug>(qf_loc_toggle_stay)
 " }}}
-" 快速打开子文件 {{{
-Plug 'asins/OpenRequireFile.vim'
-let g:OpenRequireFile_By_Map = [
-      \ $HOME.'/tudou/static_v3/src/js',
-      \ $HOME.'/tudou/static_v3/src/css',
-      \ $HOME.'/tudou/static_youku/src/js',
-      \ $HOME.'/tudou/static_youku/src/css',
-      \ ]
-" nmap <silent> <Leader>gf :call OpenRequireFile()<cr>
-" }}}
 
 " HTML/CSS快速输入 {{{
 Plug 'mattn/emmet-vim', { 'for': [ 'css', 'html', 'less', 'sass', 'scss', 'xml' ] }
 let g:user_emmet_settings = {
       \   'variables' : {
-      \       'lang' : 'zh-cn',
-      \   },
-      \}
+        \       'lang' : 'zh-cn',
+        \   },
+        \}
 " 常用命令可看：http://nootn.com/blog/Tool/23/
 " <c-y>m  合并多行
 " }}}
+
 " 高亮显示光标处配对的HTML/XML标签 {{{
 Plug 'Valloric/MatchTagAlways', { 'for': [ 'html', 'xml' ] }
 " }}}
+
 " HTML/XML闭合标签间跳转 MatchIt {{{
 Plug 'benjifisher/matchit.zip', { 'for': ['html', 'xml'] }
 " 映射     描述
@@ -804,6 +755,7 @@ Plug 'benjifisher/matchit.zip', { 'for': ['html', 'xml'] }
 " [%       定位块首
 " ]%       定位块尾
 " }}}
+
 " [ ] 键的功能大全 {{{
 Plug 'asins/vim-unimpaired'
 let g:unimpaired_disabled_pasting_enhancement = 1
@@ -820,10 +772,12 @@ xmap <s-down> <Plug>unimpairedMoveSelectionDown
 " [b, ]b 来切换缓存
 " yo yO 在行前/后进入插入模式（无视缩进、注释继承）与O键不同
 " }}}
+
 " clever-f {{{
 Plug 'rhysd/clever-f.vim'
 let g:clever_f_across_no_line = 1
 " }}}
+
 " JS语法、缩进支持 {{{
 " Plug 'mxw/vim-jsx'
 
@@ -836,19 +790,23 @@ Plug 'othree/es.next.syntax.vim', { 'for': [ 'javascript' ] }
 Plug 'othree/yajs.vim', { 'for': [ 'javascript' ] }
 let g:used_javascript_libs = 'jquery,vue'
 " }}}
+
 " TypeScript语法支持 {{{
 Plug 'leafgarland/typescript-vim', { 'for': [ 'typescript' ] }
 " 编译器及参数，执行:make可进行编译
 let g:typescript_compiler_binary = 'tsc'
 let g:typescript_compiler_options = ''
 " }}}
+
 " Vue语法 {{{
 Plug 'posva/vim-vue'
 " }}}
+
 " 打开光标下的链接 <Leader>ur {{{
 " Plug 'tyru/open-browser.vim'
 " nmap <silent> <Leader>ur :OpenBrowser <C-U>call GetPatternAtCursor('\v%(https?|ftp)://[^]''" \t\r\n>*。，\`)]*')
 " }}}
+
 " 语法/高亮支持 {{{
 Plug 'othree/html5.vim', { 'for': ['html'] }
 Plug 'othree/html5-syntax.vim', { 'for': ['html'] }
@@ -860,7 +818,10 @@ Plug 'tpope/vim-markdown', { 'for': [ 'markdown' ] }
 Plug 'dag/vim-fish'
 " Docker 语法
 Plug 'ekalinin/Dockerfile.vim'
+" toml 语法
+Plug 'cespare/vim-toml', { 'branch': 'main' }
 " }}}
+
 " Mru 打开历史文件列表 {{{
 " Plug 'yegappan/mru'
 " let MRU_File = g:GetCacheDir("mru_file")
@@ -993,8 +954,8 @@ nnoremap <silent> <leader>g` :call ReviewLastCommit()<CR>
 " }}}
 
 " 代码美化 {{{
-Plug 'maksimr/vim-jsbeautify', { 'for': [ 'html', 'xml', 'javascript', 'json', 'css', 'less', 'scss'], 'do': 'npm install --registry=http://registry.npm.alibaba-inc.com' }
-let g:editorconfig_Beautifier = resolve(expand($VIMFILES. '/jsbeautify.editorconfig'))
+" Plug 'maksimr/vim-jsbeautify', { 'for': [ 'html', 'xml', 'javascript', 'json', 'css', 'less', 'scss'], 'do': 'npm install --registry=http://registry.npm.alibaba-inc.com' }
+" let g:editorconfig_Beautifier = resolve(expand($VIMFILES. '/jsbeautify.editorconfig'))
 " }}}
 
 " 光标选择功能 <C-{n,p,x}> {{{
@@ -1108,15 +1069,15 @@ hi! clear SpellCap
 hi! clear SpellRare
 hi! clear SpellLocal
 if has('gui_running')
-	hi! SpellBad gui=undercurl guisp=red
-	hi! SpellCap gui=undercurl guisp=blue
-	hi! SpellRare gui=undercurl guisp=magenta
-	hi! SpellRare gui=undercurl guisp=cyan
+  hi! SpellBad gui=undercurl guisp=red
+  hi! SpellCap gui=undercurl guisp=blue
+  hi! SpellRare gui=undercurl guisp=magenta
+  hi! SpellRare gui=undercurl guisp=cyan
 else
-	hi! SpellBad term=standout ctermfg=1 term=underline cterm=underline
-	hi! SpellCap term=underline cterm=underline
-	hi! SpellRare term=underline cterm=underline
-	hi! SpellLocal term=underline cterm=underline
+  hi! SpellBad term=standout ctermfg=1 term=underline cterm=underline
+  hi! SpellCap term=underline cterm=underline
+  hi! SpellRare term=underline cterm=underline
+  hi! SpellLocal term=underline cterm=underline
 endif
 
 " 去掉 sign column 的白色背景
@@ -1124,7 +1085,7 @@ hi! SignColumn guibg=NONE ctermbg=NONE
 
 " 修改行号为浅灰色，默认主题的黄色行号很难看，换主题可以仿照修改
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
-	\ gui=NONE guifg=DarkGrey guibg=NONE
+      \ gui=NONE guifg=DarkGrey guibg=NONE
 
 " 修正补全目录的色彩：默认太难看
 hi! Pmenu guibg=gray guifg=black ctermbg=gray ctermfg=black
@@ -1135,12 +1096,12 @@ hi! PmenuSel guibg=gray guifg=brown ctermbg=brown ctermfg=gray
 " 终端设置，隐藏行号和侧边栏
 "----------------------------------------------------------------------
 if has('terminal') && exists(':terminal') == 2
-	if exists('##TerminalOpen')
-		augroup VimUnixTerminalGroup
-			au!
-			au TerminalOpen * setlocal nonumber signcolumn=no
-		augroup END
-	endif
+  if exists('##TerminalOpen')
+    augroup VimUnixTerminalGroup
+      au!
+      au TerminalOpen * setlocal nonumber signcolumn=no
+    augroup END
+  endif
 endif
 
 
@@ -1148,8 +1109,8 @@ endif
 " quickfix 设置，隐藏行号
 "----------------------------------------------------------------------
 augroup VimInitStyle
-	au!
-	au FileType qf setlocal nonumber
+  au!
+  au FileType qf setlocal nonumber
 augroup END
 
 
@@ -1160,7 +1121,7 @@ augroup END
 " 3: [1] filename.txt
 "----------------------------------------------------------------------
 if has('gui_running')
-	let g:config_vim_tab_style = 3
+  let g:config_vim_tab_style = 3
 endif
 
 
@@ -1168,31 +1129,31 @@ endif
 " 终端下的 tabline
 "----------------------------------------------------------------------
 function! Vim_NeatTabLine()
-	let s = ''
-	for i in range(tabpagenr('$'))
-		" select the highlighting
-		if i + 1 == tabpagenr()
-			let s .= '%#TabLineSel#'
-		else
-			let s .= '%#TabLine#'
-		endif
+  let s = ''
+  for i in range(tabpagenr('$'))
+    " select the highlighting
+    if i + 1 == tabpagenr()
+      let s .= '%#TabLineSel#'
+    else
+      let s .= '%#TabLine#'
+    endif
 
-		" set the tab page number (for mouse clicks)
-		let s .= '%' . (i + 1) . 'T'
+    " set the tab page number (for mouse clicks)
+    let s .= '%' . (i + 1) . 'T'
 
-		" the label is made by MyTabLabel()
-		let s .= ' %{Vim_NeatTabLabel(' . (i + 1) . ')} '
-	endfor
+    " the label is made by MyTabLabel()
+    let s .= ' %{Vim_NeatTabLabel(' . (i + 1) . ')} '
+  endfor
 
-	" after the last tab fill with TabLineFill and reset tab page nr
-	let s .= '%#TabLineFill#%T'
+  " after the last tab fill with TabLineFill and reset tab page nr
+  let s .= '%#TabLineFill#%T'
 
-	" right-align the label to close the current tab page
-	if tabpagenr('$') > 1
-		let s .= '%=%#TabLine#%999XX'
-	endif
+  " right-align the label to close the current tab page
+  if tabpagenr('$') > 1
+    let s .= '%=%#TabLine#%999XX'
+  endif
 
-	return s
+  return s
 endfunc
 
 
@@ -1200,39 +1161,39 @@ endfunc
 " 需要显示到标签上的文件名
 "----------------------------------------------------------------------
 function! Vim_NeatBuffer(bufnr, fullname)
-	let l:name = bufname(a:bufnr)
-	if getbufvar(a:bufnr, '&modifiable')
-		if l:name == ''
-			return '[No Name]'
-		else
-			if a:fullname
-				return fnamemodify(l:name, ':p')
-			else
-				let aname = fnamemodify(l:name, ':p')
-				let sname = fnamemodify(aname, ':t')
-				if sname == ''
-					let test = fnamemodify(aname, ':h:t')
-					if test != ''
-						return '<'. test . '>'
-					endif
-				endif
-				return sname
-			endif
-		endif
-	else
-		let l:buftype = getbufvar(a:bufnr, '&buftype')
-		if l:buftype == 'quickfix'
-			return '[Quickfix]'
-		elseif l:name != ''
-			if a:fullname
-				return '-'.fnamemodify(l:name, ':p')
-			else
-				return '-'.fnamemodify(l:name, ':t')
-			endif
-		else
-		endif
-		return '[No Name]'
-	endif
+  let l:name = bufname(a:bufnr)
+  if getbufvar(a:bufnr, '&modifiable')
+    if l:name == ''
+      return '[No Name]'
+    else
+      if a:fullname
+        return fnamemodify(l:name, ':p')
+      else
+        let aname = fnamemodify(l:name, ':p')
+        let sname = fnamemodify(aname, ':t')
+        if sname == ''
+          let test = fnamemodify(aname, ':h:t')
+          if test != ''
+            return '<'. test . '>'
+          endif
+        endif
+        return sname
+      endif
+    endif
+  else
+    let l:buftype = getbufvar(a:bufnr, '&buftype')
+    if l:buftype == 'quickfix'
+      return '[Quickfix]'
+    elseif l:name != ''
+      if a:fullname
+        return '-'.fnamemodify(l:name, ':p')
+      else
+        return '-'.fnamemodify(l:name, ':t')
+      endif
+    else
+    endif
+    return '[No Name]'
+  endif
 endfunc
 
 
@@ -1240,23 +1201,23 @@ endfunc
 " 标签栏文字，使用 [1] filename 的模式
 "----------------------------------------------------------------------
 function! Vim_NeatTabLabel(n)
-	let l:buflist = tabpagebuflist(a:n)
-	let l:winnr = tabpagewinnr(a:n)
-	let l:bufnr = l:buflist[l:winnr - 1]
-	let l:fname = Vim_NeatBuffer(l:bufnr, 0)
-	let l:num = a:n
-	let style = get(g:, 'config_vim_tab_style', 0)
-	if style == 0
-		return l:fname
-	elseif style == 1
-		return "[".l:num."] ".l:fname
-	elseif style == 2
-		return "".l:num." - ".l:fname
-	endif
-	if getbufvar(l:bufnr, '&modified')
-		return "[".l:num."] ".l:fname." +"
-	endif
-	return "[".l:num."] ".l:fname
+  let l:buflist = tabpagebuflist(a:n)
+  let l:winnr = tabpagewinnr(a:n)
+  let l:bufnr = l:buflist[l:winnr - 1]
+  let l:fname = Vim_NeatBuffer(l:bufnr, 0)
+  let l:num = a:n
+  let style = get(g:, 'config_vim_tab_style', 0)
+  if style == 0
+    return l:fname
+  elseif style == 1
+    return "[".l:num."] ".l:fname
+  elseif style == 2
+    return "".l:num." - ".l:fname
+  endif
+  if getbufvar(l:bufnr, '&modified')
+    return "[".l:num."] ".l:fname." +"
+  endif
+  return "[".l:num."] ".l:fname
 endfunc
 
 
@@ -1264,23 +1225,23 @@ endfunc
 " GUI 下的标签文字，使用 [1] filename 的模式
 "----------------------------------------------------------------------
 function! Vim_NeatGuiTabLabel()
-	let l:num = v:lnum
-	let l:buflist = tabpagebuflist(l:num)
-	let l:winnr = tabpagewinnr(l:num)
-	let l:bufnr = l:buflist[l:winnr - 1]
-	let l:fname = Vim_NeatBuffer(l:bufnr, 0)
-	let style = get(g:, 'config_vim_tab_style', 0)
-	if style == 0
-		return l:fname
-	elseif style == 1
-		return "[".l:num."] ".l:fname
-	elseif style == 2
-		return "".l:num." - ".l:fname
-	endif
-	if getbufvar(l:bufnr, '&modified')
-		return "[".l:num."] ".l:fname." +"
-	endif
-	return "[".l:num."] ".l:fname
+  let l:num = v:lnum
+  let l:buflist = tabpagebuflist(l:num)
+  let l:winnr = tabpagewinnr(l:num)
+  let l:bufnr = l:buflist[l:winnr - 1]
+  let l:fname = Vim_NeatBuffer(l:bufnr, 0)
+  let style = get(g:, 'config_vim_tab_style', 0)
+  if style == 0
+    return l:fname
+  elseif style == 1
+    return "[".l:num."] ".l:fname
+  elseif style == 2
+    return "".l:num." - ".l:fname
+  endif
+  if getbufvar(l:bufnr, '&modified')
+    return "[".l:num."] ".l:fname." +"
+  endif
+  return "[".l:num."] ".l:fname
 endfunc
 
 
@@ -1289,25 +1250,25 @@ endfunc
 " 设置 GUI 标签的 tips: 显示当前标签有哪些窗口
 "----------------------------------------------------------------------
 function! Vim_NeatGuiTabTip()
-	let tip = ''
-	let bufnrlist = tabpagebuflist(v:lnum)
-	for bufnr in bufnrlist
-		" separate buffer entries
-		if tip != ''
-			let tip .= " \n"
-		endif
-		" Add name of buffer
-		let name = Vim_NeatBuffer(bufnr, 1)
-		let tip .= name
-		" add modified/modifiable flags
-		if getbufvar(bufnr, "&modified")
-			let tip .= ' [+]'
-		endif
-		if getbufvar(bufnr, "&modifiable")==0
-			let tip .= ' [-]'
-		endif
-	endfor
-	return tip
+  let tip = ''
+  let bufnrlist = tabpagebuflist(v:lnum)
+  for bufnr in bufnrlist
+    " separate buffer entries
+    if tip != ''
+      let tip .= " \n"
+    endif
+    " Add name of buffer
+    let name = Vim_NeatBuffer(bufnr, 1)
+    let tip .= name
+    " add modified/modifiable flags
+    if getbufvar(bufnr, "&modified")
+      let tip .= ' [+]'
+    endif
+    if getbufvar(bufnr, "&modifiable")==0
+      let tip .= ' [-]'
+    endif
+  endfor
+  return tip
 endfunc
 
 
@@ -1414,27 +1375,27 @@ noremap <silent><leader>0 10gt<cr>
 
 " MacVim 允许 CMD+数字键快速切换标签
 if has("gui_macvim")
-	set macmeta
-	noremap <silent><d-1> :tabn 1<cr>
-	noremap <silent><d-2> :tabn 2<cr>
-	noremap <silent><d-3> :tabn 3<cr>
-	noremap <silent><d-4> :tabn 4<cr>
-	noremap <silent><d-5> :tabn 5<cr>
-	noremap <silent><d-6> :tabn 6<cr>
-	noremap <silent><d-7> :tabn 7<cr>
-	noremap <silent><d-8> :tabn 8<cr>
-	noremap <silent><d-9> :tabn 9<cr>
-	noremap <silent><d-0> :tabn 10<cr>
-	inoremap <silent><d-1> <ESC>:tabn 1<cr>
-	inoremap <silent><d-2> <ESC>:tabn 2<cr>
-	inoremap <silent><d-3> <ESC>:tabn 3<cr>
-	inoremap <silent><d-4> <ESC>:tabn 4<cr>
-	inoremap <silent><d-5> <ESC>:tabn 5<cr>
-	inoremap <silent><d-6> <ESC>:tabn 6<cr>
-	inoremap <silent><d-7> <ESC>:tabn 7<cr>
-	inoremap <silent><d-8> <ESC>:tabn 8<cr>
-	inoremap <silent><d-9> <ESC>:tabn 9<cr>
-	inoremap <silent><d-0> <ESC>:tabn 10<cr>
+  set macmeta
+  noremap <silent><d-1> :tabn 1<cr>
+  noremap <silent><d-2> :tabn 2<cr>
+  noremap <silent><d-3> :tabn 3<cr>
+  noremap <silent><d-4> :tabn 4<cr>
+  noremap <silent><d-5> :tabn 5<cr>
+  noremap <silent><d-6> :tabn 6<cr>
+  noremap <silent><d-7> :tabn 7<cr>
+  noremap <silent><d-8> :tabn 8<cr>
+  noremap <silent><d-9> :tabn 9<cr>
+  noremap <silent><d-0> :tabn 10<cr>
+  inoremap <silent><d-1> <ESC>:tabn 1<cr>
+  inoremap <silent><d-2> <ESC>:tabn 2<cr>
+  inoremap <silent><d-3> <ESC>:tabn 3<cr>
+  inoremap <silent><d-4> <ESC>:tabn 4<cr>
+  inoremap <silent><d-5> <ESC>:tabn 5<cr>
+  inoremap <silent><d-6> <ESC>:tabn 6<cr>
+  inoremap <silent><d-7> <ESC>:tabn 7<cr>
+  inoremap <silent><d-8> <ESC>:tabn 8<cr>
+  inoremap <silent><d-9> <ESC>:tabn 9<cr>
+  inoremap <silent><d-0> <ESC>:tabn 10<cr>
 endif
 "
 
@@ -1461,18 +1422,18 @@ noremap <silent> <leader>tr :call Tab_MoveRight()<cr>
 
 " 左移 tab
 function! Tab_MoveLeft()
-	let l:tabnr = tabpagenr() - 2
-	if l:tabnr >= 0
-		exec 'tabmove '.l:tabnr
-	endif
+  let l:tabnr = tabpagenr() - 2
+  if l:tabnr >= 0
+    exec 'tabmove '.l:tabnr
+  endif
 endfunc
 
 " 右移 tab
 function! Tab_MoveRight()
-	let l:tabnr = tabpagenr() + 1
-	if l:tabnr <= tabpagenr('$')
-		exec 'tabmove '.l:tabnr
-	endif
+  let l:tabnr = tabpagenr() + 1
+  if l:tabnr <= tabpagenr('$')
+    exec 'tabmove '.l:tabnr
+  endif
 endfunc
 
 "
@@ -1487,22 +1448,22 @@ noremap <c-J> <c-w>j
 noremap <c-K> <c-w>k
 
 if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
-	" vim 8.1 支持 termwinkey ，不需要把 terminal 切换成 normal 模式
-	" 设置 termwinkey 为 CTRL 加减号（GVIM），有些终端下是 CTRL+?
-	" 后面四个键位是搭配 termwinkey 的，如果 termwinkey 更改，也要改
-	set termwinkey=<c-_>
-	tnoremap <m-H> <c-_>h
-	tnoremap <m-L> <c-_>l
-	tnoremap <m-J> <c-_>j
-	tnoremap <m-K> <c-_>k
-	tnoremap <m-q> <c-\><c-n>
+  " vim 8.1 支持 termwinkey ，不需要把 terminal 切换成 normal 模式
+  " 设置 termwinkey 为 CTRL 加减号（GVIM），有些终端下是 CTRL+?
+  " 后面四个键位是搭配 termwinkey 的，如果 termwinkey 更改，也要改
+  set termwinkey=<c-_>
+  tnoremap <m-H> <c-_>h
+  tnoremap <m-L> <c-_>l
+  tnoremap <m-J> <c-_>j
+  tnoremap <m-K> <c-_>k
+  tnoremap <m-q> <c-\><c-n>
 elseif has('nvim')
-	" neovim 没有 termwinkey 支持，必须把 terminal 切换回 normal 模式
-	tnoremap <m-H> <c-\><c-n><c-w>h
-	tnoremap <m-L> <c-\><c-n><c-w>l
-	tnoremap <m-J> <c-\><c-n><c-w>j
-	tnoremap <m-K> <c-\><c-n><c-w>k
-	tnoremap <m-q> <c-\><c-n>
+  " neovim 没有 termwinkey 支持，必须把 terminal 切换回 normal 模式
+  tnoremap <m-H> <c-\><c-n><c-w>h
+  tnoremap <m-L> <c-\><c-n><c-w>l
+  tnoremap <m-J> <c-\><c-n><c-w>j
+  tnoremap <m-K> <c-\><c-n><c-w>k
+  tnoremap <m-q> <c-\><c-n>
 endif
 "
 
@@ -1544,45 +1505,45 @@ nnoremap <silent> <F5> :call ExecuteFile()<cr>
 
 " F5 运行当前文件：根据文件类型判断方法，并且输出到 quickfix 窗口
 function! ExecuteFile()
-	let cmd = ''
-	if index(['c', 'cpp', 'rs', 'go'], &ft) >= 0
-		" native 语言，把当前文件名去掉扩展名后作为可执行运行
-		" 写全路径名是因为后面 -cwd=? 会改变运行时的当前路径，所以写全路径
-		" 加双引号是为了避免路径中包含空格
-		let cmd = '"$(VIM_FILEDIR)/$(VIM_FILENOEXT)"'
-	elseif &ft == 'python'
-		let $PYTHONUNBUFFERED=1 " 关闭 python 缓存，实时看到输出
-		let cmd = 'python "$(VIM_FILEPATH)"'
-	elseif &ft == 'javascript'
-		let cmd = 'node "$(VIM_FILEPATH)"'
-	elseif &ft == 'perl'
-		let cmd = 'perl "$(VIM_FILEPATH)"'
-	elseif &ft == 'ruby'
-		let cmd = 'ruby "$(VIM_FILEPATH)"'
-	elseif &ft == 'php'
-		let cmd = 'php "$(VIM_FILEPATH)"'
-	elseif &ft == 'lua'
-		let cmd = 'lua "$(VIM_FILEPATH)"'
-	elseif &ft == 'zsh'
-		let cmd = 'zsh "$(VIM_FILEPATH)"'
-	elseif &ft == 'ps1'
-		let cmd = 'powershell -file "$(VIM_FILEPATH)"'
-	elseif &ft == 'vbs'
-		let cmd = 'cscript -nologo "$(VIM_FILEPATH)"'
-	elseif &ft == 'sh'
-		let cmd = 'bash "$(VIM_FILEPATH)"'
-	else
-		return
-	endif
-	" Windows 下打开新的窗口 (-mode=4) 运行程序，其他系统在 quickfix 运行
-	" -raw: 输出内容直接显示到 quickfix window 不匹配 errorformat
-	" -save=2: 保存所有改动过的文件
-	" -cwd=$(VIM_FILEDIR): 运行初始化目录为文件所在目录
-	if has('win32') || has('win64')
-		exec 'AsyncRun -cwd=$(VIM_FILEDIR) -raw -save=2 -mode=4 '. cmd
-	else
-		exec 'AsyncRun -cwd=$(VIM_FILEDIR) -raw -save=2 -mode=0 '. cmd
-	endif
+  let cmd = ''
+  if index(['c', 'cpp', 'rs', 'go'], &ft) >= 0
+    " native 语言，把当前文件名去掉扩展名后作为可执行运行
+    " 写全路径名是因为后面 -cwd=? 会改变运行时的当前路径，所以写全路径
+    " 加双引号是为了避免路径中包含空格
+    let cmd = '"$(VIM_FILEDIR)/$(VIM_FILENOEXT)"'
+  elseif &ft == 'python'
+    let $PYTHONUNBUFFERED=1 " 关闭 python 缓存，实时看到输出
+    let cmd = 'python "$(VIM_FILEPATH)"'
+  elseif &ft == 'javascript'
+    let cmd = 'node "$(VIM_FILEPATH)"'
+  elseif &ft == 'perl'
+    let cmd = 'perl "$(VIM_FILEPATH)"'
+  elseif &ft == 'ruby'
+    let cmd = 'ruby "$(VIM_FILEPATH)"'
+  elseif &ft == 'php'
+    let cmd = 'php "$(VIM_FILEPATH)"'
+  elseif &ft == 'lua'
+    let cmd = 'lua "$(VIM_FILEPATH)"'
+  elseif &ft == 'zsh'
+    let cmd = 'zsh "$(VIM_FILEPATH)"'
+  elseif &ft == 'ps1'
+    let cmd = 'powershell -file "$(VIM_FILEPATH)"'
+  elseif &ft == 'vbs'
+    let cmd = 'cscript -nologo "$(VIM_FILEPATH)"'
+  elseif &ft == 'sh'
+    let cmd = 'bash "$(VIM_FILEPATH)"'
+  else
+    return
+  endif
+  " Windows 下打开新的窗口 (-mode=4) 运行程序，其他系统在 quickfix 运行
+  " -raw: 输出内容直接显示到 quickfix window 不匹配 errorformat
+  " -save=2: 保存所有改动过的文件
+  " -cwd=$(VIM_FILEDIR): 运行初始化目录为文件所在目录
+  if has('win32') || has('win64')
+    exec 'AsyncRun -cwd=$(VIM_FILEDIR) -raw -save=2 -mode=4 '. cmd
+  else
+    exec 'AsyncRun -cwd=$(VIM_FILEDIR) -raw -save=2 -mode=0 '. cmd
+  endif
 endfunc
 "
 
@@ -1590,11 +1551,11 @@ endfunc
 nnoremap <silent> Q :call s:CloseSplitOrDeleteBuffer()<CR>
 
 function! s:CloseSplitOrDeleteBuffer()
-	if winnr('$') > 1
-		wincmd c
-	else
-		execute 'bdelete'
-	endif
+  if winnr('$') > 1
+    wincmd c
+  else
+    execute 'bdelete'
+  endif
 endfunction
 "
 
@@ -1604,19 +1565,19 @@ endfunction
 " 下面进行 grep，这样能方便的对相关项目进行搜索
 "----------------------------------------------------------------------
 if executable('rg')
-	noremap <silent><F3> :AsyncRun! -cwd=<root> rg -n --no-heading
-				\ --color never -g "*.h" -g "*.c*" -g "*.py" -g "*.js" -g "*.vim"
-				\ <C-R><C-W> "<root>" <cr>
+  noremap <silent><F3> :AsyncRun! -cwd=<root> rg -n --no-heading
+        \ --color never -g "*.h" -g "*.c*" -g "*.py" -g "*.js" -g "*.vim"
+        \ <C-R><C-W> "<root>" <cr>
 elseif has('win32') || has('win64')
-	noremap <silent><F3> :AsyncRun! -cwd=<root> findstr /n /s /C:"<C-R><C-W>"
-				\ "\%CD\%\*.h" "\%CD\%\*.c*" "\%CD\%\*.py" "\%CD\%\*.js"
-				\ "\%CD\%\*.vim"
-				\ <cr>
+  noremap <silent><F3> :AsyncRun! -cwd=<root> findstr /n /s /C:"<C-R><C-W>"
+        \ "\%CD\%\*.h" "\%CD\%\*.c*" "\%CD\%\*.py" "\%CD\%\*.js"
+        \ "\%CD\%\*.vim"
+        \ <cr>
 else
-	noremap <silent><F3> :AsyncRun! -cwd=<root> grep -n -s -R <C-R><C-W>
-				\ --include='*.h' --include='*.c*' --include='*.py'
-				\ --include='*.js' --include='*.vim'
-				\ '<root>' <cr>
+  noremap <silent><F3> :AsyncRun! -cwd=<root> grep -n -s -R <C-R><C-W>
+        \ --include='*.h' --include='*.c*' --include='*.py'
+        \ --include='*.js' --include='*.vim'
+        \ '<root>' <cr>
 endif
 "
 
@@ -1669,27 +1630,28 @@ autocmd Filetype vim noremap <buffer> <F1> <Esc>:help <C-r><C-w><CR>
 
 " 取得光标处的匹配 {{{
 function! GetPatternAtCursor(pat)
-	let col = col('.') - 1
-	let line = getline('.')
-	let ebeg = -1
-	let cont = match(line, a:pat, 0)
-	while (ebeg >= 0 || (0 <= cont) && (cont <= col))
-		let contn = matchend(line, a:pat, cont)
-		if (cont <= col) && (col < contn)
-			let ebeg = match(line, a:pat, cont)
-			let elen = contn - ebeg
-			break
-		else
-			let cont = match(line, a:pat, contn)
-		endif
-	endwhile
-	if ebeg >= 0
-		return strpart(line, ebeg, elen)
-	else
-		return ""
-	endif
+  let col = col('.') - 1
+  let line = getline('.')
+  let ebeg = -1
+  let cont = match(line, a:pat, 0)
+  while (ebeg >= 0 || (0 <= cont) && (cont <= col))
+    let contn = matchend(line, a:pat, cont)
+    if (cont <= col) && (col < contn)
+      let ebeg = match(line, a:pat, cont)
+      let elen = contn - ebeg
+      break
+    else
+      let cont = match(line, a:pat, contn)
+    endif
+  endwhile
+  if ebeg >= 0
+    return strpart(line, ebeg, elen)
+  else
+    return ""
+  endif
 endfunction
 " }}}
+
 " 切换选项开关 {{{
 function! ToggleOption(optionName)
   execute 'setlocal '.a:optionName.'!'
@@ -1699,20 +1661,20 @@ endfunction
 
 " 更新最后修改时间 {{{
 function! <SID>UpdateLastMod()
-	" preparation: save last search, and cursor position.
-	let _s=@/
-	let l = line(".")
-	let c = col(".")
+  " preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
 
-	let n = min([10, line('$')]) " 检查头部多少行
-	let timestamp = strftime('%Y-%m-%d %H:%M (%z)') " 时间格式
-	let timestamp = substitute(timestamp, '%', '\%', 'g')
-	let pat = substitute('\s\+Last Modified:\s*\zs.*\ze', '%', '\%', 'g')
-	keepjumps silent execute '1,'.n.'s%^.*'.pat.'.*$%'.timestamp.'%e'
+  let n = min([10, line('$')]) " 检查头部多少行
+  let timestamp = strftime('%Y-%m-%d %H:%M (%z)') " 时间格式
+  let timestamp = substitute(timestamp, '%', '\%', 'g')
+  let pat = substitute('\s\+Last Modified:\s*\zs.*\ze', '%', '\%', 'g')
+  keepjumps silent execute '1,'.n.'s%^.*'.pat.'.*$%'.timestamp.'%e'
 
-	" clean up: restore previous search history, and cursor position
-	let @/=_s
-	call cursor(l, c)
+  " clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
 endfunction
 " }}}
 
@@ -1720,58 +1682,31 @@ endfunction
 
 " ========= 以下配置只设置一次 ========
 if !exists('g:VimrcIsLoaded')
-	" 设置文字编辑配置 {{{
-	set autochdir " 根目录自动更新
-	set hidden " TODO 允许在有未保存的修改时切换缓冲区
-	set smartindent " 智能自动缩进
-	"set showtabline=0 " 不显示Tab栏
-	" set smarttab
-	" }}}
-	" 设置图形界面选项 {{{
-	" 设置显示字体和大小
-	set guifont=Monaco:h14
-	" }}}
+  " 设置文字编辑配置 {{{
+  set autochdir " 根目录自动更新
+  set hidden " TODO 允许在有未保存的修改时切换缓冲区
+  set smartindent " 智能自动缩进
+  "set showtabline=0 " 不显示Tab栏
+  " set smarttab
+  " }}}
+  " 设置图形界面选项 {{{
+  " 设置显示字体和大小
+  set guifont=Monaco:h14
+  " }}}
 endif
 " ========= 只设置一次结果 ========
 
 
 " 特殊文件类型自动命令组 {{{
 augroup Filetype_Specific
-	autocmd!
-	" * {{{
-	" CSS {{{
-	" 美化代码(need vim-JsBeautify plugin)
-	autocmd FileType css noremap <buffer> <silent> <Leader>ff :call CSSBeautify()<cr>
-	" }}}
-	" JavaScript {{{
-	" Vue模板使用html高亮
-	" 美化代码(need vim-JsBeautify plugin)
-	autocmd FileType javascript noremap <buffer> <silent> <Leader>ff :call JsBeautify()<cr>
-  autocmd FileType json noremap <buffer> <silent> <Leader>ff :call JsonBeautify()<cr>
-	autocmd FileType jsx noremap <buffer> <silent> <Leader>ff :call JsxBeautify()<cr>
-  autocmd FileType css noremap <buffer> <silent> <Leader>ff :call CSSBeautify()<cr>
-  " 只格式化选择的代码
-  autocmd FileType javascript vnoremap <buffer> <silent> <Leader>ff :call RangeJsBeautify()<cr>
-  autocmd FileType json vnoremap <buffer> <silent> <Leader>ff :call RangeJsonBeautify()<cr>
-  autocmd FileType html vnoremap <buffer> <silent> <Leader>ff :call RangeHtmlBeautify()<cr>
-  autocmd FileType css vnoremap <buffer> <silent> <Leader>ff :call RangeCSSBeautify()<cr>
-	" }}}
-	" HTML {{{
-	" 美化代码(need vim-JsBeautify plugin)
-	autocmd FileType html noremap <buffer> <silent> <Leader>ff :call HtmlBeautify()<cr>
-	" }}}
-	" PHP {{{
-	" }}}
-	" Python {{{
-	" }}}
-	" VimFiles {{{
-	" 文本文件{{{
-	" pangu.vim
-	autocmd BufWritePre *.markdown,*.md,*.text,*.txt call PanGuSpacing()
-	" }}}
-	" 自动更新Last Modified {{{
-	" autocmd BufWritePre,FileWritePre,FileAppendPre * call <SID>UpdateLastMod()
-	" }}}
+  autocmd!
+  " 文本文件{{{
+  " pangu.vim
+  autocmd BufWritePre *.markdown,*.md,*.text,*.txt call PanGuSpacing()
+  " }}}
+  " 自动更新Last Modified {{{
+  autocmd BufWritePre,FileWritePre,FileAppendPre * call <SID>UpdateLastMod()
+  " }}}
 augroup END
 " }}}
 
