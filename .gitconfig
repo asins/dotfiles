@@ -1,52 +1,51 @@
 [merge]
-	tool = bcomp
+  tool = bcomp
 [mergetool]
-	prompt = false
-	keepBackup = false
+  prompt = false
+  keepBackup = false
 [mergetool "bcomp"]
-	trustExitCode = true
-	cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+  trustExitCode = true
+  cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
 [diff]
-	tool = bcomp
+  tool = bcomp
 [difftool]
-	prompt = false
+  prompt = false
 [difftool "bcomp"]
-	trustExitCode = true
-	cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE"
+  trustExitCode = true
+  cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE"
 
 [alias]
-	st = status --short --branch
-	pu = pull --rebase
-	ca = commit --amend
-	ci = commit -a -v
-	br = branch
-	bv = branch -vv
-	co = checkout
-	cb = checkout -b
-	df = diff
-	un = reset --hard HEAD
-	uh = reset --hard HEAD^
-	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-	ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --date=short --graph --decorate --oneline --branches --simplify-by-decoration
-	ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
-	subpl = submodule foreach git pull origin master
+  st = status --short --branch
+  pu = pull --rebase
+  ca = commit --amend
+  ci = commit -a -v
+  br = branch
+  bv = branch -vv
+  co = checkout
+  cb = checkout -b
+  df = diff
+  un = reset --hard HEAD
+  uh = reset --hard HEAD^
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --date=short --graph --decorate --oneline --branches --simplify-by-decoration
+  ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+  subpl = submodule foreach git pull origin master
 
 [user]
-	email = wkli@alibaba-inc.com
-	name = wkli
+  email = asinsimple@gmail.com
+  name = asins
 [push]
-	default = simple
+  default = simple
 [core]
-	autocrlf = input
-	excludesfile = /Users/asins/.gitignore_global
-	quotepath = false
+  autocrlf = input
+  quotepath = false
 [difftool "sourcetree"]
-	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
-	path = -ro
+  cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
+  path = -ro
 [mergetool "sourcetree"]
-	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-	trustExitCode = true
+  cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+  trustExitCode = true
 [commit]
-	template = /Users/asins/.stCommitMsg
-[include]
-	path = /Users/asins/.git-repo/gitconfig
+  template = /Users/asins/.stCommitMsg
+[includeIf "gitdir:~/WorkSpaces/"]
+  path = .gitconfig-work
