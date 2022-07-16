@@ -1,5 +1,7 @@
 #Quick edits
-alias vim 'mvim -v'
+if type -q mvim
+    alias vim 'mvim -v'
+end
 
 alias ... 'cd ../../'
 
@@ -25,5 +27,5 @@ alias md 'mkdir -p'
 alias typora 'open -a typora'
 
 # git快捷键
-#alias g 'git'
+alias g 'git'
 

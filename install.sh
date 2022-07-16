@@ -36,6 +36,8 @@ lnPathArray=(
   # Vim
   ".config/vim/init.vim: ~/.vimrc"
   ".config/vim: ~/.vim"
+  ".config/alacritty: ~/.config/alacritty"
+  ".config/neofetch: ~/.config/neofetch"
 
   #Nginx配置
   "nginx/nginx.conf: /usr/local/etc/nginx/nginx.conf"

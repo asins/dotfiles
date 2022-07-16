@@ -12,10 +12,6 @@ if status --is-login
 	source ~/.config/fish/env.fish
 end
 
-
-set -gx PNPM_HOME "/Users/asins/Library/pnpm"
-set -gx PATH "$PNPM_HOME" $PATH
-
 # pnpm
 set -gx PNPM_HOME "/Users/asins/Library/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH

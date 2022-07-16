@@ -25,4 +25,5 @@ curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fi
 
 # fisher的插件需要自己执行添加
 fisher install jethrokuan/z
+# fisher install pure-fish/pure
 fisher install IlanCosman/tide@v5

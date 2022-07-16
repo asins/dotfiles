@@ -1,6 +1,6 @@
 " Author: Asins - asinsimple AT gmail DOT com
 "         Get latest vimrc from http://nootn.com/
-" Last Modified: 2022-03-02 12:18 (+0800)
+" Last Modified: 2022-07-16 17:36 (+0800)
 "======================================================================
 " vim:fdm=marker:fmr={{{,}}}
 
@@ -655,7 +655,7 @@ map! <F2> <Esc>:NERDTreeToggle<CR>
 
 
 " 语法提示 {{{
-Plug 'neoclide/coc.nvim'
+" Plug 'neoclide/coc.nvim'
 " }}}
 
 " 语法检测 syntastic {{{
