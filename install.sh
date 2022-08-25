@@ -36,10 +36,12 @@ lnPathArray=(
   # Vim
   ".config/vim/init.vim: ~/.vimrc"
   ".config/vim: ~/.vim"
+
+  # alacritty终端应用
   ".config/alacritty: ~/.config/alacritty"
   ".config/neofetch: ~/.config/neofetch"
 
-  #Nginx配置
+  # Nginx配置
   "nginx/nginx.conf: /usr/local/etc/nginx/nginx.conf"
   "nginx/conf.d: /usr/local/etc/nginx/conf.d"
   "create_ssl: /usr/local/etc/nginx/ssl"
