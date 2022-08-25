@@ -50,11 +50,12 @@ lnPathArray=(
 
   # zsh
   #ln -sfv $BASE/.config/zsh/.zshrc ~/.zshrc
+  ".config/zsh/.zshrc: ~/.zshrc"
 
   # vscode 键盘映射
   # "vscode/keybindings.json: ~/Library/Application Support/Code/User/keybindings.json"
 
-  #fish 配置
+  # Fish 配置
   ".config/fish/aliases.fish: ~/.config/fish/aliases.fish"
   ".config/fish/config.fish: ~/.config/fish/config.fish"
   ".config/fish/env.fish: ~/.config/fish/env.fish"
@@ -75,6 +76,16 @@ function lnFiles() {
       rm -r "${target}"
     elif [ -f "${target}" ]; then # 真实文件存在
       printf '[\e[0;33mln back\e[0m] %s\n' "$(mv -v "${target}" $BASE_PATH/bak/$(basename "${target}"))"
+      printf '[\e[0;33mln back\e[0m] %s\n' "$(ln -sfv "${BASE_PATH}/${origin}" "${target}")"
+      return
+      # TODO: 创建的备份文件需确保目录在bak下对应URI目录存在
+      # mv -v "${target}" $BASE_PATH/bak/$(basename "${target}")
+    elif [ -d "${target}" ]; then # 真实目录存在
+      printf '[\e[0;33mln back\e[0m] %s\n' "$(mv -v "${target}" $BASE_PATH/bak/$(basename "${target}"))"
+      printf '[\e[0;33mln back\e[0m] %s\n' "$(ln -sfv "${BASE_PATH}/${origin}" "${target}")"
+      return
+      # TODO: 创建的备份文件需确保目录在bak下对应URI目录存在
+      # mv -v "${target}" $BASE_PATH/bak/$(basename "${target}")
     fi
     printf '[\e[0;32mln -sfv\e[0m] '
     ln -sfv "${BASE_PATH}/${origin}" "${target}"
