@@ -27,5 +27,5 @@ alias md 'mkdir -p'
 alias typora 'open -a typora'
 
 # git快捷键
-alias g 'git'
+# alias g 'git'
 
