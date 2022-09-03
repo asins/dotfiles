@@ -12,10 +12,6 @@ if status --is-login
 	source ~/.config/fish/env.fish
 end
 
-# pnpm
-set -gx PNPM_HOME "/Users/asins/Library/pnpm"
-set -gx PATH "$PNPM_HOME" $PATH
-
 # fisher plugin tide setting
 set tide_git_truncation_length = 42 # 显示完整分支名
 
