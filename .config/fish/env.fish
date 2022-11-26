@@ -4,8 +4,9 @@ set -gx PATH /sbin $PATH
 set -gx PATH /usr/bin $PATH
 set -gx PATH /usr/sbin $PATH
 set -gx PATH /opt/homebrew/bin $PATH
-set -gx PATH /usr/local/sbin $PATH
+set -gx PATH /opt/homebrew/sbin $PATH
 set -gx PATH /usr/local/bin $PATH
+set -gx PATH /usr/local/sbin $PATH
 fish_add_path ~/.bin
 
 # brew源改为阿里云
@@ -27,10 +28,6 @@ set -gx CPPFLAGS "-I/opt/homebrew/opt/openjdk/include"
 set -gx PATH  ~/.cargo/bin $PATH
 # set -gx RUST_SRC_PATH "/usr/local/opt/rust"
 set -gx PKG_CONFIG_PATH $PKG_CONFIG_PATH "/usr/local/opt/icu4c/lib/pkgconfig"
-
-# pnpm
-set -gx PNPM_HOME "~/Library/pnpm"
-set -gx PATH ~/Library/pnpm $PATH
 
 # openssl
 # set -g fish_user_paths /usr/local/opt/curl/bin $fish_user_paths
