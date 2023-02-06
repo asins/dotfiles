@@ -7,7 +7,7 @@ set -gx PATH /opt/homebrew/bin $PATH
 set -gx PATH /opt/homebrew/sbin $PATH
 set -gx PATH /usr/local/bin $PATH
 set -gx PATH /usr/local/sbin $PATH
-fish_add_path ~/.bin
+fish_add_path ~/.bin $PATH
 
 # brew源改为阿里云
 # set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.aliyun.com/homebrew/homebrew-bottles
