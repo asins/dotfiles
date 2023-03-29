@@ -1,6 +1,6 @@
 " Author: Asins - asinsimple AT gmail DOT com
 "         Get latest vimrc from http://nootn.com/
-" Last Modified: 2022-07-16 17:36 (+0800)
+" Last Modified: 2023-03-03 17:55 (+0800)
 "======================================================================
 " vim:fdm=marker:fmr={{{,}}}
 
