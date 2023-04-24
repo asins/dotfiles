@@ -12,6 +12,11 @@ if status --is-login
 	source ~/.config/fish/env.fish
 end
 
+# 尝试加载公司内部配置
+if test -e ~/.config/fish/config-work.fish
+	source ~/.config/fish/config-work.fish
+end
+
 # fisher plugin tide setting
 set tide_git_truncation_length = 42 # 显示完整分支名
 

@@ -78,4 +78,16 @@ function unproxy () {
   echo "已取消代理设置"
 }
 
+
+# 快速在Git仓库中提交代码审核 相当于 git push origin HEAD:refs/for/[分支名]
+function pr2 () {
+  git_cb=$(git branch 2>/dev/null | grep \* | sed 's/* //')
+
+  if [ -z "$git_cb" ]; then
+    echo "未找到Git分支信息"
+  else
+    git push origin "HEAD:refs/for/$git_cb"
+  fi
+}
+
 . "$HOME/.cargo/env"

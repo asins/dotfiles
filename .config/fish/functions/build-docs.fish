@@ -1,5 +1,5 @@
 function build-docs -d '文档构建机手动生成文档'
-  # ~/WorkSpaces/YJ-DOC/yj-doc-builder/data/task_list/0395TM7MY1GH9PFD3028GRUDQ/json_to_html
+  # ./data/task_list/0395TM7MY1GH9PFD3028GRUDQ/json_to_html
 
   # ======= 以下为方法定义 =======
 
@@ -100,14 +100,27 @@ function build-docs -d '文档构建机手动生成文档'
 
       buildHtmlDoc
     end
+  end
 
-    set_color brgreen; echo \n"构建完成: 语言: $lang, 源码分支: $git_cb"; set_color normal
+  # 获取源码仓库分支信息
+  function getSourceBranchInfo --no-scope-shadowing
+    cd $curr
+    cd ../git_source
+
+    echo (git branch 2>/dev/null | grep \* | sed 's/* //')
+
+    cd $curr
+  end
+
+  # 获取Docusaurus.config.js中baseUrl信息
+  function getDocusaurusBaseUrl
+    cat "./docusaurus.config.js" | grep "baseUrl: '\(.*\)'" | awk -F \' '{ print $2 }'
   end
 
 
   # ======= 以下开始执行脚本 =======
   set -f curr (pwd)
-  set -f step_name
+  set -f baseUrl (getDocusaurusBaseUrl)
 
   if not string match -q -e "/json_to_html" $curr
     echo "[Error]未在文档构建机任务的json_to_html目录中，无法执行脚本！"
@@ -115,14 +128,14 @@ function build-docs -d '文档构建机手动生成文档'
   end
 
   set -f lang (getBuildLang)
-
-  set -f git_cb (git branch 2>/dev/null | grep \* | sed 's/* //')
+  set -f git_cb (getSourceBranchInfo)
   set_color brgreen
   echo "执行目录: $curr"
   echo "生成的语言: $lang, 源码分支: $git_cb"
   set_color normal
 
   # 入参定义
+  set -f step_name
   getopts $argv | while read -l key value
     switch $key
       case h help
@@ -130,7 +143,7 @@ function build-docs -d '文档构建机手动生成文档'
         echo "Usage: build-docs [OPTIONS]"\n
         echo "Options:"
         echo "  -h/--help       打印帮助信息并退出"
-        echo "  -s/--step=1,2,3 执行的步骤列表（逗号分隔）"
+        echo "  -s/--step=1,2,3,4 执行的步骤列表（逗号分隔）"
         return
       # case _
       case s step
@@ -139,13 +152,16 @@ function build-docs -d '文档构建机手动生成文档'
   end
 
   if not test -n "$step_name"
-    set step_name $step_name (string split ',' '1,2,3')
-    # echo "4 no set step_name $step_name"
+    set step_name $step_name (string split ',' '1,2,3,4')
   end
 
   # return
 
   run_steps
 
+  set_color brgreen;
+  echo \n"构建完成: 语言: $lang, 源码分支: $git_cb"
+  echo "文档Url: $BUILD_DOC_WEB_DOMAIN/$baseUrl";
+  set_color normal
 end
 
