@@ -1,6 +1,6 @@
 " Author: Asins - asinsimple AT gmail DOT com
 "         Get latest vimrc from http://nootn.com/
-" Last Modified: 2023-06-08 17:15 (+0800)
+" Last Modified: 2023-06-08 17:30 (+0800)
 "======================================================================
 " vim:fdm=marker:fmr={{{,}}}
 
@@ -302,25 +302,6 @@ if has('persistent_undo')
 endif
 " }}}
 
-" 配置微调 {{{
-
-" 修正 ScureCRT/XShell 以及某些终端乱码问题，主要原因是不支持一些
-" 终端控制命令，比如 cursor shaping 这类更改光标形状的 xterm 终端命令
-" 会令一些支持 xterm 不完全的终端解析错误，显示为错误的字符，比如 q 字符
-" 如果你确认你的终端支持，不会在一些不兼容的终端上运行该配置，可以注释
-if has('nvim')
-  set guicursor=
-elseif (!has('gui_running')) && has('terminal') && has('patch-8.0.1200')
-  let g:termcap_guicursor = &guicursor
-  let g:termcap_t_RS = &t_RS
-  let g:termcap_t_SH = &t_SH
-  set guicursor=
-  set t_RS=
-  set t_SH=
-endif
-
-" }}}
-
 " 文件类型微调 {{{
 augroup InitFileTypesGroup
 
@@ -413,43 +394,6 @@ endif
 "   call cursor(l, c)
 " endfunction
 " }}}
-
-" 编译scss/less为css 自动使用autoprefixer {{{
-
-" 需要安装:
-" npm install less node-scss postcss postcss-cli autoprefixer cssnano -g
-
-function! s:CompileToCss()
-  let current_file = expand('%:p')
-  let suffix = expand('%:e')
-  if(suffix == 'less')
-    let cmd = 'lessc'
-    let args = ''
-  else
-    let cmd = 'node-sass'
-    let args = '--output-style expanded'
-  endif
-  if !executable(cmd)
-    echoerr "Error: Command not found ". a:cmd . ". 'npm install -g ". a:cmd . "' to install command!"
-  endif
-
-  let filename = fnamemodify(current_file, ':r') . ".css"
-  let command = '!'. cmd .' "' . current_file . '" "' . filename .'" '.args
-  " 无提示模式，开发中出错无提示蛋疼
-  " silent execute command
-  execute command
-
-  if !executable('postcss')
-    echoerr "Error: Command not found postcss. 'npm install -g postcss postcss-cli autoprefixer cssnano' to install command!"
-  endif
-
-  execute '!postcss --use autoprefixer -b "ie >= 8, last 3 versions, > 2\%"  --use cssnano "'. filename .'" --output "'. filename .'"'
-endfunction
-" }}}
-
-
-
-
 
 
 augroup MyPluginSetup
@@ -552,8 +496,9 @@ augroup END
 " endif
 " " }}}
 
-" 一次性安装一大堆 colorscheme
+" 一次性安装一大堆 colorscheme {{{
 Plug 'flazz/vim-colorschemes'
+" }}}
 
 " 代码注释 {{{
 Plug 'tomtom/tcomment_vim'
@@ -826,85 +771,19 @@ Plug 'mtdl9/vim-log-highlighting'
 " }}}
 
 " Mru 打开历史文件列表 {{{
-" Plug 'yegappan/mru'
-" let MRU_File = g:GetCacheDir("mru_file")
-" nmap <Leader>bb :MRU<CR>
+Plug 'yegappan/mru'
+let MRU_File = g:GetCacheDir("mru_file")
+nmap <Leader>bb :MRU<CR>
 " }}}
 
 " Buffer列表管理 {{{
-" Plug 'jlanzarotta/bufexplorer'
-" let g:bufExplorerShowRelativePath=1 " 显示相当地址
-" let g:bufExplorerDefaultHelp = 0  " 不显示默认帮助信息
-" let g:bufExplorerFindActive = 0
+Plug 'jlanzarotta/bufexplorer'
+let g:bufExplorerShowRelativePath=1 " 显示相当地址
+let g:bufExplorerDefaultHelp = 0  " 不显示默认帮助信息
+let g:bufExplorerFindActive = 0
 " <Leader>be 打开历史文件列表
 " <Leader>bs 水平新建历史文件列表窗口
 " <Leader>bv 垂直新建历史文件列表
-" }}}
-
-" LeaderF {{{
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-
-" CTRL+p 打开文件模糊匹配
-let g:Lf_ShortcutF = '<c-p>'
-
-" <Leader>bb 打开 buffer 模糊匹配
-let g:Lf_ShortcutB = '<Leader>bb'
-
-" <Leader>bm 打开最近使用的文件 MRU，进行模糊匹配
-noremap <silent> <Leader>bm :LeaderfMru<cr>
-
-" <Leader>bf 打开函数列表，按 i 进入模糊匹配，ESC 退出
-noremap <silent> <Leader>bf :LeaderfFunction!<cr>
-
-" <Leader>bi 打开 tag 列表，i 进入模糊匹配，ESC退出
-noremap <silent> <Leader>bi :LeaderfBufTag!<cr>
-
-" <Leader>bb 打开 buffer 列表进行模糊匹配
-noremap <silent> <Leader>bb :LeaderfBuffer<cr>
-
-" 全局 tags 模糊匹配
-noremap <silen> <Leader>bt :LeaderfTag<cr>
-
-" 最大历史文件保存 2048 个
-let g:Lf_MruMaxFiles = 2048
-
-" ui 定制
-let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-
-" 如何识别项目目录，从当前文件目录向父目录递归知道碰到下面的文件/目录
-let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowHeight = 0.30
-let g:Lf_CacheDirectory = g:GetCacheDir('leaderf')
-
-" 显示绝对路径
-let g:Lf_ShowRelativePath = 0
-
-" 隐藏帮助
-let g:Lf_HideHelp = 1
-
-" 模糊匹配忽略扩展名
-let g:Lf_WildIgnore = {
-      \ 'dir': ['.svn','.git','.hg'],
-      \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
-      \ }
-
-" MRU 文件忽略扩展名
-let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.bak', '*.tmp', '*.dll']
-let g:Lf_StlColorscheme = 'powerline'
-
-" 禁用 function/buftag 的预览功能，可以手动用 p 预览
-let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
-
-" 使用 ESC 键可以直接退出 leaderf 的 normal 模式
-let g:Lf_NormalMap = {
-      \ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-      \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
-      \ "Mru": [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
-      \ "Tag": [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
-      \ "BufTag": [["<ESC>", ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
-      \ "Function": [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
-      \ }
 " }}}
 
 " 自动实例配对符号 delimitMate {{{
