@@ -1,6 +1,6 @@
 " Author: Asins - asinsimple AT gmail DOT com
 "         Get latest vimrc from http://nootn.com/
-" Last Modified: 2023-03-03 17:55 (+0800)
+" Last Modified: 2023-06-08 17:15 (+0800)
 "======================================================================
 " vim:fdm=marker:fmr={{{,}}}
 
@@ -146,7 +146,6 @@ if has('syntax')
 endif
 " }}}
 
-
 " 其他设置 {{{
 
 " 显示匹配的括号
@@ -207,7 +206,7 @@ set fileformats=unix,dos,mac
 "     manual  手工定义折叠
 "     indent  更多的缩进表示更高级别的折叠
 "     expr    用表达式来定义折叠
-"       用语法高亮来定义折叠
+"     syntax  用语法高亮来定义折叠
 "     diff    对没有更改的文本进行折叠
 "     marker  对文中的标志折叠
 if has('folding')
@@ -215,7 +214,7 @@ if has('folding')
   set foldenable
 
   " 代码折叠默认使用缩进
-  set fdm=manual
+  set foldmethod=syntax
 
   " 默认打开所有缩进
   set foldlevel=99
@@ -243,8 +242,6 @@ set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 set wildignore+=*/node_modules/** " Ignore Node.js modules
 " }}}
-
-
 
 
 
@@ -802,6 +799,10 @@ let g:typescript_compiler_options = ''
 Plug 'posva/vim-vue'
 " }}}
 
+" Rust语法 {{{
+Plug 'rust-lang/rust.vim'
+" }}}
+
 " 打开光标下的链接 <Leader>ur {{{
 " Plug 'tyru/open-browser.vim'
 " nmap <silent> <Leader>ur :OpenBrowser <C-U>call GetPatternAtCursor('\v%(https?|ftp)://[^]''" \t\r\n>*。，\`)]*')
@@ -820,6 +821,8 @@ Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
 " toml 语法
 Plug 'cespare/vim-toml', { 'branch': 'main' }
+" Log 语法
+Plug 'mtdl9/vim-log-highlighting'
 " }}}
 
 " Mru 打开历史文件列表 {{{
@@ -1691,7 +1694,7 @@ if !exists('g:VimrcIsLoaded')
   " }}}
   " 设置图形界面选项 {{{
   " 设置显示字体和大小
-  set guifont=Monaco:h14
+  set guifont=Hack_Nerd_Font_Mono:h14
   " }}}
 endif
 " ========= 只设置一次结果 ========
