@@ -8,5 +8,5 @@ function bubu --description '更新brew及所有已安装软件'
     brew cleanup
 
     # brew cu -acy --cleanup # 不强制安装latest的软件
-    # brew cu -facy
+    brew cu -facy
 end

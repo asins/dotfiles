@@ -7,7 +7,13 @@ set -gx PATH /opt/homebrew/bin $PATH
 set -gx PATH /opt/homebrew/sbin $PATH
 set -gx PATH /usr/local/bin $PATH
 set -gx PATH /usr/local/sbin $PATH
-fish_add_path ~/.bin $PATH
+set -gx PATH ~/.bin $PATH
+
+# nodeJs
+set -gx PATH /opt/homebrew/opt/node@18/bin $PATH
+set -gx LDFLAGS "-L/opt/homebrew/opt/node@18/lib"
+set -gx CPPFLAGS "-I/opt/homebrew/opt/node@18/include"
+
 
 # brew源改为阿里云
 # set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.aliyun.com/homebrew/homebrew-bottles

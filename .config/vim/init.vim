@@ -1,6 +1,6 @@
 " Author: Asins - asinsimple AT gmail DOT com
 "         Get latest vimrc from http://nootn.com/
-" Last Modified: 2023-06-08 17:30 (+0800)
+" Last Modified: 2023-09-15 12:13 (+0800)
 "======================================================================
 " vim:fdm=marker:fmr={{{,}}}
 
@@ -15,7 +15,7 @@ endif
 "----------------------------------------------------------------------
 " 全局变量及函数
 "----------------------------------------------------------------------
-let g:mapleader = "," " 设置 <Leader>字符
+let g:mapleader = " " " 设置 <Leader>字符
 
 " 取得本文件所在的目录 {{{
 let $VIMFILES = fnamemodify(resolve(expand('<sfile>:p')), ':h')
@@ -214,7 +214,7 @@ if has('folding')
   set foldenable
 
   " 代码折叠默认使用缩进
-  set foldmethod=syntax
+  set foldmethod=manual
 
   " 默认打开所有缩进
   set foldlevel=99
@@ -381,21 +381,6 @@ if has('user_commands')
 endif
 " }}}
 
-" 保存时自动删除多余空格 {{{
-" function! s:StripTrailingWhitespace()
-"   " Preparation: save last search, and cursor position.
-"   let _s=@/
-"   let l = line(".")
-"   let c = col(".")
-"   " do the business:
-"   %s/\n$\|\s\+$//e
-"   " clean up: restore previous search history, and cursor position
-"   let @/=_s
-"   call cursor(l, c)
-" endfunction
-" }}}
-
-
 augroup MyPluginSetup
   autocmd!
 augroup END
@@ -502,22 +487,9 @@ Plug 'flazz/vim-colorschemes'
 
 " 代码注释 {{{
 Plug 'tomtom/tcomment_vim'
-" Plug 'scrooloose/nerdcommenter'
-" let NERDMenuMode = 0
-" " 在注释符后加入空格
-" let g:NERDSpaceDelims = 1
-" " 使用紧凑语法美化多行注释
-" let g:NERDCompactSexyComs = 1
-" let g:NERDCommentEmptyLines = 1
-" let g:NERDTrimTrailingWhitespace = 1
-" <Leader>ca 在可选的注释方式之间切换，比如C/C++ 的块注释/* */和行注释//
-" <Leader>cc 注释当前行
-" <Leader>c<space> 切换注释
-" <Leader>cs 以”性感”的方式注释
-" <Leader>cA 在当前行尾添加注释符，并进入Insert模式
-" <Leader>cu 取消注释
-" <Leader>cm 添加块注释
+" gcc 注释当前行
 " }}}
+
 
 " 代码缩进可视化 {{{
 Plug 'nathanaelkane/vim-indent-guides'
@@ -745,7 +717,7 @@ Plug 'posva/vim-vue'
 " }}}
 
 " Rust语法 {{{
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 " }}}
 
 " 打开光标下的链接 <Leader>ur {{{
@@ -772,7 +744,7 @@ Plug 'mtdl9/vim-log-highlighting'
 
 " Mru 打开历史文件列表 {{{
 Plug 'yegappan/mru'
-let MRU_File = g:GetCacheDir("mru_file")
+let MRU_File = g:GetCacheDir('').'/mru_file'
 nmap <Leader>bb :MRU<CR>
 " }}}
 
@@ -848,9 +820,9 @@ Plug 'terryma/vim-multiple-cursors'
 " <Esc> 退出
 " }}}
 
-" 保存时自动删除多余空格 {{{
+" 删除多余空格 <Leader>-d-<Space> {{{
 Plug 'bronson/vim-trailing-whitespace'
-map <leader><space> :FixWhitespace<cr>
+nnoremap <Leader>d<Space> :FixWhitespace<cr>
 " }}}
 
 " css中的颜色显示
@@ -1492,7 +1464,7 @@ nnoremap <leader>ch :let @+=expand("%:p:h") \| echo 'cb> '.@+<CR>
 "
 
 " 开/关折叠 <Space>
-nnoremap <silent> <Space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
+nnoremap <silent> <leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
 "
 
 " 删除一条CSS中无用空格 <Leader>co
@@ -1586,6 +1558,7 @@ augroup Filetype_Specific
   " pangu.vim
   autocmd BufWritePre *.markdown,*.md,*.text,*.txt call PanGuSpacing()
   " }}}
+
   " 自动更新Last Modified {{{
   autocmd BufWritePre,FileWritePre,FileAppendPre * call <SID>UpdateLastMod()
   " }}}
