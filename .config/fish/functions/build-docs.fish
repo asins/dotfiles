@@ -52,7 +52,7 @@ function build-docs -d '文档构建机手动生成文档'
       mkdir -p ./build_docs/json
       ~/.bin/doxybook2 --input ./build_docs/xml --output ./build_docs/json --json
       cp -rf ./build_docs ../json_to_html/data
-      cp -rf ./docs ../json_to_html/docs
+      cp -rf ./innerDocs ../json_to_html/docs
     else if [ $lang = 'ts' ]
       npm run doc
       mkdir -p ../json_to_html/data/json

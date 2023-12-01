@@ -46,7 +46,11 @@
 [mergetool "sourcetree"]
   cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
   trustExitCode = true
-[commit]
-  template = /Users/asins/.stCommitMsg
 [includeIf "gitdir:~/WorkSpaces/"]
   path = .gitconfig-work
+[socks]
+	proxy = socks://127.0.0.1:7890
+[https]
+	proxy = http://127.0.0.1:7890
+[http]
+	proxy = http://127.0.0.1:7890
