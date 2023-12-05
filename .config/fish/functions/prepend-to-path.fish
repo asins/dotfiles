@@ -15,6 +15,6 @@ function prepend-to-path --description '将给定目录添加到系统PATH变量
         end
         set PATH $dir $PATH
     else
-        echo "Dir $dir does not exist?"
+        echo "Dir \"$dir\" does not exist?"
     end
 end
