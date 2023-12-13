@@ -30,12 +30,13 @@ function npm-version --description 'npm更新版本号时自动执行git commit'
 
   # 执行结果
   echo "[Runing Cli]: $cliStr"
-  set -l msg (eval $cliStr 2>/dev/null)
-  if test -z "$msg"
+  set -l packageName (eval "npm run env | sed -n '/npm_package_name/{s/.*=//;p;}'" 2>/dev/null)
+  set -l ciVersion (eval $cliStr 2>/dev/null)
+  if test -z "$ciVersion"
     echo "[错误]: 请进入Node项目目录后再执行"
   else
-    echo "[Runing Cli]: git commit -am \"$msg\""
-    git commit -am "$msg"
+    echo "[Runing Cli]: git commit -am \"$packageName $ciVersion\""
+    git commit -am "$packageName $ciVersion"
   end
 
 end
