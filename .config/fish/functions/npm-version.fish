@@ -30,7 +30,8 @@ function npm-version --description 'npm更新版本号时自动执行git commit'
 
   # 执行结果
   echo "[Runing Cli]: $cliStr"
-  set -l packageName (eval "npm run env | sed -n '/npm_package_name/{s/.*=//;p;}'" 2>/dev/null)
+  # set -l packageName (eval "npm run env | sed -n '/npm_package_name/{s/.*=//;p;}'" 2>/dev/null)
+  set -l packageName (eval "npm pkg get name | tr -d '\"'" 2>/dev/null)
   set -l ciVersion (eval $cliStr 2>/dev/null)
   if test -z "$ciVersion"
     echo "[错误]: 请进入Node项目目录后再执行"
