@@ -7,7 +7,7 @@ set -gx PATH /opt/homebrew/bin $PATH
 set -gx PATH /opt/homebrew/sbin $PATH
 set -gx PATH /usr/local/bin $PATH
 set -gx PATH /usr/local/sbin $PATH
-set -gx PATH ~/.bin $PATH
+set -gx PATH ~/.local/bin $PATH
 
 # nodeJs
 set -gx PATH /opt/homebrew/opt/node@18/bin $PATH
@@ -34,6 +34,9 @@ set -gx CPPFLAGS "-I/opt/homebrew/opt/openjdk/include"
 set -gx PATH  ~/.cargo/bin $PATH
 # set -gx RUST_SRC_PATH "/usr/local/opt/rust"
 set -gx PKG_CONFIG_PATH $PKG_CONFIG_PATH "/usr/local/opt/icu4c/lib/pkgconfig"
+# Rust国内更新源
+set -gx RUSTUP_DIST_SERVER "https://rsproxy.cn"
+set -gx RUSTUP_UPDATE_ROOT "https://rsproxy.cn/rustup"
 
 # openssl
 # set -g fish_user_paths /usr/local/opt/curl/bin $fish_user_paths
