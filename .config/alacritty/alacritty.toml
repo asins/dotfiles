@@ -1,4 +1,5 @@
 import = ["/Users/asins/.config/alacritty/theme/snazzy.toml"]
+# 自动刷新
 live_config_reload = true
 
 [colors]
@@ -15,55 +16,32 @@ TERM = "xterm-256color"
 
 [font]
 size = 13.0
+normal = { family = "FiraCode Nerd Font", style = "Regular" }
+bold = { family = "FiraCode Nerd Font", style = "Bold" }
+bold_italic = { family = "FiraCode Nerd Font", style = "Bold Italic" }
+italic = { family = "FiraCode Nerd Font", style = "Italic" }
+offset = { x = 0, y = 0 }
 
-[font.bold]
-family = "FiraCode Nerd Font Mono"
-style = "Bold"
+[keyboard]
+bindings = [
+  { action = "SpawnNewInstance", key = "T", mods = "Control" },
+  { action = "CreateNewWindow", key = "N", mods = "Command" },
+  { action = "ToggleFullscreen", key = "F", mods = "Command|Control" },
+]
 
-[font.bold_italic]
-family = "FiraCode Nerd Font Mono"
-style = "Bold Italic"
-
-[font.italic]
-family = "FiraCode Nerd Font Mono"
-style = "Italic"
-
-[font.normal]
-family = "FiraCode Nerd Font Mono"
-style = "Regular"
-
-[font.offset]
-x = 0
-y = 0
-
-[[keyboard.bindings]]
-action = "SpawnNewInstance"
-key = "T"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "CreateNewWindow"
-key = "N"
-mods = "Command"
-
-[[keyboard.bindings]]
-action = "ToggleFullscreen"
-key = "F"
-mods = "Command|Control"
 
 [selection]
 save_to_clipboard = true
 semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
 [window]
-decorations = "buttonless"
-history = 10000
+# decorations = "buttonless"
+decorations = "Transparent"
 opacity = 0.95
+dynamic_padding = true
+padding = { x = 3, y = 3 }
+position = { x = 3, y = 3 }
 
-[window.padding]
-x = 5
-y = 5
-
-[window.position]
-x = 5
-y = 5
+[scrolling]
+# 自动滚动至最新行
+history = 20000
