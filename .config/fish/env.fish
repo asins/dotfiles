@@ -9,10 +9,10 @@ set -gx PATH /usr/local/bin $PATH
 set -gx PATH /usr/local/sbin $PATH
 set -gx PATH ~/.local/bin $PATH
 
-# nodeJs
-set -gx PATH /opt/homebrew/opt/node@18/bin $PATH
-set -gx LDFLAGS "-L/opt/homebrew/opt/node@18/lib"
-set -gx CPPFLAGS "-I/opt/homebrew/opt/node@18/include"
+# nodeJs 指定为v20版本
+set -gx PATH /opt/homebrew/opt/node@20/bin $PATH
+set -gx LDFLAGS "-L/opt/homebrew/opt/node@20/lib"
+set -gx CPPFLAGS "-I/opt/homebrew/opt/node@20/include"
 
 
 # brew源改为阿里云
@@ -23,7 +23,7 @@ set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
 # set -gx JAVA_HOME (/usr/libexec/java_home -F)
 set -gx PATH /opt/homebrew/opt/openjdk/bin $PATH
 # set -gx M2_HOME "/usr/local/opt/maven/libexec"
-set -gx CPPFLAGS "-I/opt/homebrew/opt/openjdk/include"
+set -gx CPPFLAGS -I/opt/homebrew/opt/openjdk/include
 
 # java旧版
 # set -gx TOMCAT_HOME "/usr/local/opt/tomcat@7/libexec"
@@ -31,9 +31,8 @@ set -gx CPPFLAGS "-I/opt/homebrew/opt/openjdk/include"
 # fish_add_path $M2_HOME/bin
 
 # Rust
-set -gx PATH  ~/.cargo/bin $PATH
-# set -gx RUST_SRC_PATH "/usr/local/opt/rust"
-set -gx PKG_CONFIG_PATH $PKG_CONFIG_PATH "/usr/local/opt/icu4c/lib/pkgconfig"
+set -gx PATH ~/.cargo/bin $PATH
+set -gx PKG_CONFIG_PATH $PKG_CONFIG_PATH /opt/homebrew/opt/icu4c/lib/pkgconfig
 # Rust国内更新源
 set -gx RUSTUP_DIST_SERVER "https://rsproxy.cn"
 set -gx RUSTUP_UPDATE_ROOT "https://rsproxy.cn/rustup"
