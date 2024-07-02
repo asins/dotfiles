@@ -1,4 +1,0 @@
-
-rules:
- - DOMAIN-SUFFIX,dingtalk.com,DIRECT
- - DOMAIN-SUFFIX,alibaba-inc.com,DIRECT
