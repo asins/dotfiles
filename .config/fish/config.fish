@@ -13,9 +13,9 @@ if status --is-login
 end
 
 # 尝试加载公司内部配置
-if test -e ~/.config/fish/config-work.fish
-	source ~/.config/fish/config-work.fish
-end
+# if test -e ~/.config/fish/config-work.fish
+# 	source ~/.config/fish/config-work.fish
+# end
 
 # fisher plugin tide setting
 set tide_git_truncation_length = 42 # 显示完整分支名
@@ -24,7 +24,6 @@ set tide_git_truncation_length = 42 # 显示完整分支名
 # pnpm
 set -gx PNPM_HOME "/Users/asins/Library/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH
-# pnpm end
 
 # starShip: 超级快、支持各种订制的极简命令行提示符
 starship init fish | source

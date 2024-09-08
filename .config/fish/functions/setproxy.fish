@@ -1,5 +1,11 @@
 function setproxy --description "设置代理 支持 http https git命令代理"
 
+  # 设置工作目录
+  set workspace_dir "$HOME/WorkSpaces"
+
+  # 获取当前执行命令时的目录
+  set current_dir (pwd)
+
   # 使用privoxy来将http/https的请求转发给socks5协议:
   # vim /usr/local/etc/privoxy/config
   # 设置 privoxy 监听任意 ip 的 8118 端口
@@ -20,11 +26,31 @@ function setproxy --description "设置代理 支持 http https git命令代理"
   set -Ux https_proxy $httpUri
 
   # git
-  git config --global socks.proxy $socksUri
-  git config --global https.proxy $httpUri
-  git config --global http.proxy $httpUri
+  if command -v git > /dev/null
+    echo "设置 git 代理为$httpUri"
+    git config --global socks.proxy $socksUri
+    git config --global https.proxy $httpUri
+    git config --global http.proxy $httpUri
+  end
 
   # npm
-  npm config set proxy $httpUri
-  npm config set https-proxy $httpUri
+  if command -v npm > /dev/null
+    #npm config set proxy $httpUri
+    #npm config set https-proxy $httpUri
+
+    # 如果是工作空间下的文件夹则不设置
+    if string match -q -r "^$workspace_dir(/|\$)" "$current_dir"
+      echo "设置 npm 代理为registry.npmmirror.com"
+      npm config set registry https://registry.npmmirror.com/
+    end
+  end
+
+  if command -v pnpm > /dev/null
+    # 如果是工作空间下的文件夹则不设置
+    if string match -q -r "^$workspace_dir(/|\$)" "$current_dir"
+      echo "设置 pnpm 代理为registry.npmmirror.com"
+      pnpm config set registry https://registry.npmmirror.com/
+    end
+  end
+
 end
