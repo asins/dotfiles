@@ -15,8 +15,8 @@ function unproxy --description '取消代理设置'
 
   # npm
   if command -v npm > /dev/null
-    # npm config delete proxy
-    # npm config delete https-proxy
+    npm config delete proxy
+    npm config delete https-proxy
     npm config set registry https://registry.npmjs.org/
   end
 

@@ -1,4 +1,14 @@
+# 指定命令的代理
+#   setproxy all # 设置所有命令的代理
+#   setproxy npm
+#   setproxy pnpm
 function setproxy --description "设置代理 支持 http https git命令代理"
+
+  set -l what 'all' # 对什么命令设置代理,默认为全局设置代理
+  if test (count $argv) -ne 0
+    set what $argv[1]
+  end
+
 
   # 设置工作目录
   set workspace_dir "$HOME/WorkSpaces"
@@ -20,13 +30,17 @@ function setproxy --description "设置代理 支持 http https git命令代理"
   set socks5Uri socks5://127.0.0.1:7890
   set httpUri http://127.0.0.1:7890
 
-  set -Ux no_proxy localhost,127.0.0.1
-  set -Ux all_proxy $httpUri
-  set -Ux http_proxy $httpUri
-  set -Ux https_proxy $httpUri
+  if test "$what" = 'all'
+    echo "设置全局系统代理为$httpUri"
+    set -Ux no_proxy localhost,127.0.0.1
+    set -Ux all_proxy $httpUri
+    set -Ux http_proxy $httpUri
+    set -Ux https_proxy $httpUri
+  end
 
   # git
-  if command -v git > /dev/null
+  # 检查 what 的值是否是 'all' 或 'npm'，并且检查 npm 命令能否正常调用
+  if test "$what" = 'all' -o "$what" = 'git' -a (command -v git)
     echo "设置 git 代理为$httpUri"
     git config --global socks.proxy $socksUri
     git config --global https.proxy $httpUri
@@ -34,11 +48,11 @@ function setproxy --description "设置代理 支持 http https git命令代理"
   end
 
   # npm
-  if command -v npm > /dev/null
-    #npm config set proxy $httpUri
-    #npm config set https-proxy $httpUri
+  #npm config set proxy $httpUri
+  #npm config set https-proxy $httpUri
 
-    # 如果是工作空间下的文件夹则不设置
+  # 如果是工作空间下的文件夹则不设置
+  if test "$what" = 'all' -o "$what" = 'npm' -a (command -v npm)
     if not string match -q -r "^$workspace_dir(/|\$)" "$current_dir"
       echo "设置 npm 代理为registry.npmmirror.com"
       npm config set registry https://registry.npmmirror.com/
@@ -47,14 +61,14 @@ function setproxy --description "设置代理 支持 http https git命令代理"
     end
   end
 
-  if command -v pnpm > /dev/null
+  if test "$what" = 'all' -o "$what" = 'pnpm' -a (command -v pnpm)
     # 如果是工作空间下的文件夹则不设置
-    if not string match -q -r "^$workspace_dir(/|\$)" "$current_dir"
+    # if not string match -q -r "^$workspace_dir(/|\$)" "$current_dir"
       echo "设置 pnpm 代理为registry.npmmirror.com"
       pnpm config set registry https://registry.npmmirror.com/
-    else
-      npm config set registry https://registry.npmjs.org/
-    end
+    # else
+      # npm config set registry https://registry.npmjs.org/
+    # end
   end
 
 end
