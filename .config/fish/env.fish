@@ -9,8 +9,10 @@ set -gx PATH /usr/local/bin $PATH
 set -gx PATH /usr/local/sbin $PATH
 set -gx PATH ~/.local/bin $PATH
 
-# brew install nvm
-nvm use lts/iron
+# 使用volta管理Node/npm版本
+# brew install volta
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH
 
 
 # brew源改为阿里云
