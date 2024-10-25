@@ -13,6 +13,7 @@ set -gx PATH ~/.local/bin $PATH
 # brew install volta
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
+set -gx NODE_OPTIONS "--openssl-legacy-provider"
 
 
 # brew源改为阿里云
