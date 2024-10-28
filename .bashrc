@@ -30,7 +30,7 @@ alias g='git'
 alias c=clear
 
 # Nodejs & Npm
-alias cnpm='npm --registry=https://registry.npm.taobao.org'
+alias cnpm='npm --registry=https://registry.npmmirror.com/'
 
 # 设置代理
 function setproxy() {

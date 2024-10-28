@@ -117,8 +117,7 @@ alias c=clear
 alias mvn-app='mvn clean eclipse:eclipse install -DskipTests'
 
 # Nodejs & Npm
-alias tnpm='npm --registry=http://registry.npm.alibaba-inc.com'
-alias cnpm='npm --registry=https://registry.npm.taobao.org'
+alias cnpm='npm --registry=https://registry.npmmirror.com'
 
 # 添加代理
 alias setproxy='export http_proxy=socks5://127.0.0.1:1080; export https_proxy=socks5://127.0.0.1:1080'

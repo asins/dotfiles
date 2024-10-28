@@ -55,9 +55,9 @@ function setproxy --description "设置代理 支持 http https git命令代理"
   if test "$what" = 'all' -o "$what" = 'npm' -a (command -v npm)
     if not string match -q -r "^$workspace_dir(/|\$)" "$current_dir"
       echo "设置 npm 代理为registry.npmmirror.com"
-      npm config set registry https://registry.npmmirror.com/
+      npm config set registry https://registry.npmmirror.com
     else
-       npm config set registry https://registry.npmjs.org/
+       npm config set registry https://registry.npmjs.org
     end
   end
 
@@ -65,7 +65,7 @@ function setproxy --description "设置代理 支持 http https git命令代理"
     # 如果是工作空间下的文件夹则不设置
     # if not string match -q -r "^$workspace_dir(/|\$)" "$current_dir"
       echo "设置 pnpm 代理为registry.npmmirror.com"
-      pnpm config set registry https://registry.npmmirror.com/
+      pnpm config set registry https://registry.npmmirror.com
     # else
       # npm config set registry https://registry.npmjs.org/
     # end
