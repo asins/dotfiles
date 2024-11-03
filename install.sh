@@ -42,9 +42,9 @@ lnPathArray=(
   ".config/neofetch: ~/.config/neofetch"
 
   # Nginx配置
-  "nginx/nginx.conf: /usr/local/etc/nginx/nginx.conf"
-  "nginx/conf.d: /usr/local/etc/nginx/conf.d"
-  "create_ssl: /usr/local/etc/nginx/ssl"
+  "nginx/nginx.conf: /opt/homebrew/etc/nginx/nginx.conf"
+  "nginx/servers: /opt/homebrew/etc/nginx/servers"
+  "create_ssl: /opt/homebrew/etc/nginx/ssl"
 
   # nvim
   #ln -sfv $BASE/.config/nvim ~/.vim
