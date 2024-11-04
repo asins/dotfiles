@@ -51,6 +51,6 @@
 [socks]
 	proxy = socks://127.0.0.1:7890
 [https]
-	proxy = http://127.0.0.1:7890
+	proxy = socks5://127.0.0.1:1080
 [http]
-	proxy = http://127.0.0.1:7890
+	proxy = socks5://127.0.0.1:1080

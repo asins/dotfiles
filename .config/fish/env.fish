@@ -4,16 +4,16 @@ set -gx PATH /sbin $PATH
 set -gx PATH /usr/bin $PATH
 set -gx PATH /usr/sbin $PATH
 set -gx PATH /opt/homebrew/bin $PATH
-set -gx PATH /opt/homebrew/sbin $PATH
-set -gx PATH /usr/local/bin $PATH
-set -gx PATH /usr/local/sbin $PATH
 set -gx PATH ~/.local/bin $PATH
+
+set -gx EDITOR vim
 
 # 使用volta管理Node/npm版本
 # brew install volta
-set -gx VOLTA_HOME "$HOME/.volta"
-set -gx PATH "$VOLTA_HOME/bin" $PATH
-# set -gx NODE_OPTIONS "--openssl-legacy-provider"
+# if not brew list |grep -q "volta"; then
+#   set -gx VOLTA_HOME "$HOME/.volta"
+#   set -gx PATH "$VOLTA_HOME/bin" $PATH
+# end
 
 
 # brew源改为阿里云
@@ -21,19 +21,17 @@ set -gx PATH "$VOLTA_HOME/bin" $PATH
 set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # java运行环境变量
-# set -gx JAVA_HOME (/usr/libexec/java_home -F)
-set -gx PATH /opt/homebrew/opt/openjdk/bin $PATH
-# set -gx M2_HOME "/usr/local/opt/maven/libexec"
-set -gx CPPFLAGS -I/opt/homebrew/opt/openjdk/include
-
-# java旧版
-# set -gx TOMCAT_HOME "/usr/local/opt/tomcat@7/libexec"
-# fish_add_path $TOMCAT_HOME/bin
-# fish_add_path $M2_HOME/bin
+# if not type -p java
+  # set -gx JAVA_HOME (/usr/libexec/java_home -F)
+  # set -gx PATH /opt/homebrew/opt/openjdk/bin $PATH
+  # set -gx M2_HOME "/usr/local/opt/maven/libexec"
+  # set -gx CPPFLAGS -I/opt/homebrew/opt/openjdk/include
+# end
 
 # Rust
-set -gx PATH ~/.cargo/bin $PATH
-set -gx PKG_CONFIG_PATH $PKG_CONFIG_PATH /opt/homebrew/opt/icu4c/lib/pkgconfig
+if test -f "$HOME/.cargo/env.fish"
+  source "$HOME/.cargo/env.fish"
+end
 # Rust国内更新源
 set -gx RUSTUP_DIST_SERVER "https://rsproxy.cn"
 set -gx RUSTUP_UPDATE_ROOT "https://rsproxy.cn/rustup"

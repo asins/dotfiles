@@ -1,9 +1,8 @@
 # - https://github.com/asins/dotfiles
 # - asinsimple@gmail.com
 
-export PATH=/usr/local/bin:$PATH
+export PATH=/opt/homebrew/bin:$PATH
 export PATH=~/.local/bin:$PATH
-export PATH=/usr/local/opt/node@20/bin:$PATH
 
 PS1="\[\e[37;40m\][\[\e[33;40m\]\u\[\e[37;40m\] \[\e[36;40m\]\w\[\e[0m\]]\n\\$ "
 export CLICOLOR=1
