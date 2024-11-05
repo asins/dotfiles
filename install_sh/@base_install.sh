@@ -35,7 +35,7 @@ function lnFiles() {
       showLog "yellow" "ln back" "$(mv -v "${target}" $BASE_PATH/bak/$(basename "${target}"))"
     fi
 
-    showLog "green" "ln back" "$(ln -sfv "${origin}" "${target}")"
+    showLog "green" "ln -sfv" "$(ln -sfv "${origin}" "${target}")"
   done
 }
 
