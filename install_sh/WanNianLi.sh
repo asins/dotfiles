@@ -9,7 +9,7 @@ fi
 
 
 # 万年历数据指向
-WanNianLi_Folder="${HOME}/Library/Application Support/com.zfdang.calendar"
+WanNianLi_Folder="${HOME}/Library/Application\ Support/com.zfdang.calendar"
 
 if [ -d "$WanNianLi_Folder" ]; then # 真实文件存在
 
