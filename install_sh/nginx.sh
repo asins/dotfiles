@@ -16,7 +16,7 @@ if [ -z "$(which nginx)" ]; then
     # Nginx配置
     "${BASE_PATH}/nginx/nginx.conf"   "/opt/homebrew/etc/nginx/nginx.conf"
     "${BASE_PATH}/nginx/servers"      "/opt/homebrew/etc/nginx/servers"
-    "${BASE_PATH}/create_ssl"         "/opt/homebrew/etc/nginx/ssl"
+    "${BASE_PATH}/nginx/ssl"         "/opt/homebrew/etc/nginx/ssl"
   )
   lnFiles "${lnArr[@]}"
 fi

@@ -97,26 +97,23 @@ plugins=(
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# 目录操作
+# alias ..='cd ..'
+# alias ...='cd ../..'
+# alias md='mkdir -p'
+# alias la='ls -alh'
+# alias ll='ls -lh'
+
 # 编辑器
 alias vi='vim'
 alias vim='mvim -v'
-# VSCode
-alias vsc='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
-# *.md
-alias typora="open -a typora"
 
 alias which='type -p'
 alias k5='kill -9 %%'
-
-alias g='git'
-alias c=clear
-
-# maven构建
-alias mvn-app='mvn clean eclipse:eclipse install -DskipTests'
 
 # Nodejs & Npm
 alias cnpm='npm --registry=https://registry.npmmirror.com'
 
 # 添加代理
-alias setproxy='export http_proxy=socks5://127.0.0.1:1080; export https_proxy=socks5://127.0.0.1:1080'
-alias unproxy='export http_proxy=; export https_proxy='
+alias setproxy='export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890'
+alias unproxy='export http_proxy=; export https_proxy= all_proxy='
