@@ -14,9 +14,6 @@ fi
 if ! brew list |grep -q "volta"; then
   showLog "blue" "安装 Volta: NodeJs版本管理器"
   brew install volta
-  
-  set -gx VOLTA_HOME "$HOME/.volta"
-  set -gx PATH "$VOLTA_HOME/bin" $PATH
 
   volta install node
   showLog "yellow" "安装 NodeJs LTS $(node --version)"
