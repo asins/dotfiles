@@ -13,30 +13,33 @@ mkdir -pv $BASE_PATH/bak
 
 lnPathArray=(
   # 默认的Bash
-  "${BASE_PATH}/.bash_profile"        "/Users/${USER_NAME}/.bash_profile"
-  "${BASE_PATH}/.bashrc"              "/Users/${USER_NAME}/.bashrc"
-  # "${BASE_PATH}/bin"                  "/Users/${USER_NAME}/.bin"
+  "${BASE_PATH}/.bash_profile"             "/Users/${USER_NAME}/.bash_profile"
+  "${BASE_PATH}/.bashrc"                   "/Users/${USER_NAME}/.bashrc"
+  # "${BASE_PATH}/bin"                     "/Users/${USER_NAME}/.bin"
 
   # Git
-  "${BASE_PATH}/.gitconfig"           "/Users/${USER_NAME}/.gitconfig"
+  "${BASE_PATH}/.gitconfig"                "/Users/${USER_NAME}/.gitconfig"
 
   # 清歌输入法字库
-  # "${BASE_PATH}/qingg.im"             "/Users/${USER_NAME}/.config/qingg.im"
+  # "${BASE_PATH}/qingg.im"                "/Users/${USER_NAME}/.config/qingg.im"
+
+  # Zed编辑器
+  "${BASE_PATH}/.config/zed/settings.json" "/Users/${USER_NAME}/.config/zed/settings.json"
 
   # Vim
-  "${BASE_PATH}/.config/vim/init.vim" "/Users/${USER_NAME}/.vimrc"
-  "${BASE_PATH}/.config/vim"          "/Users/${USER_NAME}/.vim"
+  "${BASE_PATH}/.config/vim/init.vim"      "/Users/${USER_NAME}/.vimrc"
+  "${BASE_PATH}/.config/vim"               "/Users/${USER_NAME}/.vim"
 
   # alacritty终端应用
-  "${BASE_PATH}/.config/alacritty"    "/Users/${USER_NAME}/.config/alacritty"
-  "${BASE_PATH}/.config/neofetch"     "/Users/${USER_NAME}/.config/neofetch"
+  "${BASE_PATH}/.config/alacritty"         "/Users/${USER_NAME}/.config/alacritty"
+  "${BASE_PATH}/.config/neofetch"          "/Users/${USER_NAME}/.config/neofetch"
 
   # nvim
-  #ln -sfv $BASE/.config/nvim /Users/${USER_NAME}/.vim
-  #ln -sfv $BASE/.config/nvim/init.vim /Users/${USER_NAME}/.config/nvim/init.vim
+  # "${BASE_PATH}/.config/nvim"            "/Users/${USER_NAME}/.vim"
+  # "${BASE_PATH}/.config/nvim/init.vim"   "/Users/${USER_NAME}/.config/nvim/init.vim"
 
   # zsh
-  "${BASE_PATH}/.config/zsh/.zshrc"   "/Users/${USER_NAME}/.zshrc"
+  "${BASE_PATH}/.config/zsh/.zshrc"        "/Users/${USER_NAME}/.zshrc"
 )
 lnFiles "${lnPathArray[@]}"
 
