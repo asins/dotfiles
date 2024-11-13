@@ -40,5 +40,8 @@
     },
     "version": "2"
   },
-  "vim_mode": true
+  "vim_mode": true,
+  "prettier": {
+    "singlequote": true
+  }
 }
