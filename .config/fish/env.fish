@@ -17,7 +17,7 @@ end
 
 # brew源改为阿里云
 # set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.aliyun.com/homebrew/homebrew-bottles
-set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
+# set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # java运行环境变量
 # if not type -p java
@@ -28,12 +28,14 @@ set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
 # end
 
 # Rust
-if test -f "$HOME/.cargo/env.fish"
-  source "$HOME/.cargo/env.fish"
+if [ -n (type -p rustup) ]
+  if test -f "$HOME/.cargo/env.fish"
+    source "$HOME/.cargo/env.fish"
+  end
+  # Rust国内更新源
+  set -gx RUSTUP_DIST_SERVER "https://rsproxy.cn"
+  set -gx RUSTUP_UPDATE_ROOT "https://rsproxy.cn/rustup"
 end
-# Rust国内更新源
-set -gx RUSTUP_DIST_SERVER "https://rsproxy.cn"
-set -gx RUSTUP_UPDATE_ROOT "https://rsproxy.cn/rustup"
 
 # openssl
 # set -g fish_user_paths /usr/local/opt/curl/bin $fish_user_paths
