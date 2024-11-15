@@ -6,7 +6,9 @@ draw_bold_text_with_bright_colors = true
 unfocused_hollow = true
 
 [cursor.style]
-shape = "Block"
+# 将光标设置为光束并在允许时开始闪烁
+# shape = "Beam"
+blinking = "Always"
 
 [env]
 TERM = "xterm-256color"
@@ -32,12 +34,18 @@ save_to_clipboard = true
 semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
 [window]
-# decorations = "buttonless"
-decorations = "Transparent"
+blur = true
+decorations = "buttonless"
+# 背景不透明度
 opacity = 0.95
+# 在终端内容周围均匀分布额外的填充
 dynamic_padding = true
+# 在窗口周围添加的空白区域
 padding = { x = 3, y = 3 }
+# 窗口启动位置
 position = { x = 3, y = 3 }
+# 窗口尺寸
+dimensions = { columns = 80, lines = 30 }
 
 [scrolling]
 # 自动滚动至最新行
