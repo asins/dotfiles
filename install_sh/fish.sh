@@ -39,6 +39,12 @@ if ! brew list | grep -q "starship"; then
   brew install starship
 fi
 
+if ! brew list | grep -q "zoxide"; then
+  showLog "blue" "安装 Zoxide: 更智能的 cd 命令(支持快速跳转)"
+
+  brew install zoxide
+fi
+
 
 showLog "blue" "设置 Fish 软件在 dotfiles 中的软连接"
 lnArr=(
@@ -50,9 +56,3 @@ lnArr=(
   )
 lnFiles "${lnArr[@]}"
 
-
-showLog "blue" "安装 Fisher: fish插件管理器"
-/opt/homebrew/bin/fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher'
-
-showLog "blue" "安装 z: fish的目录跳转插件"
-/opt/homebrew/bin/fish -c 'fisher install jethrokuan/z'
