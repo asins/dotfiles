@@ -1,6 +1,6 @@
 " Author: Asins - asinsimple AT gmail DOT com
 "         Get latest vimrc from http://nootn.com/
-" Last Modified: 2023-09-15 12:13 (+0800)
+" Last Modified: 2024-11-15 21:08 (+0800)
 "======================================================================
 " vim:fdm=marker:fmr={{{,}}}
 
@@ -1475,6 +1475,9 @@ nnoremap <silent> <leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR
 " 在VimScript中光标处关键词文档 <F1>
 autocmd Filetype vim noremap <buffer> <F1> <Esc>:help <C-r><C-w><CR>
 
+let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SR.="\e[4 q" "SR = REPLACE mode
+let &t_EI.="\e[2 q" "EI = NORMAL mode
 
 
 
