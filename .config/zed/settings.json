@@ -33,6 +33,7 @@
       "api_url": "https://api.deepseek.com/beta"
     }
   },
+  "tab_size": 2,
   "assistant": {
     "default_model": {
       "provider": "openai",
