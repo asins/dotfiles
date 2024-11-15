@@ -26,10 +26,14 @@ function lnFiles() {
     fi
     
     mkdir -pv $(dirname "${target}")
+    echo 'mkdir success';
+    echo "target=${target}"
     if [ -L "${target}" ]; then # 存在的是软链接
+      echo '存在的是软链接'
       showLog "yellow" "remove old ln" "${target}"
       rm -r "${target}"
     elif [ -f "${target}" ]; then # 真实文件存在
+      echo '真实文件存在'
       showLog "yellow" "ln back" "$(mv -v "${target}" $BASE_PATH/bak/$(basename "${target}"))"
     elif [ -d "${target}" ]; then # 真实目录存在
       showLog "yellow" "ln back" "$(mv -v "${target}" $BASE_PATH/bak/$(basename "${target}"))"

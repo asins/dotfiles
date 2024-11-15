@@ -8,15 +8,12 @@ if [ -z "${BASE_PATH}" ]; then
 fi
 
 
-# 万年历数据指向
-WanNianLi_Folder="${HOME}/Library/Application\ Support/com.zfdang.calendar"
-
-if [ -d "$WanNianLi_Folder" ]; then # 真实文件存在
+if [ -d "/Applications/WanNianLi.app" ]; then # 真实文件存在
 
   showLog "blue" "设置 WanNianLi 软件在 dotfiles 中的软连接"
   lnArr=(
-    "${BASE_PATH}/WanNianLi/festivals.js"   "${WanNianLi_Folder}/festivals.js"
-    "${BASE_PATH}/WanNianLi/events.js"      "${WanNianLi_Folder}/events.js"
+    "${BASE_PATH}/WanNianLi/festivals.js"   "/Users/${USER_NAME}/Library/Application Support/com.zfdang.calendar/festivals.js"
+    "${BASE_PATH}/WanNianLi/events.js"      "/Users/${USER_NAME}/Library/Application Support/com.zfdang.calendar/events.js"
   )
   lnFiles "${lnArr[@]}"
 fi
