@@ -17,6 +17,11 @@
   "terminal": {
     "font_family": "FiraCode Nerd Font"
   },
+  "languages": {
+    "TOML": {
+      "format_on_save": "off"
+    }
+  },
   "language_models": {
     "openai": {
       "version": "1",

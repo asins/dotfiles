@@ -12,3 +12,4 @@ bak
 .config/fish/functions/tide.fish
 .config/fish/functions/tide/
 .config/fish/functions/fisher.fish
+.config/helix/runtime/

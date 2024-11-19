@@ -1,0 +1,42 @@
+theme = "onedark_local"
+
+[editor]
+line-number = "relative"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.auto-save]
+focus-lost = true
+
+[editor.indent-guides]
+render = true
+character = "┊" # Some characters that work well: ╎, ▏, ┆, ┊, ⸽"
+skip-levels = 1
+
+# [editor.whitespace.render]
+# space = "all"
+# tab = "all"
+# nbsp = "none"
+# nnbsp = "none"
+# newline = "none"
+# [editor.whitespace.characters]
+# space = "·"
+# tab = "→"
+# tabpad = "·" # Tabs will look like "→···" (depending on tab width)
+# nbsp = "⍽"
+# nnbsp = "␣"
+# newline = "⏎"
+
+[editor.lsp]
+display-inlay-hints = true
+
+[editor.soft-wrap]
+enable = true
+max-wrap = 30
+# max-indent-retain = 0
