@@ -18,22 +18,24 @@ function lnFiles() {
   for ((i=0; i<len; i+=2)); do
     local origin=${lnPathArray[i]}
     local target=${lnPathArray[i+1]}
-    
+
     # 检查源路径是否存在
     if [ ! -e "$origin" ]; then
       showLog "red" "skip" "${origin} does not exist"
       continue
     fi
-    
-    mkdir -pv $(dirname "${target}")
-    echo 'mkdir success';
-    echo "target=${target}"
+
+    local targetDir=$(dirname "${target}")
+    # 目标目录不存在时自动创建
+    if ! [ -d "${targetDir}" ]; then
+      mkdir -pv "${targetDir}"
+      showLog "blue" "mkdir success" "${targetDir}";
+    fi
+
     if [ -L "${target}" ]; then # 存在的是软链接
-      echo '存在的是软链接'
       showLog "yellow" "remove old ln" "${target}"
       rm -r "${target}"
     elif [ -f "${target}" ]; then # 真实文件存在
-      echo '真实文件存在'
       showLog "yellow" "ln back" "$(mv -v "${target}" $BASE_PATH/bak/$(basename "${target}"))"
     elif [ -d "${target}" ]; then # 真实目录存在
       showLog "yellow" "ln back" "$(mv -v "${target}" $BASE_PATH/bak/$(basename "${target}"))"
