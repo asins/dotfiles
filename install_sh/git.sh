@@ -7,7 +7,9 @@ if [ -z "${BASE_PATH}" ]; then
   exit 1
 fi
 
-if ! brew list | grep -q "git"; then
+if brew list | grep -q "git"; then
+  showLog "green" "✓ Git 已安装（跳过）"
+else
   showLog "blue" "安装 Git"
   brew install git
   # Git 配置
@@ -17,8 +19,19 @@ if ! brew list | grep -q "git"; then
   lnFiles "${lnPaths[@]}"
 fi
 
-if ! brew list | grep -q "lazygit"; then
-  showLog "blue" "安装 LazyGit: Git命令的简单终端用户界面"
-  brew install lazygit
-fi
 
+# if ! brew list | grep -q "lazygit"; then
+  # showLog "green" "✓ LazyGit 已安装（跳过）"
+# else
+#   showLog "green" "✓ LazyGit 已安装（跳过）"
+# else
+#   showLog "blue" "安装 LazyGit: Git命令的简单终端用户界面"
+#   brew install lazygit
+# fi
+
+if brew list | grep -q "gitui"; then
+  showLog "green" "✓ GitUi 已安装（跳过）"
+else
+  showLog "blue" "安装 GitUi: 基于终端的 Git 用户界面工具"
+  brew install gitui
+fi

@@ -7,7 +7,10 @@ if [ -z "${BASE_PATH}" ]; then
   exit 1
 fi
 
-if [ -z "$(which rustc)" ]; then
+# if [ -n "$(which rustc)" ]; then
+if brew list |grep -q "rustup"; then
+  showLog "green" "✓ Rust 已安装（跳过）"
+else
   showLog "blue" "安装 Rust"
   brew install rustup
   rustup-init

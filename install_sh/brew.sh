@@ -10,7 +10,9 @@ fi
 # 加载基本公共方法
 # source "${BASE_PATH}/@base_install.sh"
 
-if [ -z "$(which brew)" ]; then
+if [ -n "$(which brew)" ]; then
+  showLog "green" "✓ Homebrew 已安装（跳过）"
+else
   showLog "blue" "安装 Homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
@@ -20,12 +22,16 @@ if [ -z "$(which brew)" ]; then
 fi
 
 
-if ! brew list | grep -q "ripgrep"; then
+if brew list | grep -q "ripgrep"; then
+  showLog "green" "✓ Ripgrep 已安装（跳过）"
+else
   showLog "blue" "安装 Rg: 全文搜索工具"
   brew install ripgrep
 fi
 
-if [ -z "$(which fd)" ]; then
+if [ -n "$(which fd)" ]; then
+  showLog "green" "✓ Fd 已安装（跳过）"
+else
   showLog "blue" "安装 Fd: 文件搜索工具"
   brew install fd
 fi

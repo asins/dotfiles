@@ -10,11 +10,12 @@ mkdir -pv $BASE_PATH/bak
 
 # 开始执行脚本
 source "${BASE_PATH}/install_sh/brew.sh"
+source "${BASE_PATH}/install_sh/brew_casks.sh"
+source "${BASE_PATH}/install_sh/input_method.sh"
 source "${BASE_PATH}/install_sh/nginx.sh"
 source "${BASE_PATH}/install_sh/nodejs.sh"
 source "${BASE_PATH}/install_sh/git.sh"
 source "${BASE_PATH}/install_sh/terminals.sh"
 source "${BASE_PATH}/install_sh/editors.sh"
-source "${BASE_PATH}/install_sh/rust.sh"
-source "${BASE_PATH}/install_sh/ui_apps.sh"
 source "${BASE_PATH}/install_sh/WanNianLi.sh"
+source "${BASE_PATH}/install_sh/rust.sh"

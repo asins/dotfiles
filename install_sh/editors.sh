@@ -9,7 +9,9 @@ fi
 
 
 # MacVim配置
-if ! brew list | grep -q "macvim"; then
+if brew list | grep -q "macvim"; then
+  showLog "green" "✓ MacVim 已安装（跳过）"
+else
   showLog "blue" "安装 MacVim: 代码编辑器"
   brew install macvim
   lnPaths=(
@@ -21,7 +23,9 @@ fi
 
 
 # Helix 配置
-if ! brew list | grep -q "helix"; then
+if brew list | grep -q "helix"; then
+  showLog "green" "✓ Helix 已安装（跳过）"
+else
   showLog "blue" "安装 Helix: 后现代文本编辑器"
   brew install helix
   lnPaths=(
@@ -31,7 +35,9 @@ if ! brew list | grep -q "helix"; then
 fi
 
 # NeoVim的配置
-# if ! brew list | grep -q "neovim"; then
+# if brew list | grep -q "neovim"; then
+  # showLog "green" "✓ NeoVim 已安装（跳过）"
+# else
 #   showLog "blue" "安装 NeoVim: 重构 Vim kj的编辑器"
 #   brew install neovim
 #   lnPaths=(
@@ -42,13 +48,17 @@ fi
 # fi
 
 # Sublime Text
-if ! brew list | grep -q "sublime-text"; then
+if brew list | grep -q "sublime-text"; then
+  showLog "green" "✓ Sublime Text 已安装（跳过）"
+else
   showLog "blue" "安装 Sublime Text: 文本编辑器,命令行: subl"
   brew install sublime-text
 fi
 
 # Zed
-if ! brew list | grep -q "zed"; then
+if brew list | grep -q "zed"; then
+  showLog "green" "✓ Zed 已安装（跳过）"
+else
   showLog "blue" "安装 Zed: 用Rust开发的极快编辑器"
   brew install zed
   lnPaths=(
@@ -58,7 +68,9 @@ if ! brew list | grep -q "zed"; then
 fi
 
 # VSCode
-if ! brew list | grep -q "visual-studio-code"; then
+if brew list | grep -q "visual-studio-code"; then
+  showLog "green" "✓ VSCode 已安装（跳过）"
+else
   showLog "blue" "安装 VSCode"
   brew install visual-studio-code
 fi

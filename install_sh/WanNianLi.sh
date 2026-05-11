@@ -8,13 +8,15 @@ if [ -z "${BASE_PATH}" ]; then
 fi
 
 
-if [ -d "/Applications/WanNianLi.app" ]; then # 真实文件存在
-
+if [ -d "/Applications/WanNianLi.app" ]; then 
+  # APP 真实文件存在
   showLog "blue" "设置 WanNianLi 软件在 dotfiles 中的软连接"
   lnArr=(
     "${BASE_PATH}/WanNianLi/festivals.js"   "/Users/${USER_NAME}/Library/Application Support/com.zfdang.calendar/festivals.js"
     "${BASE_PATH}/WanNianLi/events.js"      "/Users/${USER_NAME}/Library/Application Support/com.zfdang.calendar/events.js"
   )
   lnFiles "${lnArr[@]}"
+else
+  showLog "red" "x WanNianLi 未安装，跳过配置信息 Link"
 fi
 

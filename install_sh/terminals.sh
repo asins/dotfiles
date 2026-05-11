@@ -11,7 +11,9 @@ fi
 
 # =========== 默认终端 ===========
 
-if ! [ -L "/Users/${USER_NAME}/.bashrc" ]; then
+if [ -L "/Users/${USER_NAME}/.bashrc" ]; then
+  showLog "green" "✓ .bashrc 已经 Link（跳过）"
+else
   showLog "blue" "开始配置 默认终端 bash / zsh"
   lnArr=(
     # 默认的Bash
@@ -27,7 +29,9 @@ fi
 
 # =========== Ssh 配置 ===========
 
-if ! [ -L "/Users/${USER_NAME}/.ssh/config" ]; then
+if [ -L "/Users/${USER_NAME}/.ssh/config" ]; then
+  showLog "green" "✓ .ssh 已经 Link（跳过）"
+else
   showLog "blue" "指定 ~/.ssh/config 的默认文件"
   # [奇数为待复制内容的来源文件, 偶数为将要复制到哪的目标文件]
   lnPaths=(
@@ -40,9 +44,17 @@ fi
 
 # =========== Fish 终端 ===========
 
-if ! brew list | grep -q "fish"; then
+if brew list | grep -q "fish"; then
+  showLog "green" "✓ Fish Shell 已安装（跳过）"
+else
   showLog "blue" "安装 Fish Shell"
   brew install fish
+fi
+
+# 配置Fish
+if [ -L "/Users/${USER_NAME}/.config/fish/config.fish" ]; then
+  showLog "green" "✓ Fish 配置文件 已经 Link（跳过）"
+else
   showLog "blue" "配置 Fish 软件在 dotfiles 中的软连接"
   lnArr=(
     # Fish 配置
@@ -52,39 +64,53 @@ if ! brew list | grep -q "fish"; then
     "${BASE_PATH}/.config/fish/functions"    "/Users/${USER_NAME}/.config/fish/functions"
     )
   lnFiles "${lnArr[@]}"
+fi
 
-  # 获取 fish 的路径
-  FISH_PATH=$(which fish)
+# 获取 fish 的路径
+FISH_PATH=$(which fish)
+# 将fish shell 加入常用shell列表
+if grep -q "${FISH_PATH}" "/etc/shells"; then
+  showLog "green" "✓ Fish Shell 已在shells文件中（跳过）"
+else
+  showLog "blue" "将 Fish 追加到Mac Shell列表中"
+  echo $FISH_PATH | sudo tee -a /etc/shells
 
-
-  # 将fish shell 加入常用shell列表
-  if ! grep -q "${FISH_PATH}" "/etc/shells"; then
-    showLog "blue" "将 Fish 追加到Mac Shell列表中"
-    echo $FISH_PATH | sudo tee -a /etc/shells
-
-    showLog "blue" "设置 fish 为默认 Shells"
-    sudo chsh -s $FISH_PATH
-  fi
+  showLog "blue" "设置 fish 为默认 Shells"
+  sudo chsh -s $FISH_PATH
 fi
 
 
-if ! brew list | grep -q "alacritty"; then
+if brew list | grep -q "alacritty"; then
+  showLog "green" "✓ Alacritty 已安装（跳过）"
+else
   showLog "blue" "安装 Alacritty: GPU 加速的终端仿真器"
   brew install alacritty
+fi
+
+# 配置 Alacritty
+ALACRITTY_CONFIG_PATH="/Users/${USER_NAME}/.config/alacritty"
+if [ -L "${ALACRITTY_CONFIG_PATH}" ]; then
+  showLog "green" "✓ Alacritty 配置文件 已经 Link（跳过）"
+else
+  showLog "blue" "配置 Alacritty 软件在 dotfiles 中的软连接"
   # Alacritty 配置
   lnPaths=(
-    "${BASE_PATH}/.config/alacritty"      "/Users/${USER_NAME}/.config/alacritty"
+    "${BASE_PATH}/.config/alacritty"      "$ALACRITTY_CONFIG_PATH"
   )
   lnFiles "${lnPaths[@]}"
 fi
 
 
-if ! brew list | grep -q "starship"; then
+if brew list | grep -q "starship"; then
+  showLog "green" "✓ Starship 已安装（跳过）"
+else
   showLog "blue" "安装 Starship: 超级快、支持各种订制的极简命令行提示符"
   brew install starship
 fi
 
-if ! brew list | grep -q "zoxide"; then
+if brew list | grep -q "zoxide"; then
+  showLog "green" "✓ Zoxide 已安装（跳过）"
+else
   showLog "blue" "安装 Zoxide: 更智能的 cd 命令(支持快速跳转)"
 
   brew install zoxide
