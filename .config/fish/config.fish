@@ -22,3 +22,10 @@ end
 if [ -n (type -p zoxide) ]
   zoxide init fish | source
 end
+
+# pnpm
+set -gx PNPM_HOME "/Users/asins/Library/pnpm"
+if not string match -q -- "$PNPM_HOME/bin" $PATH
+  set -gx PATH "$PNPM_HOME/bin" $PATH
+end
+# pnpm end

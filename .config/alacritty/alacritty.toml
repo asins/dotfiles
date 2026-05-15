@@ -23,7 +23,7 @@ offset = { x = 0, y = 0 }
 
 [keyboard]
 bindings = [
-  { action = "SpawnNewInstance", key = "T", mods = "Control" },
+  # { action = "SpawnNewInstance", key = "T", mods = "Control" },
   { action = "CreateNewWindow", key = "N", mods = "Command" },
   { action = "ToggleFullscreen", key = "F", mods = "Command|Control" },
 ]
