@@ -9,10 +9,15 @@ set -gx PATH ~/.local/bin $PATH
 set -gx EDITOR vim
 
 # 使用volta管理Node/npm版本
-if brew list | grep -q "volta"
-  set -gx VOLTA_HOME "$HOME/.volta"
-  set -gx PATH "$VOLTA_HOME/bin" $PATH
-end
+# if brew list | grep -q "volta"
+#   set -gx VOLTA_HOME "$HOME/.volta"
+#   set -gx PATH "$VOLTA_HOME/bin" $PATH
+# end
+
+# NodeJs 使用指定版本
+set -gx PATH "/opt/homebrew/opt/node@24/bin" $PATH
+set -gx LDFLAGS "-L/opt/homebrew/opt/node@24/lib"
+set -gx CPPFLAGS "-I/opt/homebrew/opt/node@24/include"
 
 
 # brew源改为阿里云
@@ -57,3 +62,10 @@ end
 # set -gx EMSDK $HOME/Work/emsdk
 # fish_add_path $EMSDK
 # set -gx EM_CONFIG $REMSDK/.emscripten
+
+# pnpm
+set -gx PNPM_HOME "$HOME/Library/pnpm"
+if not string match -q -- "$PNPM_HOME/bin" $PATH
+  set -gx PATH "$PNPM_HOME/bin" $PATH
+end
+# pnpm end

@@ -27,3 +27,10 @@ alias typora 'open -a typora'
 # git快捷键
 # alias g 'git'
 
+# lsd: 用Rust重写的ls程序
+if [ -n (type -p lsd) ]
+  alias l='lsd -l'
+  alias la='lsd -a'
+  alias lla='lsd -la'
+  alias lt='lsd --tree'
+end

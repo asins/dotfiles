@@ -48,3 +48,5 @@
   trustExitCode = true
 [includeIf "gitdir:~/WorkSpaces/"]
   path = .gitconfig-work
+[safe]
+	directory = *

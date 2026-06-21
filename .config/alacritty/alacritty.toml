@@ -45,7 +45,7 @@ padding = { x = 3, y = 3 }
 # 窗口启动位置
 position = { x = 3, y = 3 }
 # 窗口尺寸
-dimensions = { columns = 80, lines = 30 }
+dimensions = { columns = 84, lines = 32 }
 # 将 Option 键映射为 Alt 键
 option_as_alt = "Both"
 
